@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>用 Agent Skill 实现跨平台能力同步 - sliec</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="site-title">sliec</a>
+    <nav class="site-nav">
+      <a href="/">首页</a>
+      <a href="../blog/" class="active">博客</a>
+      <a href="../projects/">项目</a>
+      <a href="../resources/">资源</a>
+      <a href="../about/">关于</a>
+    </nav>
+  </div>
+</header>
+
+<article class="post-content" style="max-width:740px; margin:0 auto; padding:60px 24px;">
+
+  <a href="../blog/" style="color:var(--accent); text-decoration:none; font-size:0.9rem;">← 返回博客列表</a>
+
+  <h1 style="margin-top:24px; font-size:1.8rem;">用 Agent Skill 实现跨平台能力同步</h1>
+  <div class="post-date" style="margin-bottom:32px;">2026-07-28 · 工程化 · Skills</div>
+
+  <p>换一台电脑，或者换一个 AI Agent 平台工作，最烦的事情不是装环境，而是重新配置那些已经调教好的「能力」——Prompt 模板、工作流定义、输出规范。每次都要从零开始，费时且容易遗漏。</p>
+
+  <p>这篇文章分享一个解决方案：<strong>用 GitHub 仓库集中管理 Agent Skills，一行命令全平台同步</strong>。</p>
+
+  <h2>什么是 Agent Skill？</h2>
+
+  <p>在 QoderWork / QoderCLI 这类 Agent 平台中，Skill 是一份结构化的指令文档（<code>SKILL.md</code>），告诉 Agent「什么时候该做什么、怎么做」。比如一个统计分析 Skill，会定义数据诊断流程、方法选择逻辑、输出格式规范。</p>
+
+  <p>有了 Skill，Agent 不再是一张白纸，而是一个有专业知识的工作伙伴。</p>
+
+  <h2>痛点：Skills 散落各处</h2>
+
+  <p>用了一段时间后，你会积累十几个甚至几十个 Skills。但它们通常散落在本地目录里：</p>
+
+  <ul>
+    <li>换电脑？手动复制，经常遗漏</li>
+    <li>换平台？重新写一遍</li>
+    <li>团队协作？无法共享</li>
+    <li>版本管理？不存在的</li>
+  </ul>
+
+  <h2>方案：一个仓库，全平台同步</h2>
+
+  <p>思路很简单：把所有 Skills 放到一个 GitHub 仓库里，需要时克隆到本地。</p>
+
+  <pre><code># macOS / Linux
+git clone https://github.com/sliec/shared-files.git
+cp -r shared-files/skills/* ~/.qoderwork/skills/
+
+# Windows PowerShell
+git clone https://github.com/sliec/shared-files.git
+Copy-Item -Recurse -Force shared-files\skills\* "$env:USERPROFILE\.qoderwork\skills\"</code></pre>
+
+  <p>一行命令，20 个 Skills 全部就位。仓库里目前包含 6 大类技能：</p>
+
+  <table>
+    <tr><th>类别</th><th>代表技能</th><th>能力</th></tr>
+    <tr><td>金融分析</td><td>equity-fund-attribution</td><td>权益基金业绩归因全流程</td></tr>
+    <tr><td>数据分析</td><td>statistical-analysis</td><td>问卷/实验数据的统计分析</td></tr>
+    <tr><td>产品管理</td><td>prd-doc-writer</td><td>PRD 文档撰写</td></tr>
+    <tr><td>思维学习</td><td>problem-goal-defined</td><td>问题定义与目标拆解</td></tr>
+    <tr><td>系统设计</td><td>fireworks-tech-graph</td><td>12 种风格画技术架构图</td></tr>
+    <tr><td>存储管理</td><td>storage-analyzer</td><td>磁盘空间分析与清理</td></tr>
+  </table>
+
+  <h2>按需安装单个 Skill</h2>
+
+  <p>如果不想全量同步，也可以只安装需要的 Skill：</p>
+
+  <pre><code>SKILL=statistical-analysis
+mkdir -p ~/.qoderwork/skills/$SKILL
+curl -o ~/.qoderwork/skills/$SKILL/SKILL.md \
+  https://raw.githubusercontent.com/sliec/shared-files/main/skills/$SKILL/SKILL.md</code></pre>
+
+  <p>替换 <code>SKILL</code> 变量名即可安装任意技能。</p>
+
+  <h2>Skills 的三类来源</h2>
+
+  <p>仓库里的 Skills 来自三个渠道：</p>
+
+  <p><strong>个人原创</strong>：工作中沉淀下来的专业技能，比如基金归因系列（权益/固收/FOF 三个技能）、问题拆解工具、C 盘清理工具。</p>
+
+  <p><strong>社区精选</strong>：来自优秀开源作者的作品，比如 TerryFYL 的统计分析顾问、yizhiyanhua-ai 的技术架构图绘制、云舒的 PRD 系列工具、卡兹克的深度研究工具。已标注来源和 License。</p>
+
+  <p><strong>持续迭代</strong>：使用过程中发现的问题和改进点，直接在仓库里更新，下次同步时自动获取最新版本。</p>
+
+  <h2>一个好的 Skill 长什么样？</h2>
+
+  <p>从实践中总结的标准：</p>
+
+  <ul>
+    <li><strong>清晰的触发条件</strong>：Agent 知道什么时候该调用这个技能</li>
+    <li><strong>完整的工作流程</strong>：从输入到输出，每一步都有定义</li>
+    <li><strong>标准化的输出</strong>：比如统计分析的 APA 三件套（表格 + 图表 + 结果段落）</li>
+    <li><strong>不含个人信息</strong>：API Key、本地路径等不能写死在 Skill 里</li>
+  </ul>
+
+  <h2>小结</h2>
+
+  <p>Skills 是 Agent 能力的载体，值得像代码一样管理。一个 GitHub 仓库 + 一行同步命令，就能实现跨电脑、跨平台的能力复用。</p>
+
+  <p>仓库地址：<a href="https://github.com/sliec/shared-files" target="_blank">github.com/sliec/shared-files</a></p>
+
+  <hr style="margin-top:48px;">
+  <p style="font-size:0.85rem; color:#999;">如果这个方案对你有帮助，欢迎给仓库点个 Star。</p>
+
+</article>
+
+<footer class="site-footer">
+  <p>&copy; 2026 sliec &middot; <a href="https://github.com/sliec" target="_blank">GitHub</a></p>
+</footer>
+
+</body>
+</html>
