@@ -8,280 +8,251 @@
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --bg: #f8f9fb; --card: #fff; --text: #3c4858; --dim: #8896a6;
-      --heading: #1e2a3a; --accent: #1a73e8; --accent-bg: #e8f0fe;
-      --border: #e4e8ee; --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --bg: #f4f6f9; --card: #ffffff; --text: #475569; --dim: #94a3b8;
+      --heading: #0f172a; --accent: #3b82f6; --accent-soft: #eff6ff;
+      --green: #10b981; --green-soft: #ecfdf5;
+      --orange: #f59e0b; --orange-soft: #fffbeb;
+      --purple: #8b5cf6; --purple-soft: #f5f3ff;
+      --border: #e2e8f0; --radius: 14px;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
     }
-    html, body { height: 100%; overflow: hidden; font-family: var(--font); background: var(--bg); color: var(--text); font-size: 13px; line-height: 1.5; }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { color: #1557b0; }
-
-    /* === Layout: full viewport === */
+    html, body { height: 100%; overflow: hidden; font-family: var(--font); background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); text-decoration: none; transition: color .15s; }
+    a:hover { color: #2563eb; }
     body { display: flex; flex-direction: column; height: 100vh; }
 
-    /* --- Top Bar --- */
-    .topbar {
-      display: flex; align-items: center; justify-content: space-between;
-      height: 42px; padding: 0 20px; background: var(--card);
-      border-bottom: 1px solid var(--border); flex-shrink: 0;
+    /* ===== Nav ===== */
+    nav {
+      height: 50px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px; background: var(--card); border-bottom: 1px solid var(--border); flex-shrink: 0;
     }
-    .topbar-brand { font-weight: 700; font-size: 14px; color: var(--heading); letter-spacing: -0.3px; }
-    .topbar-nav { display: flex; gap: 20px; }
-    .topbar-nav a { font-size: 12px; color: var(--dim); font-weight: 500; }
-    .topbar-nav a:hover, .topbar-nav a.active { color: var(--accent); }
-    .topbar-gh { font-size: 11px; }
+    .brand { font-size: 17px; font-weight: 800; color: var(--heading); letter-spacing: -0.5px; }
+    .nav-links { display: flex; gap: 26px; }
+    .nav-links a { font-size: 13.5px; color: var(--dim); font-weight: 500; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .nav-right a { font-size: 12.5px; color: var(--dim); }
 
-    /* --- Main Dashboard Grid --- */
-    .dashboard {
-      flex: 1; display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+    /* ===== Main Bento Grid ===== */
+    .main {
+      flex: 1; display: grid; padding: 16px 24px 12px;
+      grid-template-columns: 1.1fr 0.9fr 1fr;
       grid-template-rows: auto 1fr;
-      gap: 0; overflow: hidden;
+      gap: 14px; overflow: hidden;
     }
 
-    /* --- Hero Strip (spans full width) --- */
-    .hero-strip {
-      grid-column: 1 / -1;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 24px; background: linear-gradient(135deg, #eef4ff 0%, #f8f9fb 100%);
-      border-bottom: 1px solid var(--border);
+    /* --- Hero --- */
+    .hero {
+      grid-column: 1 / -1; display: flex; align-items: center;
+      justify-content: space-between; padding: 14px 24px;
+      background: linear-gradient(135deg, #dbeafe 0%, #ede9fe 50%, #fce7f3 100%);
+      border-radius: var(--radius);
     }
-    .hero-strip h1 { font-size: 16px; font-weight: 700; color: var(--heading); }
-    .hero-strip p { font-size: 12px; color: var(--dim); margin-top: 2px; }
-    .hero-strip .hero-actions { display: flex; gap: 8px; }
-    .hero-strip .hero-actions a {
-      font-size: 11px; padding: 4px 12px; border-radius: 14px; font-weight: 500;
-    }
-    .hero-strip .hero-actions .btn-p { background: var(--accent); color: #fff; }
-    .hero-strip .hero-actions .btn-o { border: 1px solid var(--border); color: var(--text); }
+    .hero h1 { font-size: 19px; font-weight: 700; color: var(--heading); }
+    .hero p { font-size: 13px; color: #64748b; margin-top: 2px; }
+    .hero-btns { display: flex; gap: 10px; }
+    .hero-btns a { font-size: 12.5px; padding: 7px 18px; border-radius: 20px; font-weight: 600; }
+    .btn-fill { background: var(--accent); color: #fff; }
+    .btn-fill:hover { background: #2563eb; color: #fff; transform: translateY(-1px); }
+    .btn-ghost { background: rgba(255,255,255,0.75); color: var(--heading); border: 1px solid rgba(0,0,0,0.08); }
+    .btn-ghost:hover { background: #fff; }
 
-    /* --- Panel --- */
+    /* --- Card Panel --- */
     .panel {
-      border-right: 1px solid var(--border); overflow-y: auto; padding: 14px 18px;
+      background: var(--card); border-radius: var(--radius); border: 1px solid var(--border);
+      padding: 16px 18px; overflow-y: auto; box-shadow: var(--shadow);
     }
-    .panel:last-child { border-right: none; }
-    .panel-title {
-      font-size: 12px; font-weight: 700; color: var(--heading); text-transform: uppercase;
-      letter-spacing: 0.5px; margin-bottom: 10px; padding-bottom: 6px;
-      border-bottom: 2px solid var(--accent); display: inline-block;
-    }
+    .panel-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .panel-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .panel-head h2 { font-size: 14px; font-weight: 700; color: var(--heading); }
+    .panel-head .count { font-size: 11px; color: var(--dim); background: var(--bg); padding: 2px 8px; border-radius: 10px; }
 
-    /* --- Compact List --- */
-    .item { padding: 7px 0; border-bottom: 1px solid #f0f2f5; }
-    .item:last-child { border-bottom: none; }
-    .item h3 { font-size: 12.5px; font-weight: 600; color: var(--heading); margin-bottom: 2px; }
-    .item h3 a { color: var(--heading); }
-    .item h3 a:hover { color: var(--accent); }
-    .item p { font-size: 11.5px; color: var(--dim); line-height: 1.4; }
-    .item .meta { font-size: 10.5px; color: #b0b8c4; margin-top: 2px; }
-    .item .tag {
-      display: inline-block; font-size: 9.5px; font-weight: 600; padding: 1px 7px;
-      border-radius: 8px; margin-right: 4px; vertical-align: middle;
-    }
-    .tag-p { background: #e8f5e9; color: #2e7d32; }
-    .tag-b { background: #fff3e0; color: #e65100; }
-    .tag-s { background: #f3e5f5; color: #7b1fa2; }
-    .tag-r { background: #e3f2fd; color: #1565c0; }
+    /* --- Entries --- */
+    .entry { padding: 9px 0; border-bottom: 1px solid #f1f5f9; }
+    .entry:last-child { border-bottom: none; }
+    .entry h3 { font-size: 13.5px; font-weight: 600; color: var(--heading); margin-bottom: 2px; }
+    .entry h3 a { color: var(--heading); }
+    .entry h3 a:hover { color: var(--accent); }
+    .entry p { font-size: 12.5px; color: var(--dim); line-height: 1.45; }
+    .entry .foot { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+    .badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 8px; }
+    .b-blue { background: var(--accent-soft); color: var(--accent); }
+    .b-green { background: var(--green-soft); color: var(--green); }
+    .b-orange { background: var(--orange-soft); color: var(--orange); }
+    .b-purple { background: var(--purple-soft); color: var(--purple); }
+    .foot span { font-size: 11.5px; color: #cbd5e1; }
+    .foot .stars { color: var(--orange); font-weight: 600; font-size: 11.5px; }
 
-    /* --- Resource Table --- */
-    .res-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
-    .res-table th {
-      text-align: left; font-size: 10px; font-weight: 600; color: var(--dim);
-      text-transform: uppercase; letter-spacing: 0.3px; padding: 4px 6px;
-      border-bottom: 1px solid var(--border); background: #fafbfc;
+    /* --- Resource structured list --- */
+    .cat-label {
+      font-size: 11.5px; font-weight: 700; color: var(--accent); text-transform: uppercase;
+      letter-spacing: 0.4px; margin: 10px 0 5px; display: flex; align-items: center; gap: 5px;
     }
-    .res-table td { padding: 5px 6px; border-bottom: 1px solid #f5f6f8; vertical-align: top; }
-    .res-table tr:hover { background: #f8faff; }
-    .res-table td:first-child { font-weight: 500; }
-    .res-table td a { color: var(--heading); }
-    .res-table td a:hover { color: var(--accent); }
-    .stars { color: #d97706; font-size: 10px; font-weight: 600; white-space: nowrap; }
-
-    /* --- Section Headers in panels --- */
-    .sub-head {
-      font-size: 11px; font-weight: 700; color: var(--accent); margin: 12px 0 6px;
-      display: flex; align-items: center; gap: 4px;
+    .cat-label:first-of-type { margin-top: 0; }
+    .cat-label::before { content: ''; width: 3px; height: 10px; background: var(--accent); border-radius: 2px; }
+    .res-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 4.5px 0; border-bottom: 1px solid #f8fafc;
     }
-    .sub-head:first-of-type { margin-top: 0; }
-    .sub-head::before { content: ''; width: 3px; height: 12px; background: var(--accent); border-radius: 2px; }
+    .res-row:last-child { border-bottom: none; }
+    .res-row a { font-size: 12.5px; font-weight: 500; color: var(--heading); }
+    .res-row a:hover { color: var(--accent); }
+    .res-row .r-stars { font-size: 11px; color: var(--orange); font-weight: 600; flex-shrink: 0; margin-left: 8px; }
 
-    /* --- Footer --- */
+    /* ===== Footer ===== */
     .footer {
-      height: 28px; display: flex; align-items: center; justify-content: center;
-      font-size: 10.5px; color: #b0b8c4; border-top: 1px solid var(--border);
-      background: var(--card); flex-shrink: 0;
+      height: 30px; display: flex; align-items: center; justify-content: center;
+      font-size: 11px; color: #cbd5e1; flex-shrink: 0;
     }
+    .panel::-webkit-scrollbar { width: 3px; }
+    .panel::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 2px; }
 
-    /* --- Scrollbar --- */
-    .panel::-webkit-scrollbar { width: 4px; }
-    .panel::-webkit-scrollbar-thumb { background: #d0d5dd; border-radius: 2px; }
-
-    /* --- Responsive --- */
-    @media (max-width: 900px) {
-      .dashboard { grid-template-columns: 1fr 1fr; }
-      .panel:nth-child(4) { grid-column: 1 / -1; }
-    }
-    @media (max-width: 600px) {
-      .dashboard { grid-template-columns: 1fr; }
-      html, body { overflow: auto; }
-    }
+    @media (max-width: 900px) { .main { grid-template-columns: 1fr 1fr; } html, body { overflow: auto; } }
+    @media (max-width: 600px) { .main { grid-template-columns: 1fr; padding: 12px 16px; } }
   </style>
 </head>
 <body>
 
-<!-- Top Bar -->
-<div class="topbar">
-  <span class="topbar-brand">sliec</span>
-  <nav class="topbar-nav">
+<nav>
+  <span class="brand">sliec</span>
+  <div class="nav-links">
     <a href="/" class="active">首页</a>
     <a href="blog/">博客</a>
     <a href="projects/">项目</a>
     <a href="resources/">资源</a>
     <a href="about/">关于</a>
-  </nav>
-  <a class="topbar-gh" href="https://github.com/sliec" target="_blank">GitHub &rarr;</a>
-</div>
+  </div>
+  <div class="nav-right"><a href="https://github.com/sliec" target="_blank">GitHub ↗</a></div>
+</nav>
 
-<!-- Hero Strip -->
-<div class="dashboard">
-  <div class="hero-strip">
+<div class="main">
+
+  <div class="hero">
     <div>
       <h1>AI 技术研究与应用实践</h1>
-      <p>Agent 搭建 · 金融量化 · 智能工具开发 · 从学习到落地的全过程</p>
+      <p>Agent 搭建 · 金融量化 · 智能工具 · 从学习到落地</p>
     </div>
-    <div class="hero-actions">
-      <a href="projects/" class="btn-p">项目</a>
-      <a href="resources/" class="btn-o">资源</a>
-      <a href="https://github.com/sliec" class="btn-o" target="_blank">GitHub</a>
+    <div class="hero-btns">
+      <a href="projects/" class="btn-fill">查看项目</a>
+      <a href="resources/" class="btn-ghost">学习资源</a>
     </div>
   </div>
 
-  <!-- Column 1: Projects -->
+  <!-- Projects -->
   <div class="panel">
-    <div class="panel-title">精选项目</div>
-
-    <div class="item">
+    <div class="panel-head">
+      <div class="panel-dot" style="background:var(--green)"></div>
+      <h2>精选项目</h2>
+    </div>
+    <div class="entry">
       <h3><a href="https://github.com/sliec/agent-building-hub" target="_blank">Agent 搭建共学指南</a></h3>
       <p>从零到一构建 AI Agent 的系统学习资源集合</p>
-      <div class="meta"><span class="tag tag-p">开源</span> agent-building-hub</div>
+      <div class="foot"><span class="badge b-green">开源</span><span>agent-building-hub</span></div>
     </div>
-
-    <div class="item">
+    <div class="entry">
       <h3><a href="https://github.com/sliec/shared-files" target="_blank">Skills 同步中心</a></h3>
       <p>57 个跨平台 Agent Skills，一行命令全平台同步</p>
-      <div class="meta"><span class="tag tag-s">Skill</span> shared-files</div>
+      <div class="foot"><span class="badge b-purple">Skill</span><span>shared-files</span></div>
     </div>
-
-    <div class="item">
+    <div class="entry">
       <h3><a href="https://github.com/sliec/shared-files/tree/main/skills/equity-fund-attribution" target="_blank">基金业绩归因工具集</a></h3>
-      <p>Brinson 归因、FOF 分析、Campisi 模型，完整量化工具链</p>
-      <div class="meta"><span class="tag tag-p">金融</span> fund-attribution</div>
+      <p>Brinson / FOF / Campisi 完整量化工具链</p>
+      <div class="foot"><span class="badge b-blue">金融</span><span>fund-attribution</span></div>
     </div>
-
-    <div class="item">
+    <div class="entry">
       <h3><a href="https://github.com/sliec/my-projects" target="_blank">项目归档库</a></h3>
-      <p>19 个项目含全栈AI系统、市场分析、PDF工具等</p>
-      <div class="meta"><span class="tag tag-p">私有</span> my-projects</div>
+      <p>19 个项目：全栈 AI 系统、市场分析、PDF 工具</p>
+      <div class="foot"><span class="badge b-orange">私有</span><span>my-projects</span></div>
     </div>
-
-    <div class="sub-head">个人网站</div>
-    <div class="item">
-      <h3><a href="https://sliec.github.io" target="_blank">sliec.github.io</a></h3>
+    <div class="entry">
+      <h3><a href="https://sliec.github.io">sliec.github.io</a></h3>
       <p>个人网站、博客与资源导航</p>
-      <div class="meta"><span class="tag tag-r">网站</span> sliec.github.io</div>
+      <div class="foot"><span class="badge b-blue">网站</span></div>
     </div>
   </div>
 
-  <!-- Column 2: Blog + Quick Resources -->
+  <!-- Blog + Top Resources -->
   <div class="panel">
-    <div class="panel-title">最新博客</div>
-
-    <div class="item">
+    <div class="panel-head">
+      <div class="panel-dot" style="background:var(--orange)"></div>
+      <h2>最新博客</h2>
+    </div>
+    <div class="entry">
       <h3>AI Agent 搭建入门：从 Prompt 到工作流</h3>
-      <p>从零构建实用 AI Agent 的核心思路</p>
-      <div class="meta"><span class="tag tag-b">Agent</span> 2026-07-28</div>
+      <p>上下文管理、工具调用和工作流编排的核心思路</p>
+      <div class="foot"><span class="badge b-orange">Agent</span><span>07-28</span></div>
     </div>
-
-    <div class="item">
+    <div class="entry">
       <h3><a href="blog/skill-sync/">用 Agent Skill 实现跨平台能力同步</a></h3>
-      <p>GitHub 仓库集中管理 Skills，换电脑一键拉齐</p>
-      <div class="meta"><span class="tag tag-b">工程化</span> 2026-07-28</div>
+      <p>GitHub 仓库集中管理，换电脑换平台一键拉齐</p>
+      <div class="foot"><span class="badge b-orange">工程化</span><span>07-28</span></div>
     </div>
-
-    <div class="item">
+    <div class="entry">
       <h3>基金业绩归因：Brinson 模型实战</h3>
-      <p>拆解权益基金的行业配置和个股选择贡献</p>
-      <div class="meta"><span class="tag tag-b">金融</span> 2026-07-25</div>
+      <p>拆解行业配置和个股选择贡献，附 Python 实现</p>
+      <div class="foot"><span class="badge b-orange">金融</span><span>07-25</span></div>
     </div>
 
-    <div class="sub-head">推荐资源 Top 3</div>
-
-    <div class="item">
+    <div class="panel-head" style="margin-top:14px">
+      <div class="panel-dot" style="background:var(--accent)"></div>
+      <h2>推荐资源</h2>
+    </div>
+    <div class="entry">
       <h3><a href="https://github.com/datawhalechina/hello-agents" target="_blank">从零开始构建智能体</a></h3>
       <p>16 章完整教程，中文社区最受欢迎 Agent 入门</p>
-      <div class="meta"><span class="stars">69k stars</span></div>
+      <div class="foot"><span class="stars">⭐ 69k</span></div>
     </div>
-
-    <div class="item">
+    <div class="entry">
       <h3><a href="https://github.com/bojieli/ai-agent-book" target="_blank">深入理解 AI Agent</a></h3>
-      <p>10 章 + 92 实验，Agent = LLM + 上下文 + 工具</p>
-      <div class="meta"><span class="stars">10k stars</span></div>
+      <p>10 章 + 92 实验 · Agent = LLM + 上下文 + 工具</p>
+      <div class="foot"><span class="stars">⭐ 10k</span></div>
     </div>
-
-    <div class="item">
+    <div class="entry">
       <h3><a href="https://github.com/adongwanai/AgentGuide" target="_blank">Agent 开发指南</a></h3>
       <p>LangGraph 实战、高级 RAG、面试题库</p>
-      <div class="meta"><span class="stars">7.4k stars</span></div>
+      <div class="foot"><span class="stars">⭐ 7.4k</span></div>
     </div>
-
-    <div style="text-align:center; margin-top:8px;">
-      <a href="resources/" style="font-size:11px;">查看全部资源 &rarr;</a>
+    <div style="text-align:center; margin-top:10px">
+      <a href="resources/" style="font-size:12px; font-weight:500">查看全部资源 →</a>
     </div>
   </div>
 
-  <!-- Column 3: Resources Overview (Structured) -->
+  <!-- Resources Overview -->
   <div class="panel">
-    <div class="panel-title">资源导航</div>
+    <div class="panel-head">
+      <div class="panel-dot" style="background:var(--purple)"></div>
+      <h2>资源导航</h2>
+      <span class="count">26 项</span>
+    </div>
 
-    <div class="sub-head">AI Agent 搭建</div>
-    <table class="res-table">
-      <tr><td><a href="https://github.com/datawhalechina/hello-agents" target="_blank">从零构建智能体</a></td><td class="stars">69k</td></tr>
-      <tr><td><a href="https://github.com/bojieli/ai-agent-book" target="_blank">深入理解 AI Agent</a></td><td class="stars">10k</td></tr>
-      <tr><td><a href="https://github.com/HKUDS/AutoAgent" target="_blank">AutoAgent (港大)</a></td><td class="stars">9.5k</td></tr>
-      <tr><td><a href="https://github.com/WangRongsheng/awesome-LLM-resources" target="_blank">Awesome LLM</a></td><td class="stars">8.8k</td></tr>
-      <tr><td><a href="https://github.com/adongwanai/AgentGuide" target="_blank">AgentGuide</a></td><td class="stars">7.4k</td></tr>
-      <tr><td><a href="https://github.com/datawhalechina/Agent-Learning-Hub" target="_blank">Agent 学习路线图</a></td><td class="stars">5.9k</td></tr>
-    </table>
+    <div class="cat-label">AI Agent 搭建</div>
+    <div class="res-row"><a href="https://github.com/datawhalechina/hello-agents" target="_blank">从零构建智能体</a><span class="r-stars">69k ★</span></div>
+    <div class="res-row"><a href="https://github.com/bojieli/ai-agent-book" target="_blank">深入理解 AI Agent</a><span class="r-stars">10k ★</span></div>
+    <div class="res-row"><a href="https://github.com/HKUDS/AutoAgent" target="_blank">AutoAgent（港大）</a><span class="r-stars">9.5k ★</span></div>
+    <div class="res-row"><a href="https://github.com/WangRongsheng/awesome-LLM-resources" target="_blank">Awesome LLM Resources</a><span class="r-stars">8.8k ★</span></div>
+    <div class="res-row"><a href="https://github.com/adongwanai/AgentGuide" target="_blank">AgentGuide</a><span class="r-stars">7.4k ★</span></div>
+    <div class="res-row"><a href="https://github.com/datawhalechina/Agent-Learning-Hub" target="_blank">Agent 学习路线图</a><span class="r-stars">5.9k ★</span></div>
 
-    <div class="sub-head">FDE 前沿部署工程师</div>
-    <table class="res-table">
-      <tr><td><a href="https://github.com/pierpaolo28/Awesome-FDE-Roadmap" target="_blank">FDE Roadmap</a></td><td class="stars">666</td></tr>
-      <tr><td><a href="https://github.com/suboss87/FDEOps" target="_blank">FDEOps 第二大脑</a></td><td class="stars">241</td></tr>
-      <tr><td><a href="https://github.com/libaice/Awesome-FDE" target="_blank">Awesome FDE</a></td><td class="stars">92</td></tr>
-      <tr><td><a href="https://github.com/weissmanntobi-del/Forward_Deployed_Engineer_Material" target="_blank">FDE Material</a></td><td class="stars">44</td></tr>
-      <tr><td><a href="https://github.com/yeasy/forward_deployed_engineering_guide" target="_blank">前线部署工程指南</a></td><td class="stars">34</td></tr>
-    </table>
+    <div class="cat-label">FDE 前沿部署工程师</div>
+    <div class="res-row"><a href="https://github.com/pierpaolo28/Awesome-FDE-Roadmap" target="_blank">FDE Roadmap</a><span class="r-stars">666 ★</span></div>
+    <div class="res-row"><a href="https://github.com/suboss87/FDEOps" target="_blank">FDEOps 第二大脑</a><span class="r-stars">241 ★</span></div>
+    <div class="res-row"><a href="https://github.com/libaice/Awesome-FDE" target="_blank">Awesome FDE</a><span class="r-stars">92 ★</span></div>
+    <div class="res-row"><a href="https://github.com/yeasy/forward_deployed_engineering_guide" target="_blank">前线部署工程指南</a><span class="r-stars">34 ★</span></div>
 
-    <div class="sub-head">金融 & 工具 Skills</div>
-    <table class="res-table">
-      <tr><td><a href="https://github.com/K-Dense-AI/scientific-agent-skills" target="_blank">Scientific Skills</a></td><td class="stars">32k</td></tr>
-      <tr><td><a href="https://github.com/yizhiyanhua-ai/fireworks-tech-graph" target="_blank">fireworks-tech-graph</a></td><td></td></tr>
-      <tr><td><a href="https://github.com/TerryFYL/claude-statistical-analysis-skill" target="_blank">统计分析 Skill</a></td><td></td></tr>
-      <tr><td><a href="https://github.com/jwangkun/claude-for-financial-services-cn" target="_blank">Claude 金融服务</a></td><td></td></tr>
-      <tr><td><a href="https://github.com/lzwme/finance-quant-skills" target="_blank">量化交易 Skills</a></td><td></td></tr>
-    </table>
+    <div class="cat-label">金融 · 工具 Skills</div>
+    <div class="res-row"><a href="https://github.com/K-Dense-AI/scientific-agent-skills" target="_blank">Scientific Skills</a><span class="r-stars">32k ★</span></div>
+    <div class="res-row"><a href="https://github.com/yizhiyanhua-ai/fireworks-tech-graph" target="_blank">fireworks-tech-graph</a></div>
+    <div class="res-row"><a href="https://github.com/TerryFYL/claude-statistical-analysis-skill" target="_blank">统计分析 Skill</a></div>
+    <div class="res-row"><a href="https://github.com/jwangkun/claude-for-financial-services-cn" target="_blank">Claude 金融服务</a></div>
 
-    <div style="text-align:center; margin-top:8px;">
-      <a href="resources/" style="font-size:11px;">完整资源列表 &rarr;</a>
+    <div style="text-align:center; margin-top:12px">
+      <a href="resources/" style="font-size:12px; font-weight:500">完整资源列表 →</a>
     </div>
   </div>
 
 </div>
 
-<!-- Footer -->
-<div class="footer">
-  &copy; 2026 sliec &middot; <a href="https://github.com/sliec" target="_blank" style="margin-left:4px;">GitHub</a>
-</div>
+<div class="footer">&copy; 2026 sliec · <a href="https://github.com/sliec" target="_blank">GitHub</a></div>
 
 </body>
 </html>
