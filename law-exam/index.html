@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>法考学习 - sliec</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #f4f6f9; --card: #ffffff; --text: #475569; --dim: #94a3b8;
+      --heading: #0f172a; --accent: #3b82f6; --accent-soft: #eff6ff;
+      --green: #10b981; --green-soft: #ecfdf5;
+      --orange: #f59e0b; --orange-soft: #fffbeb;
+      --purple: #8b5cf6; --purple-soft: #f5f3ff;
+      --rose: #f43f5e; --rose-soft: #fff1f2;
+      --cyan: #06b6d4; --cyan-soft: #ecfeff;
+      --border: #e2e8f0; --radius: 14px;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+    }
+    html { height: 100%; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; min-height: 100vh; display: flex; flex-direction: column; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: #2563eb; }
+
+    nav {
+      height: 50px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px; background: var(--card); border-bottom: 1px solid var(--border); flex-shrink: 0;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .brand { font-size: 17px; font-weight: 800; color: var(--heading); }
+    .nav-links { display: flex; gap: 6px; align-items: center; }
+    .nav-links a { font-size: 13px; color: var(--dim); font-weight: 500; padding: 4px 8px; border-radius: 6px; transition: all .15s; }
+    .nav-links a:hover { color: var(--accent); background: var(--accent-soft); }
+    .nav-links a.active { color: var(--accent); background: var(--accent-soft); }
+    .nav-sep { width: 1px; height: 16px; background: var(--border); flex-shrink: 0; margin: 0 4px; }
+
+    .page-hero {
+      padding: 28px 28px 0; max-width: 1200px; margin: 0 auto; width: 100%;
+    }
+    .page-hero h1 { font-size: 22px; font-weight: 800; color: var(--heading); }
+    .page-hero p { font-size: 13px; color: var(--dim); margin-top: 4px; }
+
+    .content {
+      max-width: 1200px; margin: 0 auto; width: 100%; padding: 20px 28px 40px;
+      flex: 1;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+
+    .panel {
+      background: var(--card); border-radius: var(--radius); border: 1px solid var(--border);
+      padding: 20px 22px; box-shadow: var(--shadow); overflow-y: auto;
+    }
+    .panel-head { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+    .panel-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .panel-head h2 { font-size: 15px; font-weight: 700; color: var(--heading); }
+    .panel-head .count { font-size: 11px; color: var(--dim); background: var(--bg); padding: 2px 8px; border-radius: 10px; }
+
+    .cat-label {
+      font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px;
+      margin: 14px 0 6px; display: flex; align-items: center; gap: 5px;
+    }
+    .cat-label:first-of-type { margin-top: 0; }
+    .cat-label::before { content: ''; width: 3px; height: 10px; border-radius: 2px; }
+    .cat-blue { color: var(--accent); } .cat-blue::before { background: var(--accent); }
+    .cat-green { color: var(--green); } .cat-green::before { background: var(--green); }
+    .cat-orange { color: var(--orange); } .cat-orange::before { background: var(--orange); }
+    .cat-purple { color: var(--purple); } .cat-purple::before { background: var(--purple); }
+    .cat-rose { color: var(--rose); } .cat-rose::before { background: var(--rose); }
+
+    .res-row {
+      padding: 6px 0; border-bottom: 1px solid #f8fafc;
+    }
+    .res-row:last-child { border-bottom: none; }
+    .res-row .r-name { font-size: 13px; font-weight: 500; color: var(--heading); }
+    .res-row .r-name a { color: var(--heading); }
+    .res-row .r-name a:hover { color: var(--accent); }
+    .res-row .r-desc { font-size: 11.5px; color: var(--dim); margin-top: 2px; }
+    .badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 8px; display: inline-block; margin-top: 4px; }
+    .b-blue { background: var(--accent-soft); color: var(--accent); }
+    .b-green { background: var(--green-soft); color: var(--green); }
+    .b-orange { background: var(--orange-soft); color: var(--orange); }
+    .b-purple { background: var(--purple-soft); color: var(--purple); }
+    .b-rose { background: var(--rose-soft); color: var(--rose); }
+
+    .topic-card {
+      background: var(--bg); border-radius: 12px; padding: 14px 16px;
+      border: 1px solid var(--border); margin-bottom: 10px;
+    }
+    .topic-card h4 { font-size: 13.5px; font-weight: 700; color: var(--heading); margin-bottom: 4px; }
+    .topic-card p { font-size: 12px; color: var(--text); line-height: 1.55; }
+    .topic-card .topic-tags { display: flex; gap: 5px; margin-top: 8px; flex-wrap: wrap; }
+    .topic-card .topic-tags span { font-size: 10px; padding: 2px 8px; border-radius: 6px; font-weight: 500; }
+
+    .note-box {
+      background: var(--accent-soft); border-left: 3px solid var(--accent);
+      border-radius: 10px; padding: 12px 14px; font-size: 12px;
+      line-height: 1.6; margin: 10px 0; color: var(--text);
+    }
+    .note-box strong { color: var(--heading); }
+
+    /* Timeline */
+    .timeline { margin: 10px 0; }
+    .tl-item {
+      display: flex; gap: 12px; padding: 8px 0;
+      border-bottom: 1px solid #f8fafc; position: relative;
+    }
+    .tl-item:last-child { border-bottom: none; }
+    .tl-phase {
+      width: 60px; flex-shrink: 0; font-size: 11px; font-weight: 700;
+      color: var(--accent); padding-top: 2px;
+    }
+    .tl-content { flex: 1; }
+    .tl-content strong { font-size: 13px; color: var(--heading); }
+    .tl-content p { font-size: 11.5px; color: var(--dim); margin-top: 2px; }
+
+    .footer {
+      height: 30px; display: flex; align-items: center; justify-content: center;
+      font-size: 11px; color: #cbd5e1; flex-shrink: 0;
+    }
+
+    .panel::-webkit-scrollbar { width: 3px; }
+    .panel::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 2px; }
+
+    @media (max-width: 768px) { .content { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">sliec</span>
+  <div class="nav-links">
+    <a href="../">首页</a>
+    <a href="../blog/">博客</a>
+    <a href="../projects/">项目</a>
+    <a href="../resources/">资源</a>
+    <span class="nav-sep"></span>
+    <a href="../learn/">学习</a>
+    <a href="../skillhub/">SkillHub</a>
+    <span class="nav-sep"></span>
+    <a href="../about/">关于</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>法考学习</h1>
+  <p>国家统一法律职业资格考试 — 客观题 + 主观题全科备考体系</p>
+</div>
+
+<div class="content">
+
+  <!-- Left: Exam Structure + Subjects -->
+  <div class="panel">
+
+    <div class="panel-head">
+      <div class="panel-dot" style="background:var(--rose)"></div>
+      <h2>考试结构</h2>
+    </div>
+
+    <div class="note-box">
+      <strong>法考 = 客观题 + 主观题</strong>，两阶段分别通过。<br>
+      客观题：300 分（180 分及格），两卷各 150 分，全选择题。<br>
+      主观题：180 分（108 分及格），案例分析 + 论述 + 文书写作。<br>
+      客观题成绩保留两年，通过后才能报主观题。
+    </div>
+
+    <div class="cat-label cat-rose">客观题 · 卷一（公法）</div>
+    <div class="topic-card">
+      <h4>中国特色社会主义法治理论</h4>
+      <p>法治思想、法治体系、法治道路。记忆为主，注意与宪法、法理的交叉。</p>
+      <div class="topic-tags"><span class="badge b-rose">~20 分</span><span class="badge b-green">记忆型</span></div>
+    </div>
+    <div class="topic-card">
+      <h4>法理学</h4>
+      <p>法的概念、渊源、运行、法律关系、法律推理。理解 > 记忆，案例题需要逻辑推演。</p>
+      <div class="topic-tags"><span class="badge b-rose">~20 分</span><span class="badge b-blue">理解型</span></div>
+    </div>
+    <div class="topic-card">
+      <h4>宪法</h4>
+      <p>国家机构、公民权利义务、宪法监督。重点在立法法、选举法、民族区域自治。</p>
+      <div class="topic-tags"><span class="badge b-rose">~25 分</span><span class="badge b-green">记忆型</span></div>
+    </div>
+    <div class="topic-card">
+      <h4>国际法 · 国际私法 · 国际经济法</h4>
+      <p>"三国法"合并考察。国际法（条约、领土、海洋）、国际私法（冲突规范）、国际经济法（WTO、投资）。</p>
+      <div class="topic-tags"><span class="badge b-rose">~25 分</span><span class="badge b-orange">细节多</span></div>
+    </div>
+
+    <div class="cat-label cat-blue">客观题 · 卷二（私法 + 程序法）</div>
+    <div class="topic-card">
+      <h4>民法</h4>
+      <p>最大分值科目。总则、物权、合同、侵权、婚姻家庭、继承。以民法典为核心，司法解释是重点。</p>
+      <div class="topic-tags"><span class="badge b-blue">~50 分</span><span class="badge b-purple">核心</span></div>
+    </div>
+    <div class="topic-card">
+      <h4>刑法</h4>
+      <p>总则（犯罪论 + 刑罚论）+ 分则（重点罪名）。理论争议多，需掌握通说观点。</p>
+      <div class="topic-tags"><span class="badge b-blue">~40 分</span><span class="badge b-purple">核心</span></div>
+    </div>
+    <div class="topic-card">
+      <h4>行政法与行政诉讼法</h4>
+      <p>行政行为、行政复议、行政诉讼、国家赔偿。程序性强，法条细节多。</p>
+      <div class="topic-tags"><span class="badge b-blue">~40 分</span><span class="badge b-orange">细节多</span></div>
+    </div>
+    <div class="topic-card">
+      <h4>民事诉讼法 · 刑事诉讼法 · 商经</h4>
+      <p>两大诉讼法 + 公司法、合伙企业法、破产法、劳动法等。程序法考细节，商法考实务。</p>
+      <div class="topic-tags"><span class="badge b-blue">~60 分</span><span class="badge b-green">程序型</span></div>
+    </div>
+
+  </div>
+
+  <!-- Right: Study Plan + Resources -->
+  <div class="panel">
+
+    <div class="panel-head">
+      <div class="panel-dot" style="background:var(--accent)"></div>
+      <h2>备考计划</h2>
+      <span class="count">5-6 个月</span>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-phase">Phase 1</div>
+        <div class="tl-content">
+          <strong>基础精读（8-10 周）</strong>
+          <p>全科系统学习，以教材 + 视频课为主。每天 3-4 小时，优先攻克民法、刑法两大核心科目。</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-phase">Phase 2</div>
+        <div class="tl-content">
+          <strong>强化刷题（4-6 周）</strong>
+          <p>按章节做真题 + 模拟题，建立错题本。重点突破薄弱科目，每天 4-5 小时。</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-phase">Phase 3</div>
+        <div class="tl-content">
+          <strong>冲刺背诵（3-4 周）</strong>
+          <p>背诵精粹讲义、法条关键词、易混淆概念。模拟考试节奏，做近 3 年真题套卷。</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-phase">Phase 4</div>
+        <div class="tl-content">
+          <strong>主观题专练（客观题后 4-6 周）</strong>
+          <p>案例分析框架训练、论述题模板、法律文书格式。练习打字速度（机考）。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-head" style="margin-top:18px">
+      <div class="panel-dot" style="background:var(--purple)"></div>
+      <h2>名师推荐</h2>
+    </div>
+
+    <div class="res-row">
+      <div class="r-name">
+        民法 · 孟献贵 / 钟秀勇
+        <div class="r-desc">体系化讲解，案例丰富，适合零基础</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        刑法 · 柏浪涛 / 刘凤科
+        <div class="r-desc">理论功底深，争议点讲透，主观题必备</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        行政法 · 徐金桂 / 李佳
+        <div class="r-desc">口诀记忆法，程序梳理清晰</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        民诉 · 韩心怡 / 戴鹏
+        <div class="r-desc">程序细节讲解到位，真题命中率高</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        刑诉 · 左宁 / 向高甲
+        <div class="r-desc">图表化讲解，证据规则讲得透</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        商经 · 郄鹏恩 / 鄢梦萱
+        <div class="r-desc">公司法重点突出，经济法覆盖全面</div>
+      </div>
+    </div>
+
+    <div class="panel-head" style="margin-top:18px">
+      <div class="panel-dot" style="background:var(--green)"></div>
+      <h2>学习资源</h2>
+    </div>
+
+    <div class="res-row">
+      <div class="r-name">
+        众合 / 瑞达 / 厚大 教材
+        <div class="r-desc">三大法考培训机构，选一套精读讲义即可</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        竹马法考 / 觉晓法考 APP
+        <div class="r-desc">在线刷题 + 错题本 + 模考，碎片时间利用</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        法律法规数据库
+        <div class="r-desc">北大法宝 / 国家法律法规数据库，查阅原文</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="footer">&copy; 2026 sliec · <a href="https://github.com/sliec" target="_blank">GitHub</a></div>
+
+</body>
+</html>

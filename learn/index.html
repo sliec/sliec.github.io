@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学习中心 - sliec</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #f4f6f9; --card: #ffffff; --text: #475569; --dim: #94a3b8;
+      --heading: #0f172a; --accent: #3b82f6; --accent-soft: #eff6ff;
+      --green: #10b981; --green-soft: #ecfdf5;
+      --orange: #f59e0b; --orange-soft: #fffbeb;
+      --purple: #8b5cf6; --purple-soft: #f5f3ff;
+      --rose: #f43f5e; --rose-soft: #fff1f2;
+      --cyan: #06b6d4; --cyan-soft: #ecfeff;
+      --border: #e2e8f0; --radius: 14px;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+    }
+    html, body { height: 100%; overflow: hidden; font-family: var(--font); background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); text-decoration: none; transition: color .15s; }
+    a:hover { color: #2563eb; }
+    body { display: flex; flex-direction: column; height: 100vh; }
+
+    nav {
+      height: 50px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px; background: var(--card); border-bottom: 1px solid var(--border); flex-shrink: 0;
+    }
+    .brand { font-size: 17px; font-weight: 800; color: var(--heading); letter-spacing: -0.5px; }
+    .nav-links { display: flex; gap: 6px; align-items: center; }
+    .nav-links a { font-size: 13px; color: var(--dim); font-weight: 500; padding: 4px 8px; border-radius: 6px; transition: all .15s; }
+    .nav-links a:hover { color: var(--accent); background: var(--accent-soft); }
+    .nav-links a.active { color: var(--accent); background: var(--accent-soft); }
+    .nav-sep { width: 1px; height: 16px; background: var(--border); flex-shrink: 0; margin: 0 4px; }
+    .nav-right a { font-size: 12.5px; color: var(--dim); }
+
+    /* ===== Main Grid ===== */
+    .main {
+      flex: 1; display: grid; padding: 16px 24px 12px;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: auto 1fr;
+      gap: 14px; overflow: hidden;
+    }
+
+    /* --- Hero --- */
+    .hero {
+      grid-column: 1 / -1; display: flex; align-items: center;
+      justify-content: space-between; padding: 14px 24px;
+      background: linear-gradient(135deg, #dbeafe 0%, #ede9fe 50%, #fce7f3 100%);
+      border-radius: var(--radius);
+    }
+    .hero h1 { font-size: 19px; font-weight: 700; color: var(--heading); }
+    .hero p { font-size: 13px; color: #64748b; margin-top: 2px; }
+    .hero-stats { display: flex; gap: 20px; }
+    .hero-stat { text-align: center; }
+    .hero-stat .num { font-size: 20px; font-weight: 800; color: var(--heading); }
+    .hero-stat .label { font-size: 11px; color: #64748b; }
+
+    /* --- Panel --- */
+    .panel {
+      background: var(--card); border-radius: var(--radius); border: 1px solid var(--border);
+      padding: 16px 18px; overflow-y: auto; box-shadow: var(--shadow);
+    }
+    .panel-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .panel-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .panel-head h2 { font-size: 14px; font-weight: 700; color: var(--heading); }
+    .panel-head .count { font-size: 11px; color: var(--dim); background: var(--bg); padding: 2px 8px; border-radius: 10px; }
+
+    /* --- Module Cards --- */
+    .mod-card {
+      display: block; padding: 14px 16px; border-radius: 12px;
+      border: 1px solid var(--border); margin-bottom: 10px;
+      transition: all .15s; background: var(--bg);
+    }
+    .mod-card:hover { border-color: var(--accent); background: var(--accent-soft); transform: translateY(-1px); }
+    .mod-card:last-child { margin-bottom: 0; }
+    .mod-card .mc-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .mod-card .mc-icon {
+      width: 32px; height: 32px; border-radius: 9px; display: flex;
+      align-items: center; justify-content: center; font-size: 14px;
+      font-weight: 800; flex-shrink: 0;
+    }
+    .mod-card .mc-title { font-size: 13.5px; font-weight: 700; color: var(--heading); }
+    .mod-card .mc-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 6px; }
+    .mod-card .mc-tags span { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 6px; }
+    .mod-card .mc-desc { font-size: 12px; color: var(--dim); line-height: 1.5; }
+
+    .badge { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 7px; }
+    .b-blue { background: var(--accent-soft); color: var(--accent); }
+    .b-green { background: var(--green-soft); color: var(--green); }
+    .b-orange { background: var(--orange-soft); color: var(--orange); }
+    .b-purple { background: var(--purple-soft); color: var(--purple); }
+    .b-rose { background: var(--rose-soft); color: var(--rose); }
+    .b-cyan { background: var(--cyan-soft); color: var(--cyan); }
+
+    /* ===== Footer ===== */
+    .footer {
+      height: 30px; display: flex; align-items: center; justify-content: center;
+      font-size: 11px; color: #cbd5e1; flex-shrink: 0;
+    }
+    .panel::-webkit-scrollbar { width: 3px; }
+    .panel::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 2px; }
+
+    @media (max-width: 900px) { .main { grid-template-columns: 1fr 1fr; overflow: auto; } html, body { overflow: auto; } }
+    @media (max-width: 600px) { .main { grid-template-columns: 1fr; padding: 12px 16px; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">sliec</span>
+  <div class="nav-links">
+    <a href="../">首页</a>
+    <a href="../blog/">博客</a>
+    <a href="../projects/">项目</a>
+    <a href="../resources/">资源</a>
+    <span class="nav-sep"></span>
+    <a href="../learn/" class="active">学习</a>
+    <a href="../skillhub/">SkillHub</a>
+    <span class="nav-sep"></span>
+    <a href="../about/">关于</a>
+  </div>
+  <div class="nav-right"><a href="https://github.com/sliec" target="_blank">GitHub ↗</a></div>
+</nav>
+
+<div class="main">
+
+  <div class="hero">
+    <div>
+      <h1>学习中心</h1>
+      <p>系统化学习路径 — 从金融投资到职业认证，持续构建知识体系</p>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">5</div><div class="label">学习模块</div></div>
+      <div class="hero-stat"><div class="num">3</div><div class="label">领域方向</div></div>
+    </div>
+  </div>
+
+  <!-- 金融投资 -->
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-dot" style="background:var(--orange)"></div>
+      <h2>金融投资</h2>
+      <span class="count">2 模块</span>
+    </div>
+
+    <a href="../quant-learning/" class="mod-card">
+      <div class="mc-head">
+        <div class="mc-icon" style="background:var(--orange-soft);color:var(--orange)">Q</div>
+        <span class="mc-title">量化投资</span>
+      </div>
+      <div class="mc-tags">
+        <span class="badge b-orange">因子投资</span>
+        <span class="badge b-blue">多因子模型</span>
+        <span class="badge b-green">策略回测</span>
+      </div>
+      <div class="mc-desc">投资因子理论、书籍推荐（《预期收益》《因子投资》）、公众号（量化藏经阁）、四阶段学习路线</div>
+    </a>
+
+    <a href="../equity-learning/" class="mod-card">
+      <div class="mc-head">
+        <div class="mc-icon" style="background:var(--cyan-soft);color:var(--cyan)">E</div>
+        <span class="mc-title">权益研究</span>
+      </div>
+      <div class="mc-tags">
+        <span class="badge b-orange">锂矿</span>
+        <span class="badge b-purple">AI 应用</span>
+        <span class="badge b-cyan">商业航天</span>
+      </div>
+      <div class="mc-desc">三大行业深度拆解：产业链图谱、重点公司、投资逻辑与学习资料</div>
+    </a>
+  </div>
+
+  <!-- 职业认证 -->
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-dot" style="background:var(--rose)"></div>
+      <h2>职业认证</h2>
+      <span class="count">2 模块</span>
+    </div>
+
+    <a href="../law-exam/" class="mod-card">
+      <div class="mc-head">
+        <div class="mc-icon" style="background:var(--rose-soft);color:var(--rose)">法</div>
+        <span class="mc-title">法考</span>
+      </div>
+      <div class="mc-tags">
+        <span class="badge b-rose">客观题</span>
+        <span class="badge b-purple">主观题</span>
+        <span class="badge b-blue">8 科</span>
+      </div>
+      <div class="mc-desc">国家统一法律职业资格考试：八大科目体系、备考计划、名师推荐与核心资料</div>
+    </a>
+
+    <a href="../cpa-learning/" class="mod-card">
+      <div class="mc-head">
+        <div class="mc-icon" style="background:var(--purple-soft);color:var(--purple)">C</div>
+        <span class="mc-title">CPA</span>
+      </div>
+      <div class="mc-tags">
+        <span class="badge b-purple">6 科</span>
+        <span class="badge b-orange">专业阶段</span>
+        <span class="badge b-green">综合阶段</span>
+      </div>
+      <div class="mc-desc">注册会计师考试：会计、审计、税法、经济法、财管、战略六科学习体系</div>
+    </a>
+  </div>
+
+  <!-- 技术工程 -->
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-dot" style="background:var(--green)"></div>
+      <h2>技术工程</h2>
+      <span class="count">1 模块</span>
+    </div>
+
+    <a href="../skillhub/" class="mod-card">
+      <div class="mc-head">
+        <div class="mc-icon" style="background:var(--green-soft);color:var(--green)">S</div>
+        <span class="mc-title">SkillHub 提示词</span>
+      </div>
+      <div class="mc-tags">
+        <span class="badge b-green">提示词</span>
+        <span class="badge b-blue">研究分析</span>
+        <span class="badge b-purple">编程开发</span>
+      </div>
+      <div class="mc-desc">精选提示词集合，覆盖研究分析、编程开发、办公效率、投资研究等分类，支持搜索和一键复制</div>
+    </a>
+
+    <div class="panel-head" style="margin-top: 16px;">
+      <div class="panel-dot" style="background:var(--dim)"></div>
+      <h2>相关资源</h2>
+    </div>
+    <a href="../resources/" class="mod-card">
+      <div class="mc-head">
+        <div class="mc-icon" style="background:var(--bg);color:var(--dim)">R</div>
+        <span class="mc-title">学习资源总库</span>
+      </div>
+      <div class="mc-tags">
+        <span class="badge b-blue">26 项</span>
+        <span class="badge b-green">AI Agent</span>
+        <span class="badge b-orange">FDE</span>
+      </div>
+      <div class="mc-desc">AI Agent 搭建、FDE 前沿部署工程师、金融量化工具 Skills 等完整资源导航</div>
+    </a>
+  </div>
+
+</div>
+
+<div class="footer">&copy; 2026 sliec · <a href="https://github.com/sliec" target="_blank">GitHub</a></div>
+
+</body>
+</html>

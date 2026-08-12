@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CPA 学习 - sliec</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #f4f6f9; --card: #ffffff; --text: #475569; --dim: #94a3b8;
+      --heading: #0f172a; --accent: #3b82f6; --accent-soft: #eff6ff;
+      --green: #10b981; --green-soft: #ecfdf5;
+      --orange: #f59e0b; --orange-soft: #fffbeb;
+      --purple: #8b5cf6; --purple-soft: #f5f3ff;
+      --rose: #f43f5e; --rose-soft: #fff1f2;
+      --cyan: #06b6d4; --cyan-soft: #ecfeff;
+      --border: #e2e8f0; --radius: 14px;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+    }
+    html { height: 100%; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; min-height: 100vh; display: flex; flex-direction: column; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: #2563eb; }
+
+    nav {
+      height: 50px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px; background: var(--card); border-bottom: 1px solid var(--border); flex-shrink: 0;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .brand { font-size: 17px; font-weight: 800; color: var(--heading); }
+    .nav-links { display: flex; gap: 6px; align-items: center; }
+    .nav-links a { font-size: 13px; color: var(--dim); font-weight: 500; padding: 4px 8px; border-radius: 6px; transition: all .15s; }
+    .nav-links a:hover { color: var(--accent); background: var(--accent-soft); }
+    .nav-links a.active { color: var(--accent); background: var(--accent-soft); }
+    .nav-sep { width: 1px; height: 16px; background: var(--border); flex-shrink: 0; margin: 0 4px; }
+
+    .page-hero {
+      padding: 28px 28px 0; max-width: 1200px; margin: 0 auto; width: 100%;
+    }
+    .page-hero h1 { font-size: 22px; font-weight: 800; color: var(--heading); }
+    .page-hero p { font-size: 13px; color: var(--dim); margin-top: 4px; }
+
+    .content {
+      max-width: 1200px; margin: 0 auto; width: 100%; padding: 20px 28px 40px;
+      flex: 1;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+
+    .panel {
+      background: var(--card); border-radius: var(--radius); border: 1px solid var(--border);
+      padding: 20px 22px; box-shadow: var(--shadow); overflow-y: auto;
+    }
+    .panel-head { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+    .panel-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .panel-head h2 { font-size: 15px; font-weight: 700; color: var(--heading); }
+    .panel-head .count { font-size: 11px; color: var(--dim); background: var(--bg); padding: 2px 8px; border-radius: 10px; }
+
+    .cat-label {
+      font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px;
+      margin: 14px 0 6px; display: flex; align-items: center; gap: 5px;
+    }
+    .cat-label:first-of-type { margin-top: 0; }
+    .cat-label::before { content: ''; width: 3px; height: 10px; border-radius: 2px; }
+    .cat-blue { color: var(--accent); } .cat-blue::before { background: var(--accent); }
+    .cat-green { color: var(--green); } .cat-green::before { background: var(--green); }
+    .cat-orange { color: var(--orange); } .cat-orange::before { background: var(--orange); }
+    .cat-purple { color: var(--purple); } .cat-purple::before { background: var(--purple); }
+    .cat-rose { color: var(--rose); } .cat-rose::before { background: var(--rose); }
+
+    .topic-card {
+      background: var(--bg); border-radius: 12px; padding: 14px 16px;
+      border: 1px solid var(--border); margin-bottom: 10px;
+    }
+    .topic-card h4 { font-size: 13.5px; font-weight: 700; color: var(--heading); margin-bottom: 4px; }
+    .topic-card p { font-size: 12px; color: var(--text); line-height: 1.55; }
+    .topic-card .topic-tags { display: flex; gap: 5px; margin-top: 8px; flex-wrap: wrap; }
+    .topic-card .topic-tags span { font-size: 10px; padding: 2px 8px; border-radius: 6px; font-weight: 500; }
+
+    .badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 8px; display: inline-block; margin-top: 4px; }
+    .b-blue { background: var(--accent-soft); color: var(--accent); }
+    .b-green { background: var(--green-soft); color: var(--green); }
+    .b-orange { background: var(--orange-soft); color: var(--orange); }
+    .b-purple { background: var(--purple-soft); color: var(--purple); }
+    .b-rose { background: var(--rose-soft); color: var(--rose); }
+
+    .res-row {
+      padding: 6px 0; border-bottom: 1px solid #f8fafc;
+    }
+    .res-row:last-child { border-bottom: none; }
+    .res-row .r-name { font-size: 13px; font-weight: 500; color: var(--heading); }
+    .res-row .r-name a { color: var(--heading); }
+    .res-row .r-name a:hover { color: var(--accent); }
+    .res-row .r-desc { font-size: 11.5px; color: var(--dim); margin-top: 2px; }
+
+    .note-box {
+      background: var(--accent-soft); border-left: 3px solid var(--accent);
+      border-radius: 10px; padding: 12px 14px; font-size: 12px;
+      line-height: 1.6; margin: 10px 0; color: var(--text);
+    }
+    .note-box strong { color: var(--heading); }
+
+    /* Timeline */
+    .timeline { margin: 10px 0; }
+    .tl-item {
+      display: flex; gap: 12px; padding: 8px 0;
+      border-bottom: 1px solid #f8fafc; position: relative;
+    }
+    .tl-item:last-child { border-bottom: none; }
+    .tl-phase {
+      width: 60px; flex-shrink: 0; font-size: 11px; font-weight: 700;
+      color: var(--accent); padding-top: 2px;
+    }
+    .tl-content { flex: 1; }
+    .tl-content strong { font-size: 13px; color: var(--heading); }
+    .tl-content p { font-size: 11.5px; color: var(--dim); margin-top: 2px; }
+
+    .footer {
+      height: 30px; display: flex; align-items: center; justify-content: center;
+      font-size: 11px; color: #cbd5e1; flex-shrink: 0;
+    }
+
+    .panel::-webkit-scrollbar { width: 3px; }
+    .panel::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 2px; }
+
+    @media (max-width: 768px) { .content { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">sliec</span>
+  <div class="nav-links">
+    <a href="../">首页</a>
+    <a href="../blog/">博客</a>
+    <a href="../projects/">项目</a>
+    <a href="../resources/">资源</a>
+    <span class="nav-sep"></span>
+    <a href="../learn/">学习</a>
+    <a href="../skillhub/">SkillHub</a>
+    <span class="nav-sep"></span>
+    <a href="../about/">关于</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>CPA 学习</h1>
+  <p>注册会计师全国统一考试 — 专业阶段 6 科 + 综合阶段备考体系</p>
+</div>
+
+<div class="content">
+
+  <!-- Left: 6 Subjects -->
+  <div class="panel">
+
+    <div class="panel-head">
+      <div class="panel-dot" style="background:var(--purple)"></div>
+      <h2>专业阶段 6 科</h2>
+      <span class="count">5 年内通过</span>
+    </div>
+
+    <div class="note-box">
+      <strong>CPA 考试结构：</strong>专业阶段 6 科（单科 100 分，60 分及格），5 年滚动通过。综合阶段 1 科（职业能力综合测试），通过后取得全科合格证。
+    </div>
+
+    <div class="cat-label cat-purple">核心科目</div>
+
+    <div class="topic-card">
+      <h4>会计</h4>
+      <p>CPA 第一科，难度最高。长期股权投资、合并报表、金融工具、收入确认是核心章节。与其他科目关联度最大，建议最先报考。</p>
+      <div class="topic-tags">
+        <span class="badge b-purple">难度 ★★★★★</span>
+        <span class="badge b-blue">建议首考</span>
+      </div>
+    </div>
+
+    <div class="topic-card">
+      <h4>审计</h4>
+      <p>理论性强，教材语言晦涩。审计抽样、风险评估、审计报告是重点。需要理解审计思维而非死记硬背。</p>
+      <div class="topic-tags">
+        <span class="badge b-purple">难度 ★★★★</span>
+        <span class="badge b-orange">理解型</span>
+      </div>
+    </div>
+
+    <div class="topic-card">
+      <h4>财务成本管理</h4>
+      <p>计算量最大。企业价值评估（DCF）、期权定价、资本预算、本量利分析。公式多但逻辑性强，理解推导过程比死记公式有效。</p>
+      <div class="topic-tags">
+        <span class="badge b-purple">难度 ★★★★</span>
+        <span class="badge b-green">计算型</span>
+      </div>
+    </div>
+
+    <div class="cat-label cat-orange">法律相关</div>
+
+    <div class="topic-card">
+      <h4>税法</h4>
+      <p>增值税 + 企业所得税占 60% 以上分值。个人所得税、消费税、土地增值税也常考。计算 + 记忆并重，政策更新需关注。</p>
+      <div class="topic-tags">
+        <span class="badge b-orange">难度 ★★★</span>
+        <span class="badge b-blue">计算+记忆</span>
+      </div>
+    </div>
+
+    <div class="topic-card">
+      <h4>经济法</h4>
+      <p>公司法、证券法、合同法、票据法是四大重点。偏记忆，但案例分析题需要应用法条解决实际问题。</p>
+      <div class="topic-tags">
+        <span class="badge b-orange">难度 ★★★</span>
+        <span class="badge b-green">记忆型</span>
+      </div>
+    </div>
+
+    <div class="topic-card">
+      <h4>公司战略与风险管理</h4>
+      <p>6 科中相对最简单。SWOT、PEST、五力模型、内部控制、风险管理框架。背诵 + 案例分析结合。</p>
+      <div class="topic-tags">
+        <span class="badge b-orange">难度 ★★</span>
+        <span class="badge b-green">背诵型</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Right: Study Plan + Resources -->
+  <div class="panel">
+
+    <div class="panel-head">
+      <div class="panel-dot" style="background:var(--accent)"></div>
+      <h2>备考策略</h2>
+      <span class="count">2-3 年通过</span>
+    </div>
+
+    <div class="note-box">
+      <strong>科目搭配建议：</strong><br>
+      <strong>第一年：</strong>会计 + 税法（关联度最高，会计为其他科目打基础）<br>
+      <strong>第二年：</strong>审计 + 经济法（审计需会计基础，经济法相对独立）<br>
+      <strong>第三年：</strong>财管 + 战略（计算 + 记忆搭配，压力均衡）
+    </div>
+
+    <div class="panel-head" style="margin-top:16px">
+      <div class="panel-dot" style="background:var(--orange)"></div>
+      <h2>学习计划</h2>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-phase">Phase 1</div>
+        <div class="tl-content">
+          <strong>基础阶段（3-4 个月）</strong>
+          <p>教材 + 网课系统学习，每章做配套练习。重点理解概念和框架，不追求速度。</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-phase">Phase 2</div>
+        <div class="tl-content">
+          <strong>强化阶段（2-3 个月）</strong>
+          <p>大量刷题（历年真题 + 模拟卷），整理错题集。针对薄弱章节专项突破。</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-phase">Phase 3</div>
+        <div class="tl-content">
+          <strong>冲刺阶段（1 个月）</strong>
+          <p>背诵精粹讲义、公式速查表。做 3-5 套模拟卷，严格计时。查漏补缺。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-head" style="margin-top:18px">
+      <div class="panel-dot" style="background:var(--green)"></div>
+      <h2>名师与资源</h2>
+    </div>
+
+    <div class="res-row">
+      <div class="r-name">
+        会计 · 张志凤 / 张敬富
+        <div class="r-desc">长投合并报表讲得最透，零基础首选</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        审计 · 金鑫松 / 刘圣妮
+        <div class="r-desc">审计思维建立好，实务案例丰富</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        财管 · 郑晓博 / 闫华红
+        <div class="r-desc">公式推导清晰，计算题训练系统</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        税法 · 刘颖 / 马兆瑞
+        <div class="r-desc">增值税企业所得税讲得细，政策更新快</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        经济法 · 郭守杰 / 黄洁洵
+        <div class="r-desc">法条解读到位，案例教学效果好</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        战略 · 杭建平 / 田明
+        <div class="r-desc">框架清晰，背诵要点总结好</div>
+      </div>
+    </div>
+
+    <div class="panel-head" style="margin-top:18px">
+      <div class="panel-dot" style="background:var(--rose)"></div>
+      <h2>学习工具</h2>
+    </div>
+
+    <div class="res-row">
+      <div class="r-name">
+        东奥 / 中华会计网校
+        <div class="r-desc">两大 CPA 培训平台，网课 + 题库 + 教材</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        CPA 注会宝典 / 斯尔教育
+        <div class="r-desc">碎片化学习 + 智能刷题</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        中注协官方教材
+        <div class="r-desc">每年 4 月出版，考试大纲和教材同步更新</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="footer">&copy; 2026 sliec · <a href="https://github.com/sliec" target="_blank">GitHub</a></div>
+
+</body>
+</html>
