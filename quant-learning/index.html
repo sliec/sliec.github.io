@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>量化学习 - sliec</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #f4f6f9; --card: #ffffff; --text: #475569; --dim: #94a3b8;
+      --heading: #0f172a; --accent: #3b82f6; --accent-soft: #eff6ff;
+      --green: #10b981; --green-soft: #ecfdf5;
+      --orange: #f59e0b; --orange-soft: #fffbeb;
+      --purple: #8b5cf6; --purple-soft: #f5f3ff;
+      --rose: #f43f5e; --rose-soft: #fff1f2;
+      --cyan: #06b6d4; --cyan-soft: #ecfeff;
+      --border: #e2e8f0; --radius: 14px;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+    }
+    html { height: 100%; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; min-height: 100vh; display: flex; flex-direction: column; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: #2563eb; }
+
+    nav {
+      height: 50px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px; background: var(--card); border-bottom: 1px solid var(--border); flex-shrink: 0;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .brand { font-size: 17px; font-weight: 800; color: var(--heading); }
+    .nav-links { display: flex; gap: 26px; }
+    .nav-links a { font-size: 13.5px; color: var(--dim); font-weight: 500; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+    .page-hero {
+      padding: 28px 28px 0; max-width: 1200px; margin: 0 auto; width: 100%;
+    }
+    .page-hero h1 { font-size: 22px; font-weight: 800; color: var(--heading); }
+    .page-hero p { font-size: 13px; color: var(--dim); margin-top: 4px; }
+
+    .content {
+      max-width: 1200px; margin: 0 auto; width: 100%; padding: 20px 28px 40px;
+      flex: 1;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+
+    .panel {
+      background: var(--card); border-radius: var(--radius); border: 1px solid var(--border);
+      padding: 20px 22px; box-shadow: var(--shadow); overflow-y: auto;
+    }
+    .panel-head { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+    .panel-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .panel-head h2 { font-size: 15px; font-weight: 700; color: var(--heading); }
+    .panel-head .count { font-size: 11px; color: var(--dim); background: var(--bg); padding: 2px 8px; border-radius: 10px; }
+
+    .cat-label {
+      font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px;
+      margin: 14px 0 6px; display: flex; align-items: center; gap: 5px;
+    }
+    .cat-label:first-of-type { margin-top: 0; }
+    .cat-label::before { content: ''; width: 3px; height: 10px; border-radius: 2px; }
+    .cat-blue { color: var(--accent); } .cat-blue::before { background: var(--accent); }
+    .cat-green { color: var(--green); } .cat-green::before { background: var(--green); }
+    .cat-orange { color: var(--orange); } .cat-orange::before { background: var(--orange); }
+    .cat-purple { color: var(--purple); } .cat-purple::before { background: var(--purple); }
+    .cat-rose { color: var(--rose); } .cat-rose::before { background: var(--rose); }
+    .cat-cyan { color: var(--cyan); } .cat-cyan::before { background: var(--cyan); }
+
+    .res-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 6px 0; border-bottom: 1px solid #f8fafc;
+    }
+    .res-row:last-child { border-bottom: none; }
+    .res-row .r-name { font-size: 13px; font-weight: 500; color: var(--heading); flex: 1; min-width: 0; }
+    .res-row .r-name a { color: var(--heading); }
+    .res-row .r-name a:hover { color: var(--accent); }
+    .res-row .r-desc { font-size: 11.5px; color: var(--dim); margin-top: 2px; }
+    .res-row .r-stars { font-size: 11px; color: var(--orange); font-weight: 600; flex-shrink: 0; margin-left: 10px; white-space: nowrap; }
+    .badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 8px; flex-shrink: 0; margin-left: 8px; }
+    .b-blue { background: var(--accent-soft); color: var(--accent); }
+    .b-green { background: var(--green-soft); color: var(--green); }
+    .b-orange { background: var(--orange-soft); color: var(--orange); }
+    .b-purple { background: var(--purple-soft); color: var(--purple); }
+    .b-rose { background: var(--rose-soft); color: var(--rose); }
+
+    /* Book card */
+    .book-card {
+      background: var(--bg); border-radius: 12px; padding: 14px 16px;
+      border: 1px solid var(--border); margin-bottom: 10px;
+    }
+    .book-card h4 { font-size: 13.5px; font-weight: 700; color: var(--heading); margin-bottom: 4px; }
+    .book-card .book-meta { font-size: 11.5px; color: var(--dim); margin-bottom: 6px; }
+    .book-card .book-note { font-size: 12px; color: var(--text); line-height: 1.55; }
+    .book-card .book-tags { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+    .book-card .book-tags span { font-size: 10px; padding: 2px 8px; border-radius: 6px; font-weight: 500; }
+
+    /* Note box */
+    .note-box {
+      background: var(--accent-soft); border-left: 3px solid var(--accent);
+      border-radius: 10px; padding: 12px 16px; font-size: 12.5px;
+      line-height: 1.6; margin: 10px 0; color: var(--text);
+    }
+    .note-box strong { color: var(--heading); }
+
+    .footer {
+      height: 30px; display: flex; align-items: center; justify-content: center;
+      font-size: 11px; color: #cbd5e1; flex-shrink: 0;
+    }
+
+    .panel::-webkit-scrollbar { width: 3px; }
+    .panel::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 2px; }
+
+    @media (max-width: 768px) {
+      .content { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">sliec</span>
+  <div class="nav-links">
+    <a href="../">首页</a>
+    <a href="../blog/">博客</a>
+    <a href="../projects/">项目</a>
+    <a href="../resources/">资源</a>
+    <a href="../skillhub/">SkillHub</a>
+    <a href="../quant-learning/" class="active">量化</a>
+    <a href="../equity-learning/">权益</a>
+    <a href="../about/">关于</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>量化学习</h1>
+  <p>系统化学习量化投资 — 从因子理论到策略实战</p>
+</div>
+
+<div class="content">
+
+  <!-- Left: Books + Accounts -->
+  <div class="panel">
+
+    <div class="panel-head">
+      <div class="panel-dot" style="background:var(--accent)"></div>
+      <h2>推荐书籍</h2>
+      <span class="count">投资因子</span>
+    </div>
+
+    <div class="book-card">
+      <h4>《预期收益：投资者指南》</h4>
+      <div class="book-meta">Antti Ilmanen 著 · 经典因子投资圣经</div>
+      <div class="book-note">
+        系统梳理了价值、动量、carry、防御性四大因子溢价来源。核心观点：因子收益来自风险补偿和行为偏差，理解"为什么有效"比"是否有效"更重要。
+      </div>
+      <div class="book-tags">
+        <span class="badge b-blue">因子理论</span>
+        <span class="badge b-purple">必读</span>
+      </div>
+    </div>
+
+    <div class="book-card">
+      <h4>《量化投资：策略与技术》</h4>
+      <div class="book-meta">丁鹏 著 · 国内量化入门经典</div>
+      <div class="book-note">
+        覆盖多因子选股、统计套利、CTA 等主流策略类型，结合 A 股实战案例。适合从零建立量化框架认知。
+      </div>
+      <div class="book-tags">
+        <span class="badge b-green">A 股实战</span>
+        <span class="badge b-orange">入门</span>
+      </div>
+    </div>
+
+    <div class="book-card">
+      <h4>《因子投资：方法与实践》</h4>
+      <div class="book-meta">石川 / 刘洋溢 / 连祥斌 著</div>
+      <div class="book-note">
+        国内最系统的因子投资专著。从因子检验方法（分组排序、Fama-MacBeth 回归）到多因子组合构建，理论严谨且配有实证代码。
+      </div>
+      <div class="book-tags">
+        <span class="badge b-blue">因子方法</span>
+        <span class="badge b-purple">进阶</span>
+      </div>
+    </div>
+
+    <div class="book-card">
+      <h4>《Active Portfolio Management》</h4>
+      <div class="book-meta">Grinold & Kahn 著 · 主动管理理论基石</div>
+      <div class="book-note">
+        提出信息比率 = IC × √BR 的基本法则。从预测到组合优化的完整理论框架，理解 alpha 来源的必读之作。
+      </div>
+      <div class="book-tags">
+        <span class="badge b-blue">组合理论</span>
+        <span class="badge b-rose">英文</span>
+      </div>
+    </div>
+
+    <div class="panel-head" style="margin-top:18px">
+      <div class="panel-dot" style="background:var(--green)"></div>
+      <h2>公众号推荐</h2>
+    </div>
+
+    <div class="res-row">
+      <div class="r-name">
+        <strong>量化藏经阁</strong>
+        <div class="r-desc">量化投资领域最全面的知识分享平台，覆盖因子研究、策略回测、风控体系</div>
+      </div>
+      <span class="badge b-green">首选</span>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        <strong> Ricequant</strong>
+        <div class="r-desc">米筐科技官方号，量化平台教程 + 行业研报解读</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        <strong> 聚宽研究</strong>
+        <div class="r-desc">JoinQuant 研究社区，策略代码分享 + 因子研究</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        <strong> 石川的因子研究</strong>
+        <div class="r-desc">《因子投资》作者，深度因子方法论</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        <strong> 量化投资与机器学习</strong>
+        <div class="r-desc">学术前沿 + 工业实践交叉内容</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Right: Notes + Roadmap -->
+  <div class="panel">
+
+    <div class="panel-head">
+      <div class="panel-dot" style="background:var(--orange)"></div>
+      <h2>学习笔记</h2>
+    </div>
+
+    <div class="note-box">
+      <strong>因子投资核心框架</strong><br>
+      因子 = 能够解释截面收益率差异的变量。因子收益来源：风险补偿（承担系统性风险获得溢价）+ 行为偏差（投资者非理性定价）+ 结构性摩擦（交易成本、制度约束）。<br><br>
+      <strong>因子检验三步法：</strong>① 分组排序（单变量）→ ② Fama-MacBeth 回归（控制变量）→ ③ 因子组合实盘检验
+    </div>
+
+    <div class="note-box">
+      <strong>多因子模型构建流程</strong><br>
+      ① 因子挖掘：从价量、财务、另类数据中寻找 alpha 信号<br>
+      ② 因子处理：去极值 → 标准化 → 中性化 → 正交化<br>
+      ③ 因子合成：等权 / IC 加权 / 最优化加权<br>
+      ④ 组合构建：风险模型约束 + 换手率控制<br>
+      ⑤ 归因分析：Brinson / 多因子归因拆解收益来源
+    </div>
+
+    <div class="note-box">
+      <strong>A 股因子时效性笔记</strong><br>
+      <strong>长期有效：</strong>价值（BP）、小市值（但需注意微盘股流动性）、低换手<br>
+      <strong>近年增强：</strong>反转（短期）、一致性预期调整、分析师覆盖度<br>
+      <strong>衰减/失效：</strong>传统动量（A 股特征与美股不同）、部分财务质量因子
+    </div>
+
+    <div class="panel-head" style="margin-top:18px">
+      <div class="panel-dot" style="background:var(--purple)"></div>
+      <h2>学习路线</h2>
+    </div>
+
+    <div class="cat-label cat-blue">第一阶段 · 基础认知</div>
+    <div class="res-row">
+      <div class="r-name">
+        阅读《量化投资：策略与技术》前半部分
+        <div class="r-desc">建立多因子、统计套利、CTA 的基本认知框架</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        学习 Python + pandas 数据处理
+        <div class="r-desc">掌握因子计算、回测所需的数据操作能力</div>
+      </div>
+    </div>
+
+    <div class="cat-label cat-orange">第二阶段 · 因子深入</div>
+    <div class="res-row">
+      <div class="r-name">
+        精读《因子投资：方法与实践》
+        <div class="r-desc">掌握因子检验、合成、组合构建的完整方法论</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        动手复现经典因子研究论文
+        <div class="r-desc">用 A 股数据复现 Fama-French、Carhart 等模型</div>
+      </div>
+    </div>
+
+    <div class="cat-label cat-green">第三阶段 · 策略实战</div>
+    <div class="res-row">
+      <div class="r-name">
+        在聚宽 / 米筐平台搭建完整回测系统
+        <div class="r-desc">从因子计算到组合构建再到归因分析的全流程</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        阅读《预期收益》深化理论理解
+        <div class="r-desc">理解因子溢价背后的经济学解释</div>
+      </div>
+    </div>
+
+    <div class="cat-label cat-purple">第四阶段 · 进阶拓展</div>
+    <div class="res-row">
+      <div class="r-name">
+        机器学习 + 因子研究结合
+        <div class="r-desc">XGBoost / 神经网络在因子挖掘和非线性因子合成中的应用</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        另类数据因子开发
+        <div class="r-desc">NLP 舆情、卫星数据、供应链图谱等新型 alpha 来源</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="footer">&copy; 2026 sliec · <a href="https://github.com/sliec" target="_blank">GitHub</a></div>
+
+</body>
+</html>

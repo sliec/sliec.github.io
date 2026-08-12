@@ -50,7 +50,7 @@ img { max-width: 100%; height: auto; }
   font-size: 1.2rem; font-weight: 700; color: var(--heading);
   letter-spacing: -0.3px;
 }
-.site-nav { display: flex; gap: 28px; }
+.site-nav { display: flex; gap: 18px; flex-wrap: wrap; }
 .site-nav a {
   font-size: 0.9rem; color: var(--text-light); font-weight: 500;
   transition: color .2s;

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>权益学习 - sliec</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #f4f6f9; --card: #ffffff; --text: #475569; --dim: #94a3b8;
+      --heading: #0f172a; --accent: #3b82f6; --accent-soft: #eff6ff;
+      --green: #10b981; --green-soft: #ecfdf5;
+      --orange: #f59e0b; --orange-soft: #fffbeb;
+      --purple: #8b5cf6; --purple-soft: #f5f3ff;
+      --rose: #f43f5e; --rose-soft: #fff1f2;
+      --cyan: #06b6d4; --cyan-soft: #ecfeff;
+      --border: #e2e8f0; --radius: 14px;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+    }
+    html { height: 100%; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; min-height: 100vh; display: flex; flex-direction: column; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: #2563eb; }
+
+    nav {
+      height: 50px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px; background: var(--card); border-bottom: 1px solid var(--border); flex-shrink: 0;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .brand { font-size: 17px; font-weight: 800; color: var(--heading); }
+    .nav-links { display: flex; gap: 26px; }
+    .nav-links a { font-size: 13.5px; color: var(--dim); font-weight: 500; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+    .page-hero {
+      padding: 28px 28px 0; max-width: 1200px; margin: 0 auto; width: 100%;
+    }
+    .page-hero h1 { font-size: 22px; font-weight: 800; color: var(--heading); }
+    .page-hero p { font-size: 13px; color: var(--dim); margin-top: 4px; }
+
+    .content {
+      max-width: 1200px; margin: 0 auto; width: 100%; padding: 20px 28px 40px;
+      flex: 1;
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+    }
+
+    .panel {
+      background: var(--card); border-radius: var(--radius); border: 1px solid var(--border);
+      padding: 20px 20px; box-shadow: var(--shadow); overflow-y: auto;
+    }
+    .panel-head { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+    .panel-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .panel-head h2 { font-size: 15px; font-weight: 700; color: var(--heading); }
+    .panel-head .count { font-size: 11px; color: var(--dim); background: var(--bg); padding: 2px 8px; border-radius: 10px; }
+
+    /* Section icon header */
+    .section-icon {
+      width: 42px; height: 42px; border-radius: 12px; display: flex;
+      align-items: center; justify-content: center; margin-bottom: 12px;
+      font-size: 20px;
+    }
+
+    .cat-label {
+      font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px;
+      margin: 14px 0 6px; display: flex; align-items: center; gap: 5px;
+    }
+    .cat-label:first-of-type { margin-top: 0; }
+    .cat-label::before { content: ''; width: 3px; height: 10px; border-radius: 2px; }
+    .cat-blue { color: var(--accent); } .cat-blue::before { background: var(--accent); }
+    .cat-green { color: var(--green); } .cat-green::before { background: var(--green); }
+    .cat-orange { color: var(--orange); } .cat-orange::before { background: var(--orange); }
+    .cat-purple { color: var(--purple); } .cat-purple::before { background: var(--purple); }
+    .cat-rose { color: var(--rose); } .cat-rose::before { background: var(--rose); }
+    .cat-cyan { color: var(--cyan); } .cat-cyan::before { background: var(--cyan); }
+
+    .res-row {
+      padding: 6px 0; border-bottom: 1px solid #f8fafc;
+    }
+    .res-row:last-child { border-bottom: none; }
+    .res-row .r-name { font-size: 13px; font-weight: 500; color: var(--heading); }
+    .res-row .r-name a { color: var(--heading); }
+    .res-row .r-name a:hover { color: var(--accent); }
+    .res-row .r-desc { font-size: 11.5px; color: var(--dim); margin-top: 2px; }
+    .badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 8px; display: inline-block; margin-top: 4px; }
+    .b-blue { background: var(--accent-soft); color: var(--accent); }
+    .b-green { background: var(--green-soft); color: var(--green); }
+    .b-orange { background: var(--orange-soft); color: var(--orange); }
+    .b-purple { background: var(--purple-soft); color: var(--purple); }
+    .b-rose { background: var(--rose-soft); color: var(--rose); }
+    .b-cyan { background: var(--cyan-soft); color: var(--cyan); }
+
+    /* Key company / concept card */
+    .topic-card {
+      background: var(--bg); border-radius: 12px; padding: 14px 16px;
+      border: 1px solid var(--border); margin-bottom: 10px;
+    }
+    .topic-card h4 { font-size: 13.5px; font-weight: 700; color: var(--heading); margin-bottom: 4px; }
+    .topic-card p { font-size: 12px; color: var(--text); line-height: 1.55; }
+    .topic-card .topic-tags { display: flex; gap: 5px; margin-top: 8px; flex-wrap: wrap; }
+    .topic-card .topic-tags span { font-size: 10px; padding: 2px 8px; border-radius: 6px; font-weight: 500; }
+
+    /* Note box */
+    .note-box {
+      background: var(--accent-soft); border-left: 3px solid var(--accent);
+      border-radius: 10px; padding: 12px 14px; font-size: 12px;
+      line-height: 1.6; margin: 10px 0; color: var(--text);
+    }
+    .note-box strong { color: var(--heading); }
+
+    .footer {
+      height: 30px; display: flex; align-items: center; justify-content: center;
+      font-size: 11px; color: #cbd5e1; flex-shrink: 0;
+    }
+
+    .panel::-webkit-scrollbar { width: 3px; }
+    .panel::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 2px; }
+
+    @media (max-width: 900px) {
+      .content { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">sliec</span>
+  <div class="nav-links">
+    <a href="../">首页</a>
+    <a href="../blog/">博客</a>
+    <a href="../projects/">项目</a>
+    <a href="../resources/">资源</a>
+    <a href="../skillhub/">SkillHub</a>
+    <a href="../quant-learning/">量化</a>
+    <a href="../equity-learning/" class="active">权益</a>
+    <a href="../about/">关于</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>权益学习</h1>
+  <p>深耕行业研究 — 锂矿 · AI 应用 · 商业航天</p>
+</div>
+
+<div class="content">
+
+  <!-- ========== Column 1: 锂矿 ========== -->
+  <div class="panel">
+
+    <div class="section-icon" style="background: var(--orange-soft);">
+      <span>Li</span>
+    </div>
+
+    <div class="panel-head">
+      <div class="panel-dot" style="background:var(--orange)"></div>
+      <h2>锂矿</h2>
+      <span class="count">新能源上游</span>
+    </div>
+
+    <div class="note-box">
+      <strong>核心逻辑：</strong>锂是新能源时代的"白色石油"，动力电池 + 储能双轮驱动长期需求。周期属性明显——价格波动大，理解供需平衡点是投资关键。
+    </div>
+
+    <div class="cat-label cat-orange">产业链图谱</div>
+    <div class="topic-card">
+      <h4>上游 · 资源端</h4>
+      <p>锂辉石（澳洲/非洲）、盐湖卤水（南美三角/青海西藏）、锂云母（江西宜春）。成本差异巨大：盐湖 3-4 万/吨 vs 锂辉石 6-8 万/吨 vs 锂云母 8-12 万/吨。</p>
+      <div class="topic-tags">
+        <span class="badge b-orange">资源为王</span>
+        <span class="badge b-green">成本曲线</span>
+      </div>
+    </div>
+    <div class="topic-card">
+      <h4>中游 · 冶炼加工</h4>
+      <p>碳酸锂（磷酸铁锂路线）/ 氢氧化锂（三元高镍路线）。中国占全球冶炼产能 ~70%，技术壁垒 + 规模优势形成护城河。</p>
+      <div class="topic-tags">
+        <span class="badge b-blue">碳酸锂</span>
+        <span class="badge b-purple">氢氧化锂</span>
+      </div>
+    </div>
+    <div class="topic-card">
+      <h4>下游 · 电池与回收</h4>
+      <p>动力电池（CATL、BYD）、储能电池、3C 消费电池。锂电池回收是下一个增量——2025 年后第一批动力电池进入退役高峰。</p>
+      <div class="topic-tags">
+        <span class="badge b-green">动力电池</span>
+        <span class="badge b-rose">电池回收</span>
+      </div>
+    </div>
+
+    <div class="cat-label cat-green">重点公司</div>
+    <div class="res-row">
+      <div class="r-name">
+        天齐锂业 / 赣锋锂业
+        <div class="r-desc">全球锂资源龙头，上游 + 中游一体化布局</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        盐湖股份
+        <div class="r-desc">国内盐湖提锂绝对龙头，成本最低</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        永兴材料 / 中矿资源
+        <div class="r-desc">锂云母 / 非洲锂辉石细分赛道</div>
+      </div>
+    </div>
+
+    <div class="cat-label cat-purple">学习资料</div>
+    <div class="res-row">
+      <div class="r-name">
+        锂矿行业深度报告合集
+        <div class="r-desc">券商研报：供需平衡表 + 成本曲线分析</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        碳酸锂期货研究报告
+        <div class="r-desc">广期所品种，理解定价机制和交割逻辑</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ========== Column 2: AI 应用 ========== -->
+  <div class="panel">
+
+    <div class="section-icon" style="background: var(--purple-soft);">
+      <span>AI</span>
+    </div>
+
+    <div class="panel-head">
+      <div class="panel-dot" style="background:var(--purple)"></div>
+      <h2>AI 应用</h2>
+      <span class="count">产业落地</span>
+    </div>
+
+    <div class="note-box">
+      <strong>核心逻辑：</strong>大模型基础设施基本成型，2024-2025 年进入"应用爆发期"。关注从技术能力到商业价值的转化——谁先跑通 PMF，谁就是赢家。
+    </div>
+
+    <div class="cat-label cat-purple">应用层分类</div>
+    <div class="topic-card">
+      <h4>办公效率</h4>
+      <p>AI 助手、文档生成、代码辅助。Copilot 模式已验证付费意愿。国内：WPS AI、飞书智能伙伴、钉钉 AI。商业模式：SaaS 订阅 + 按量付费。</p>
+      <div class="topic-tags">
+        <span class="badge b-purple">Copilot</span>
+        <span class="badge b-blue">SaaS</span>
+      </div>
+    </div>
+    <div class="topic-card">
+      <h4>垂直行业 Agent</h4>
+      <p>金融、法律、医疗、教育等专业场景。核心壁垒在于行业 know-how + 数据飞轮。关注能形成"使用越多 → 越准确 → 更多用户"正循环的公司。</p>
+      <div class="topic-tags">
+        <span class="badge b-green">数据飞轮</span>
+        <span class="badge b-orange">行业壁垒</span>
+      </div>
+    </div>
+    <div class="topic-card">
+      <h4>多模态 / 具身智能</h4>
+      <p>视觉理解、视频生成、机器人。从感知到行动的跨越。人形机器人是终极形态——关注零部件供应链（减速器、传感器、灵巧手）。</p>
+      <div class="topic-tags">
+        <span class="badge b-rose">机器人</span>
+        <span class="badge b-cyan">多模态</span>
+      </div>
+    </div>
+
+    <div class="cat-label cat-green">重点公司</div>
+    <div class="res-row">
+      <div class="r-name">
+        金山办公
+        <div class="r-desc">WPS AI，国内 AI 办公落地最快的标的</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        科大讯飞
+        <div class="r-desc">星火大模型 + 教育/医疗双赛道应用</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        中科创达 / 虹软科技
+        <div class="r-desc">AI 中间件 + 端侧部署</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        万兴科技 / 当虹科技
+        <div class="r-desc">AIGC 内容生成，视频/图像创作工具</div>
+      </div>
+    </div>
+
+    <div class="cat-label cat-blue">学习资料</div>
+    <div class="res-row">
+      <div class="r-name">
+        <a href="https://github.com/datawhalechina/hello-agents" target="_blank">从零构建智能体</a>
+        <div class="r-desc">理解 AI Agent 技术栈，判断应用公司技术实力</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        AI 应用行业研报
+        <div class="r-desc">跟踪各细分赛道商业化进展和竞争格局</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ========== Column 3: 商业航天 ========== -->
+  <div class="panel">
+
+    <div class="section-icon" style="background: var(--cyan-soft);">
+      <span>🚀</span>
+    </div>
+
+    <div class="panel-head">
+      <div class="panel-dot" style="background:var(--cyan)"></div>
+      <h2>商业航天</h2>
+      <span class="count">太空经济</span>
+    </div>
+
+    <div class="note-box">
+      <strong>核心逻辑：</strong>SpaceX 验证了商业航天的可行性，中国正在走自己的商业化路径。卫星互联网 + 火箭发射 + 卫星应用是三大主线，2024 年进入"组网加速期"。
+    </div>
+
+    <div class="cat-label cat-cyan">产业链图谱</div>
+    <div class="topic-card">
+      <h4>火箭制造与发射</h4>
+      <p>运载火箭是进入太空的"门票"。可回收技术是降本关键。国内民营火箭公司：蓝箭航天（朱雀）、星际荣耀（双曲线）、星河动力（谷神星）。</p>
+      <div class="topic-tags">
+        <span class="badge b-cyan">可回收</span>
+        <span class="badge b-orange">降本核心</span>
+      </div>
+    </div>
+    <div class="topic-card">
+      <h4>卫星制造与组网</h4>
+      <p>低轨卫星互联网（对标 Starlink）。中国两大星座计划：G60 星链 + 中国星网。卫星批量化生产是规模化的前提——关注卫星平台和载荷供应商。</p>
+      <div class="topic-tags">
+        <span class="badge b-blue">卫星互联网</span>
+        <span class="badge b-purple">星座组网</span>
+      </div>
+    </div>
+    <div class="topic-card">
+      <h4>卫星应用与运营</h4>
+      <p>遥感（农业监测、城市规划）、通信（偏远地区宽带）、导航增强。应用端是商业闭环的关键——谁能为终端用户创造价值，谁就掌握长期需求。</p>
+      <div class="topic-tags">
+        <span class="badge b-green">遥感</span>
+        <span class="badge b-rose">商业闭环</span>
+      </div>
+    </div>
+
+    <div class="cat-label cat-green">重点公司</div>
+    <div class="res-row">
+      <div class="r-name">
+        中国卫星 / 航天电子
+        <div class="r-desc">卫星制造 + 配套核心标的</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        航天宏图 / 中科星图
+        <div class="r-desc">卫星遥感应用龙头，数字地球平台</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        铖昌科技 / 臻镭科技
+        <div class="r-desc">卫星通信核心芯片供应商</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        华测导航 / 中海达
+        <div class="r-desc">高精度导航 + 卫星定位应用</div>
+      </div>
+    </div>
+
+    <div class="cat-label cat-purple">学习资料</div>
+    <div class="res-row">
+      <div class="r-name">
+        商业航天行业深度报告
+        <div class="r-desc">产业链全景梳理 + 国内外对标分析</div>
+      </div>
+    </div>
+    <div class="res-row">
+      <div class="r-name">
+        SpaceX Starlink 研究
+        <div class="r-desc">对标分析：理解商业航天终局形态</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="footer">&copy; 2026 sliec · <a href="https://github.com/sliec" target="_blank">GitHub</a></div>
+
+</body>
+</html>
