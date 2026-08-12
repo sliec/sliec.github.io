@@ -13,14 +13,16 @@
       --green: #10b981; --green-soft: #ecfdf5;
       --orange: #f59e0b; --orange-soft: #fffbeb;
       --purple: #8b5cf6; --purple-soft: #f5f3ff;
+      --rose: #f43f5e; --rose-soft: #fff1f2;
+      --cyan: #06b6d4; --cyan-soft: #ecfeff;
       --border: #e2e8f0; --radius: 14px;
       --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
       --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
     }
-    html, body { height: 100%; font-family: var(--font); background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    html, body { height: 100%; overflow: hidden; font-family: var(--font); background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
     a { color: var(--accent); text-decoration: none; transition: color .15s; }
     a:hover { color: #2563eb; }
-    body { display: flex; flex-direction: column; min-height: 100vh; }
+    body { display: flex; flex-direction: column; height: 100vh; }
 
     /* ===== Nav ===== */
     nav {
@@ -28,17 +30,19 @@
       padding: 0 28px; background: var(--card); border-bottom: 1px solid var(--border); flex-shrink: 0;
     }
     .brand { font-size: 17px; font-weight: 800; color: var(--heading); letter-spacing: -0.5px; }
-    .nav-links { display: flex; gap: 18px; }
-    .nav-links a { font-size: 13.5px; color: var(--dim); font-weight: 500; }
-    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .nav-links { display: flex; gap: 6px; align-items: center; }
+    .nav-links a { font-size: 13px; color: var(--dim); font-weight: 500; padding: 4px 8px; border-radius: 6px; transition: all .15s; }
+    .nav-links a:hover { color: var(--accent); background: var(--accent-soft); }
+    .nav-links a.active { color: var(--accent); background: var(--accent-soft); }
+    .nav-sep { width: 1px; height: 16px; background: var(--border); flex-shrink: 0; margin: 0 4px; }
     .nav-right a { font-size: 12.5px; color: var(--dim); }
 
     /* ===== Main Bento Grid ===== */
     .main {
       flex: 1; display: grid; padding: 16px 24px 12px;
-      grid-template-columns: 1.1fr 0.9fr 1fr;
+      grid-template-columns: 1.1fr 0.9fr 0.9fr 0.85fr;
       grid-template-rows: auto 1fr;
-      gap: 14px;
+      gap: 14px; overflow: hidden;
     }
 
     /* --- Hero --- */
@@ -60,69 +64,70 @@
     /* --- Card Panel --- */
     .panel {
       background: var(--card); border-radius: var(--radius); border: 1px solid var(--border);
-      padding: 16px 18px; overflow-y: auto; box-shadow: var(--shadow);
+      padding: 14px 16px; overflow-y: auto; box-shadow: var(--shadow);
     }
-    .panel-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
-    .panel-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-    .panel-head h2 { font-size: 14px; font-weight: 700; color: var(--heading); }
-    .panel-head .count { font-size: 11px; color: var(--dim); background: var(--bg); padding: 2px 8px; border-radius: 10px; }
+    .panel-head { display: flex; align-items: center; gap: 7px; margin-bottom: 10px; }
+    .panel-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .panel-head h2 { font-size: 13.5px; font-weight: 700; color: var(--heading); }
+    .panel-head .count { font-size: 10.5px; color: var(--dim); background: var(--bg); padding: 2px 7px; border-radius: 10px; }
 
     /* --- Entries --- */
-    .entry { padding: 9px 0; border-bottom: 1px solid #f1f5f9; }
+    .entry { padding: 8px 0; border-bottom: 1px solid #f1f5f9; }
     .entry:last-child { border-bottom: none; }
-    .entry h3 { font-size: 13.5px; font-weight: 600; color: var(--heading); margin-bottom: 2px; }
+    .entry h3 { font-size: 13px; font-weight: 600; color: var(--heading); margin-bottom: 2px; }
     .entry h3 a { color: var(--heading); }
     .entry h3 a:hover { color: var(--accent); }
-    .entry p { font-size: 12.5px; color: var(--dim); line-height: 1.45; }
-    .entry .foot { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
-    .badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 8px; }
+    .entry p { font-size: 12px; color: var(--dim); line-height: 1.4; }
+    .entry .foot { display: flex; align-items: center; gap: 7px; margin-top: 3px; }
+    .badge { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 7px; }
     .b-blue { background: var(--accent-soft); color: var(--accent); }
     .b-green { background: var(--green-soft); color: var(--green); }
     .b-orange { background: var(--orange-soft); color: var(--orange); }
     .b-purple { background: var(--purple-soft); color: var(--purple); }
-    .foot span { font-size: 11.5px; color: #cbd5e1; }
-    .foot .stars { color: var(--orange); font-weight: 600; font-size: 11.5px; }
+    .b-rose { background: var(--rose-soft); color: var(--rose); }
+    .b-cyan { background: var(--cyan-soft); color: var(--cyan); }
+    .foot span { font-size: 11px; color: #cbd5e1; }
+    .foot .stars { color: var(--orange); font-weight: 600; font-size: 11px; }
 
     /* --- Resource structured list --- */
     .cat-label {
-      font-size: 11.5px; font-weight: 700; color: var(--accent); text-transform: uppercase;
-      letter-spacing: 0.4px; margin: 10px 0 5px; display: flex; align-items: center; gap: 5px;
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.3px; margin: 10px 0 4px; display: flex; align-items: center; gap: 5px;
     }
     .cat-label:first-of-type { margin-top: 0; }
-    .cat-label::before { content: ''; width: 3px; height: 10px; background: var(--accent); border-radius: 2px; }
+    .cat-label::before { content: ''; width: 3px; height: 9px; border-radius: 2px; }
+    .cat-blue { color: var(--accent); } .cat-blue::before { background: var(--accent); }
+    .cat-green { color: var(--green); } .cat-green::before { background: var(--green); }
+    .cat-orange { color: var(--orange); } .cat-orange::before { background: var(--orange); }
+    .cat-purple { color: var(--purple); } .cat-purple::before { background: var(--purple); }
+    .cat-rose { color: var(--rose); } .cat-rose::before { background: var(--rose); }
+    .cat-cyan { color: var(--cyan); } .cat-cyan::before { background: var(--cyan); }
     .res-row {
       display: flex; justify-content: space-between; align-items: baseline;
-      padding: 4.5px 0; border-bottom: 1px solid #f8fafc;
+      padding: 4px 0; border-bottom: 1px solid #f8fafc;
     }
     .res-row:last-child { border-bottom: none; }
-    .res-row a { font-size: 12.5px; font-weight: 500; color: var(--heading); }
+    .res-row a { font-size: 12px; font-weight: 500; color: var(--heading); }
     .res-row a:hover { color: var(--accent); }
-    .res-row .r-stars { font-size: 11px; color: var(--orange); font-weight: 600; flex-shrink: 0; margin-left: 8px; }
+    .res-row .r-stars { font-size: 10.5px; color: var(--orange); font-weight: 600; flex-shrink: 0; margin-left: 6px; }
 
-    /* ===== Learning Strip ===== */
-    .learn-strip {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 14px; padding: 0 24px 16px; max-width: 100%;
+    /* --- Learn nav rows --- */
+    .learn-nav {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 10px; border-radius: 10px; margin-bottom: 6px;
+      border: 1px solid var(--border); background: var(--bg);
+      transition: all .15s; text-decoration: none;
     }
-    .learn-card {
-      background: var(--card); border-radius: var(--radius); border: 1px solid var(--border);
-      padding: 16px 20px; box-shadow: var(--shadow);
-      transition: transform .15s, box-shadow .15s; cursor: pointer;
-      display: flex; flex-direction: column; gap: 8px; text-decoration: none;
+    .learn-nav:hover { border-color: var(--accent); background: var(--accent-soft); }
+    .learn-nav .ln-icon {
+      width: 28px; height: 28px; border-radius: 8px; display: flex;
+      align-items: center; justify-content: center; font-size: 12px;
+      font-weight: 800; flex-shrink: 0;
     }
-    .learn-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
-    .learn-card .lc-head { display: flex; align-items: center; gap: 10px; }
-    .learn-card .lc-icon {
-      width: 36px; height: 36px; border-radius: 10px; display: flex;
-      align-items: center; justify-content: center; font-size: 15px; font-weight: 800;
-      flex-shrink: 0;
-    }
-    .learn-card .lc-title { font-size: 14px; font-weight: 700; color: var(--heading); }
-    .learn-card .lc-desc { font-size: 12px; color: var(--dim); line-height: 1.5; }
-    .learn-card .lc-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-    .learn-card .lc-tags span {
-      font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 6px;
-    }
+    .learn-nav .ln-text { flex: 1; min-width: 0; }
+    .learn-nav .ln-text strong { font-size: 12.5px; color: var(--heading); display: block; }
+    .learn-nav .ln-text span { font-size: 11px; color: var(--dim); }
+    .learn-nav .ln-arrow { font-size: 11px; color: var(--dim); flex-shrink: 0; }
 
     /* ===== Footer ===== */
     .footer {
@@ -132,8 +137,17 @@
     .panel::-webkit-scrollbar { width: 3px; }
     .panel::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 2px; }
 
-    @media (max-width: 900px) { .main { grid-template-columns: 1fr 1fr; } .learn-strip { grid-template-columns: 1fr; } }
-    @media (max-width: 600px) { .main { grid-template-columns: 1fr; padding: 12px 16px; } .learn-strip { padding: 0 16px 16px; } }
+    @media (max-width: 1100px) {
+      .main { grid-template-columns: 1fr 1fr; }
+      .hero { padding: 12px 18px; }
+      .hero h1 { font-size: 17px; }
+    }
+    @media (max-width: 600px) {
+      .main { grid-template-columns: 1fr; padding: 12px 16px; overflow: auto; }
+      html, body { overflow: auto; }
+      .nav-links { gap: 4px; }
+      .nav-links a { font-size: 12px; padding: 3px 6px; }
+    }
   </style>
 </head>
 <body>
@@ -145,9 +159,11 @@
     <a href="blog/">博客</a>
     <a href="projects/">项目</a>
     <a href="resources/">资源</a>
+    <span class="nav-sep"></span>
     <a href="skillhub/">SkillHub</a>
     <a href="quant-learning/">量化</a>
     <a href="equity-learning/">权益</a>
+    <span class="nav-sep"></span>
     <a href="about/">关于</a>
   </div>
   <div class="nav-right"><a href="https://github.com/sliec" target="_blank">GitHub ↗</a></div>
@@ -158,7 +174,7 @@
   <div class="hero">
     <div>
       <h1>AI 技术研究与应用实践</h1>
-      <p>Agent 搭建 · 金融量化 · 智能工具 · 从学习到落地</p>
+      <p>Agent 搭建 · 金融量化 · 行业研究 · 从学习到落地</p>
     </div>
     <div class="hero-btns">
       <a href="projects/" class="btn-fill">查看项目</a>
@@ -221,7 +237,7 @@
       <div class="foot"><span class="badge b-orange">金融</span><span>07-25</span></div>
     </div>
 
-    <div class="panel-head" style="margin-top:14px">
+    <div class="panel-head" style="margin-top:12px">
       <div class="panel-dot" style="background:var(--accent)"></div>
       <h2>推荐资源</h2>
     </div>
@@ -240,8 +256,8 @@
       <p>LangGraph 实战、高级 RAG、面试题库</p>
       <div class="foot"><span class="stars">⭐ 7.4k</span></div>
     </div>
-    <div style="text-align:center; margin-top:10px">
-      <a href="resources/" style="font-size:12px; font-weight:500">查看全部资源 →</a>
+    <div style="text-align:center; margin-top:8px">
+      <a href="resources/" style="font-size:11.5px; font-weight:500">查看全部资源 →</a>
     </div>
   </div>
 
@@ -253,7 +269,7 @@
       <span class="count">26 项</span>
     </div>
 
-    <div class="cat-label">AI Agent 搭建</div>
+    <div class="cat-label cat-blue">AI Agent 搭建</div>
     <div class="res-row"><a href="https://github.com/datawhalechina/hello-agents" target="_blank">从零构建智能体</a><span class="r-stars">69k ★</span></div>
     <div class="res-row"><a href="https://github.com/bojieli/ai-agent-book" target="_blank">深入理解 AI Agent</a><span class="r-stars">10k ★</span></div>
     <div class="res-row"><a href="https://github.com/HKUDS/AutoAgent" target="_blank">AutoAgent（港大）</a><span class="r-stars">9.5k ★</span></div>
@@ -261,62 +277,56 @@
     <div class="res-row"><a href="https://github.com/adongwanai/AgentGuide" target="_blank">AgentGuide</a><span class="r-stars">7.4k ★</span></div>
     <div class="res-row"><a href="https://github.com/datawhalechina/Agent-Learning-Hub" target="_blank">Agent 学习路线图</a><span class="r-stars">5.9k ★</span></div>
 
-    <div class="cat-label">FDE 前沿部署工程师</div>
+    <div class="cat-label cat-green">FDE 前沿部署工程师</div>
     <div class="res-row"><a href="https://github.com/pierpaolo28/Awesome-FDE-Roadmap" target="_blank">FDE Roadmap</a><span class="r-stars">666 ★</span></div>
     <div class="res-row"><a href="https://github.com/suboss87/FDEOps" target="_blank">FDEOps 第二大脑</a><span class="r-stars">241 ★</span></div>
     <div class="res-row"><a href="https://github.com/libaice/Awesome-FDE" target="_blank">Awesome FDE</a><span class="r-stars">92 ★</span></div>
     <div class="res-row"><a href="https://github.com/yeasy/forward_deployed_engineering_guide" target="_blank">前线部署工程指南</a><span class="r-stars">34 ★</span></div>
 
-    <div class="cat-label">金融 · 工具 Skills</div>
+    <div class="cat-label cat-orange">金融 · 工具 Skills</div>
     <div class="res-row"><a href="https://github.com/K-Dense-AI/scientific-agent-skills" target="_blank">Scientific Skills</a><span class="r-stars">32k ★</span></div>
     <div class="res-row"><a href="https://github.com/yizhiyanhua-ai/fireworks-tech-graph" target="_blank">fireworks-tech-graph</a></div>
     <div class="res-row"><a href="https://github.com/TerryFYL/claude-statistical-analysis-skill" target="_blank">统计分析 Skill</a></div>
     <div class="res-row"><a href="https://github.com/jwangkun/claude-for-financial-services-cn" target="_blank">Claude 金融服务</a></div>
 
-    <div style="text-align:center; margin-top:12px">
-      <a href="resources/" style="font-size:12px; font-weight:500">完整资源列表 →</a>
+    <div style="text-align:center; margin-top:10px">
+      <a href="resources/" style="font-size:11.5px; font-weight:500">完整资源列表 →</a>
     </div>
   </div>
 
-</div>
+  <!-- Learning & Research -->
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-dot" style="background:var(--rose)"></div>
+      <h2>学习研究</h2>
+      <span class="count">3 板块</span>
+    </div>
 
-<!-- Learning Modules -->
-<div class="learn-strip">
-  <a href="skillhub/" class="learn-card">
-    <div class="lc-head">
-      <div class="lc-icon" style="background:var(--purple-soft);color:var(--purple)">S</div>
-      <span class="lc-title">SkillHub</span>
-    </div>
-    <span class="lc-desc">精选提示词集合，支持分类检索和一键复制</span>
-    <div class="lc-tags">
-      <span class="badge b-purple">提示词</span>
-      <span class="badge b-blue">研究分析</span>
-      <span class="badge b-green">效率工具</span>
-    </div>
-  </a>
-  <a href="quant-learning/" class="learn-card">
-    <div class="lc-head">
-      <div class="lc-icon" style="background:var(--orange-soft);color:var(--orange)">Q</div>
-      <span class="lc-title">量化学习</span>
-    </div>
-    <span class="lc-desc">投资因子、书籍推荐、公众号与学习笔记</span>
-    <div class="lc-tags">
-      <span class="badge b-orange">因子投资</span>
-      <span class="badge b-blue">量化藏经阁</span>
-    </div>
-  </a>
-  <a href="equity-learning/" class="learn-card">
-    <div class="lc-head">
-      <div class="lc-icon" style="background:var(--cyan-soft);color:var(--cyan)">E</div>
-      <span class="lc-title">权益学习</span>
-    </div>
-    <span class="lc-desc">深耕行业研究：锂矿、AI 应用、商业航天</span>
-    <div class="lc-tags">
-      <span class="badge b-orange">锂矿</span>
-      <span class="badge b-purple">AI 应用</span>
-      <span class="badge b-green">航天</span>
-    </div>
-  </a>
+    <a href="skillhub/" class="learn-nav">
+      <div class="ln-icon" style="background:var(--purple-soft);color:var(--purple)">S</div>
+      <div class="ln-text">
+        <strong>SkillHub</strong>
+        <span>精选提示词 · 分类检索 · 一键复制</span>
+      </div>
+      <span class="ln-arrow">→</span>
+    </a>
+
+    <div class="cat-label cat-orange">量化学习</div>
+    <div class="res-row"><a href="quant-learning/">投资因子 · 书籍与公众号</a></div>
+    <div class="res-row"><a href="quant-learning/">因子投资核心框架笔记</a></div>
+    <div class="res-row"><a href="quant-learning/">四阶段学习路线</a></div>
+
+    <div class="cat-label cat-cyan">权益研究</div>
+    <div class="res-row"><a href="equity-learning/">锂矿 · 产业链与成本曲线</a></div>
+    <div class="res-row"><a href="equity-learning/">AI 应用 · Copilot / Agent / 具身</a></div>
+    <div class="res-row"><a href="equity-learning/">商业航天 · 火箭 / 卫星 / 应用</a></div>
+
+    <div class="cat-label cat-rose">重点关注</div>
+    <div class="res-row"><a href="equity-learning/">天齐锂业 / 赣锋锂业</a></div>
+    <div class="res-row"><a href="equity-learning/">金山办公 / 科大讯飞</a></div>
+    <div class="res-row"><a href="equity-learning/">航天宏图 / 中科星图</a></div>
+  </div>
+
 </div>
 
 <div class="footer">&copy; 2026 sliec · <a href="https://github.com/sliec" target="_blank">GitHub</a></div>
