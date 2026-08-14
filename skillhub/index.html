@@ -35,18 +35,16 @@
     .nav-links a.active { color: var(--accent); background: var(--accent-soft); }
     .nav-sep { width: 1px; height: 16px; background: var(--border); flex-shrink: 0; margin: 0 4px; }
 
-    /* ===== Hero ===== */
-    .page-hero {
-      padding: 28px 28px 0;
-      max-width: 1200px; margin: 0 auto; width: 100%;
-    }
+    .wrap { max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 28px; flex: 1; }
+
+    .page-hero { padding: 24px 0 0; }
     .page-hero h1 { font-size: 22px; font-weight: 800; color: var(--heading); }
     .page-hero p { font-size: 13px; color: var(--dim); margin-top: 4px; }
+    .hero-stats { display: flex; gap: 16px; margin-top: 8px; }
+    .hero-stats span { font-size: 12px; color: var(--dim); }
+    .hero-stats strong { color: var(--heading); font-size: 16px; }
 
-    /* ===== Search ===== */
-    .search-wrap {
-      max-width: 1200px; margin: 16px auto 0; width: 100%; padding: 0 28px;
-    }
+    .search-wrap { margin: 16px 0 0; }
     .search-box {
       display: flex; align-items: center; gap: 10px;
       background: var(--card); border: 1px solid var(--border); border-radius: 12px;
@@ -54,81 +52,120 @@
     }
     .search-box:focus-within { border-color: var(--accent); }
     .search-box svg { flex-shrink: 0; color: var(--dim); }
-    .search-box input {
-      flex: 1; border: none; outline: none; font-size: 14px;
-      font-family: var(--font); color: var(--heading); background: transparent;
-    }
+    .search-box input { flex: 1; border: none; outline: none; font-size: 14px; font-family: var(--font); color: var(--heading); background: transparent; }
     .search-box input::placeholder { color: #cbd5e1; }
     .search-count { font-size: 12px; color: var(--dim); white-space: nowrap; }
 
-    /* ===== Filter Tabs ===== */
-    .filter-bar {
-      max-width: 1200px; margin: 14px auto 0; width: 100%; padding: 0 28px;
-      display: flex; gap: 8px; flex-wrap: wrap;
+    .tab-bar { display: flex; gap: 0; margin: 16px 0 0; border-bottom: 2px solid var(--border); }
+    .tab-btn {
+      font-size: 13px; font-weight: 600; padding: 8px 20px; cursor: pointer;
+      color: var(--dim); border-bottom: 2px solid transparent; margin-bottom: -2px;
+      transition: all .15s; user-select: none;
     }
+    .tab-btn:hover { color: var(--heading); }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .tab-btn .tab-count { font-size: 11px; color: var(--dim); margin-left: 4px; font-weight: 500; }
+
+    .filter-bar { display: flex; gap: 6px; flex-wrap: wrap; margin: 12px 0 0; }
     .filter-tag {
-      font-size: 12px; font-weight: 600; padding: 5px 14px; border-radius: 16px;
+      font-size: 11.5px; font-weight: 600; padding: 4px 12px; border-radius: 14px;
       cursor: pointer; border: 1px solid var(--border); background: var(--card);
       color: var(--dim); transition: all .15s; user-select: none;
     }
     .filter-tag:hover { border-color: var(--accent); color: var(--accent); }
     .filter-tag.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
-    /* ===== Cards Grid ===== */
-    .cards-wrap {
-      max-width: 1200px; margin: 16px auto 0; width: 100%; padding: 0 28px 32px;
-      flex: 1;
+    .section-head {
+      display: flex; align-items: center; gap: 8px; margin: 20px 0 10px;
+      padding-bottom: 8px; border-bottom: 1px solid var(--border);
     }
-    .cards-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 14px;
+    .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .section-head h2 { font-size: 15px; font-weight: 700; color: var(--heading); }
+    .section-head .count { font-size: 11px; color: var(--dim); background: var(--bg); padding: 2px 8px; border-radius: 10px; }
+
+    table.skill-table {
+      width: 100%; border-collapse: collapse; background: var(--card);
+      border-radius: 12px; overflow: hidden; border: 1px solid var(--border);
+      box-shadow: var(--shadow); margin-bottom: 16px;
     }
-    .prompt-card {
-      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
-      padding: 18px 20px; box-shadow: var(--shadow); transition: transform .15s, box-shadow .15s;
-      cursor: default; position: relative;
+    table.skill-table thead th {
+      font-size: 11px; font-weight: 700; color: var(--dim); text-transform: uppercase;
+      letter-spacing: 0.3px; padding: 10px 14px; text-align: left;
+      background: var(--bg); border-bottom: 1px solid var(--border);
     }
-    .prompt-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
-    .prompt-card .card-head {
-      display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;
+    table.skill-table tbody tr { transition: background .1s; }
+    table.skill-table tbody tr:hover { background: #fafbfd; }
+    table.skill-table tbody td { padding: 10px 14px; border-bottom: 1px solid #f8fafc; font-size: 13px; vertical-align: top; }
+    table.skill-table tbody tr:last-child td { border-bottom: none; }
+    .s-name { font-weight: 600; color: var(--heading); white-space: nowrap; }
+    .s-name a { color: var(--heading); }
+    .s-name a:hover { color: var(--accent); }
+    .s-desc { color: var(--text); line-height: 1.5; }
+    .s-ver { font-size: 11px; color: var(--dim); white-space: nowrap; }
+
+    table.prompt-table {
+      width: 100%; border-collapse: collapse; background: var(--card);
+      border-radius: 12px; overflow: hidden; border: 1px solid var(--border);
+      box-shadow: var(--shadow); margin-bottom: 16px;
     }
-    .prompt-card h3 { font-size: 14px; font-weight: 700; color: var(--heading); }
-    .prompt-card .tag {
-      font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 8px; flex-shrink: 0;
+    table.prompt-table thead th {
+      font-size: 11px; font-weight: 700; color: var(--dim); text-transform: uppercase;
+      letter-spacing: 0.3px; padding: 10px 14px; text-align: left;
+      background: var(--bg); border-bottom: 1px solid var(--border);
     }
-    .prompt-card .desc { font-size: 12.5px; color: var(--dim); margin-bottom: 10px; line-height: 1.5; }
-    .prompt-card .prompt-text {
-      background: var(--bg); border-radius: 10px; padding: 12px 14px;
-      font-size: 12.5px; line-height: 1.6; color: var(--text);
-      max-height: 180px; overflow-y: auto; white-space: pre-wrap; word-break: break-word;
-      border: 1px solid #f1f5f9;
-    }
-    .prompt-card .prompt-text::-webkit-scrollbar { width: 3px; }
-    .prompt-card .prompt-text::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 2px; }
-    .prompt-card .card-foot {
-      display: flex; align-items: center; justify-content: space-between; margin-top: 10px;
-    }
-    .prompt-card .card-foot .meta { font-size: 11px; color: #cbd5e1; }
-    .copy-btn {
+    table.prompt-table tbody tr { transition: background .1s; cursor: pointer; }
+    table.prompt-table tbody tr:hover { background: #fafbfd; }
+    table.prompt-table tbody td { padding: 10px 14px; border-bottom: 1px solid #f8fafc; font-size: 13px; vertical-align: top; }
+    table.prompt-table tbody tr:last-child td { border-bottom: none; }
+    .p-name { font-weight: 600; color: var(--heading); }
+    .p-cat { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 6px; background: var(--purple-soft); color: var(--purple); }
+    .p-copy {
       font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 8px;
+      cursor: pointer; border: 1px solid var(--border); background: var(--card);
+      color: var(--dim); transition: all .15s; white-space: nowrap;
+    }
+    .p-copy:hover { border-color: var(--accent); color: var(--accent); }
+    .p-copy.copied { background: var(--green-soft); color: var(--green); border-color: var(--green); }
+
+    .empty-state { text-align: center; padding: 40px 0; color: var(--dim); font-size: 14px; }
+
+    .modal-overlay {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.3); z-index: 200; align-items: center; justify-content: center;
+    }
+    .modal-overlay.show { display: flex; }
+    .modal {
+      background: var(--card); border-radius: 16px; padding: 24px 28px;
+      max-width: 640px; width: 90%; max-height: 80vh; overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    }
+    .modal h3 { font-size: 16px; font-weight: 700; color: var(--heading); margin-bottom: 4px; }
+    .modal .m-desc { font-size: 12.5px; color: var(--dim); margin-bottom: 14px; }
+    .modal .m-text {
+      background: var(--bg); border-radius: 10px; padding: 14px 16px;
+      font-size: 13px; line-height: 1.65; color: var(--text);
+      white-space: pre-wrap; word-break: break-word; border: 1px solid #f1f5f9;
+    }
+    .modal .m-foot { display: flex; justify-content: flex-end; gap: 10px; margin-top: 16px; }
+    .modal .m-btn {
+      font-size: 12px; font-weight: 600; padding: 7px 18px; border-radius: 10px;
       cursor: pointer; border: 1px solid var(--border); background: var(--card);
       color: var(--dim); transition: all .15s;
     }
-    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .copy-btn.copied { background: var(--green-soft); color: var(--green); border-color: var(--green); }
-
-    .empty-state {
-      text-align: center; padding: 48px 0; color: var(--dim); font-size: 14px;
-    }
+    .modal .m-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .modal .m-btn.primary:hover { background: #2563eb; }
+    .modal .m-btn:hover { border-color: var(--accent); color: var(--accent); }
 
     .footer {
       height: 30px; display: flex; align-items: center; justify-content: center;
-      font-size: 11px; color: #cbd5e1; flex-shrink: 0;
+      font-size: 11px; color: #cbd5e1; flex-shrink: 0; margin-top: 16px;
     }
 
-    @media (max-width: 600px) {
-      .cards-grid { grid-template-columns: 1fr; }
-      .page-hero, .search-wrap, .filter-bar, .cards-wrap { padding-left: 16px; padding-right: 16px; }
+    @media (max-width: 768px) {
+      .wrap { padding: 0 16px; }
+      table.skill-table thead th, table.skill-table tbody td,
+      table.prompt-table thead th, table.prompt-table tbody td { padding: 8px 10px; }
+      .s-desc { font-size: 12px; }
     }
   </style>
 </head>
@@ -149,292 +186,188 @@
   </div>
 </nav>
 
-<div class="page-hero">
-  <h1>SkillHub</h1>
-  <p>精选提示词集合 — 收录高效 Prompt，持续迭代优化</p>
-</div>
+<div class="wrap">
+  <div class="page-hero">
+    <h1>SkillHub</h1>
+    <p>Agent Skills 工具库 + 精选提示词集合</p>
+    <div class="hero-stats">
+      <span><strong>58</strong> Skills</span>
+      <span><strong>8</strong> 提示词</span>
+      <span><strong>8</strong> 分类</span>
+    </div>
+  </div>
 
-<div class="search-wrap">
-  <div class="search-box">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-    <input type="text" id="searchInput" placeholder="搜索提示词名称、描述或内容...">
-    <span class="search-count" id="searchCount"></span>
+  <div class="search-wrap">
+    <div class="search-box">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" id="searchInput" placeholder="搜索名称、描述或分类...">
+      <span class="search-count" id="searchCount"></span>
+    </div>
+  </div>
+
+  <div class="tab-bar">
+    <div class="tab-btn active" data-tab="skills" onclick="switchTab('skills')">Agent Skills<span class="tab-count" id="skillCount">58</span></div>
+    <div class="tab-btn" data-tab="prompts" onclick="switchTab('prompts')">提示词<span class="tab-count" id="promptCount">8</span></div>
+  </div>
+
+  <div id="skillsSection">
+    <div class="filter-bar" id="skillFilter"></div>
+    <div id="skillContent"></div>
+  </div>
+
+  <div id="promptsSection" style="display:none">
+    <div class="filter-bar" id="promptFilter"></div>
+    <div id="promptContent"></div>
   </div>
 </div>
 
-<div class="filter-bar" id="filterBar">
-  <span class="filter-tag active" data-cat="all">全部</span>
-</div>
-
-<div class="cards-wrap">
-  <div class="cards-grid" id="cardsGrid"></div>
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <h3 id="modalTitle"></h3>
+    <div class="m-desc" id="modalDesc"></div>
+    <div class="m-text" id="modalText"></div>
+    <div class="m-foot">
+      <button class="m-btn" onclick="closeModal()">关闭</button>
+      <button class="m-btn primary" id="modalCopy" onclick="copyModalPrompt()">复制</button>
+    </div>
+  </div>
 </div>
 
 <div class="footer">&copy; 2026 sliec · <a href="https://github.com/sliec" target="_blank">GitHub</a></div>
 
 <script>
-// ═══════════════════════════════════════════════════════
-// 提示词数据 — 在这里添加/编辑提示词
-// ═══════════════════════════════════════════════════════
-const PROMPTS = [
-  {
-    title: "深度研报生成器",
-    desc: "输入公司名称和材料，生成券商体例的深度研究报告",
-    category: "研究分析",
-    tag: "purple",
-    prompt: `你是一位资深券商研究员，请按以下框架撰写公司深度研究报告：
-
-1. 核心观点与投资摘要（3-5 条）
-2. 行业分析：市场空间、竞争格局、产业链位置
-3. 公司分析：商业模式、核心竞争力、管理层
-4. 财务分析：收入拆解、盈利能力、ROE 杜邦分解
-5. 盈利预测：假设条件、3 年预测表
-6. 估值分析：可比公司、DCF、目标价
-7. 风险提示
-
-要求：数据驱动、逻辑严谨、结论明确。`
-  },
-  {
-    title: "代码审查助手",
-    desc: "系统性审查代码质量，发现潜在问题和优化点",
-    category: "编程开发",
-    tag: "blue",
-    prompt: `请审查以下代码，按优先级从高到低列出问题：
-
-审查维度：
-- 安全性：SQL注入、XSS、敏感信息泄露
-- 性能：N+1查询、内存泄漏、不必要的计算
-- 可维护性：命名规范、函数职责、代码复用
-- 错误处理：边界条件、异常捕获、降级策略
-- 可读性：注释、逻辑清晰度
-
-对每个问题，给出：问题描述 + 影响 + 修改建议（含代码示例）`
-  },
-  {
-    title: "会议纪要整理",
-    desc: "将会议录音转写文本整理为结构化纪要",
-    category: "办公效率",
-    tag: "green",
-    prompt: `请将以下会议内容整理为结构化纪要：
-
-输出格式：
-1. 会议主题与时间
-2. 参会人员
-3. 核心议题与讨论要点
-4. 关键决议（明确结论）
-5. 待办事项（负责人 + 截止时间）
-6. 下次会议安排
-
-要求：
-- 提炼核心信息，去除闲聊和重复内容
-- 用简洁清晰的语言
-- 重点标注有分歧或需跟进的事项`
-  },
-  {
-    title: "数据分析师",
-    desc: "对数据集进行探索性分析，输出洞察和可视化建议",
-    category: "研究分析",
-    tag: "purple",
-    prompt: `你是一位数据分析师，请对提供的数据进行分析：
-
-分析流程：
-1. 数据概览：维度、类型、缺失值统计
-2. 描述性统计：均值、中位数、标准差、分位数
-3. 分布分析：各变量分布形态，异常值识别
-4. 相关性分析：变量间关系，热力图建议
-5. 关键洞察：3-5 条最重要的发现
-6. 可视化建议：推荐最适合的图表类型
-7. 下一步建议：进一步分析方向
-
-输出时区分"事实"和"推测"，推测需标注置信度。`
-  },
-  {
-    title: "技术文档撰写",
-    desc: "将技术概念转化为清晰易懂的文档",
-    category: "编程开发",
-    tag: "blue",
-    prompt: `请为以下技术主题撰写一份开发文档：
-
-文档结构：
-1. 概述（是什么、解决什么问题、适用场景）
-2. 快速开始（最简可运行示例）
-3. 详细用法（参数说明、配置选项）
-4. 最佳实践（常见坑和解决方案）
-5. API 参考（如适用）
-6. FAQ
-
-写作原则：
-- 先给结论，再展开细节
-- 每个概念配一个代码示例
-- 使用"你"而非"用户"，保持对话感`
-  },
-  {
-    title: "投资逻辑推演",
-    desc: "对投资标的进行多角度逻辑推演，发现盲点",
-    category: "投资研究",
-    tag: "orange",
-    prompt: `你是一位严谨的投资分析师，请帮我推演以下投资逻辑：
-
-我的核心假设：[填写]
-我的目标价/预期：[填写]
-
-请从以下角度挑战我的逻辑：
-1. 多头视角：支持这个投资的最强论据是什么？
-2. 空头视角：最可能让我亏损的场景是什么？
-3. 盲点检查：我可能忽略了哪些关键变量？
-4. 时间维度：3个月/1年/3年后回看，这个决策最可能因为什么后悔？
-5. 逆向思考：什么条件下应该反手做空？
-
-请直言不讳，不需要照顾我的情绪。`
-  },
-  {
-    title: "周报 / 日报生成",
-    desc: "从碎片化工作记录中生成结构化周报或日报",
-    category: "办公效率",
-    tag: "green",
-    prompt: `请将以下工作记录整理为周报：
-
-输出格式：
-## 本周完成
-- [项目名] 具体成果（量化数据优先）
-
-## 进行中
-- [项目名] 当前进度 + 预计完成时间
-
-## 下周计划
-- 优先级排序，标注预计产出
-
-## 风险与协调
-- 需要支持的事项
-- 潜在阻塞点
-
-要求：成果导向、数据量化、简洁有力。`
-  },
-  {
-    title: "学习路径规划",
-    desc: "根据学习目标制定系统性的学习路线图",
-    category: "学习成长",
-    tag: "rose",
-    prompt: `我想学习 [主题]，当前水平是 [初级/中级/高级]，目标是 [具体目标]。
-
-请帮我制定学习路径：
-
-1. 前置知识检查：需要掌握哪些基础？
-2. 核心知识点：按依赖关系排列，标注难度和重要度
-3. 推荐资源：每个阶段配 1-2 个最佳资源（书/课/项目）
-4. 实践项目：从易到难的动手项目（至少 3 个）
-5. 里程碑检查点：怎么判断自己学会了？
-6. 时间估算：每个阶段需要多少小时？
-
-请给出"最短路径"而非"最全路径"。`
-  }
+const SKILLS=[
+{cat:"金融投资",name:"ashare-daily-scan",ver:"1.0.0",desc:"A 股每日全市场扫描：申万 31 板块 + 外盘信号，量价四象限、一日游验证、四维持仓诊断"},
+{cat:"金融投资",name:"equity-fund-attribution",ver:"1.0.0",desc:"权益基金业绩归因：净值法（T-M/H-M/C-L）、持仓法（Brinson）、风险归因（x-sigma-rho）"},
+{cat:"金融投资",name:"fixed-income-fund-attribution",ver:"1.0.0",desc:"固收基金归因：Campisi 五因子回归、Brinson 行业归因、"固收+"多资产分层归因"},
+{cat:"金融投资",name:"fof-performance-attribution",ver:"1.0.0",desc:"FOF 业绩归因：Brinson、多因子回归、T-M/H-M 择时检验，选基与择时能力评价"},
+{cat:"金融投资",name:"statistical-analysis",ver:"",desc:"统计分析顾问：数据诊断 → 方法选择 → APA 输出，支持问卷/实验/医学研究"},
+{cat:"产品管理",name:"prd-auto-test-loop",ver:"",desc:"PRD 驱动自动化测试编排：标准化测试计划、AI 自测自修复、版本化报告"},
+{cat:"产品管理",name:"prd-doc-writer",ver:"",desc:"PRD 文档撰写：故事驱动结构 + 分阶段确认，含 ASCII 线框图和 Mermaid 流程图"},
+{cat:"产品管理",name:"prd-test-writer",ver:"",desc:"PRD + 测试用例双文档协作：MD（给 AI）+ HTML（给人看）四份文件输出"},
+{cat:"思维方法",name:"hv-analysis",ver:"",desc:"横纵分析（Khazix）：纵轴追溯生命周期，横轴竞品对比，输出 PDF 研究报告"},
+{cat:"思维方法",name:"leader",ver:"",desc:"一句话想法 → AI 可执行的目标简报：调查代码库、≤5 个问题、≤4000 字符"},
+{cat:"思维方法",name:"multi-perspective-analysis",ver:"",desc:"10 位世界级顾问并行分析同一材料（Musk、张小龙、芒格等），交叉总结共识与分歧"},
+{cat:"思维方法",name:"problem-goal-defined",ver:"1.0.0",desc:"模糊问题精确定义：5W2H → 5Whys → 边界分析 → WBS → OKR → SMART"},
+{cat:"思维方法",name:"topic-question-generator",ver:"5.0.0",desc:"课题问题拆解引擎：系统性生成渐进式探究问题清单，帮你把"该问什么"想透"},
+{cat:"文档生成",name:"claude-code-style-html",ver:"2.0.0",desc:"暖色纸质风格 HTML 页面生成：克制色彩系统、衬线标题 + 无衬线正文"},
+{cat:"文档生成",name:"docx",ver:"2.0.0",desc:"Word 全流程：创建/读取/编辑/模板填充/批注修订/OOXML 底层操作"},
+{cat:"文档生成",name:"pdf",ver:"1.0.1",desc:"PDF 全流程：读取/提取/合并/拆分/旋转/水印/加密/OCR/表单填充"},
+{cat:"文档生成",name:"pptx",ver:"2.0.0",desc:"PowerPoint 全流程：创建/读取/编辑幻灯片、模板布局、演讲者备注"},
+{cat:"文档生成",name:"readable-output",ver:"",desc:"人类可读 HTML 长文：4 问确认受众与风格 → 6 阶段框架输出结构化内容"},
+{cat:"文档生成",name:"xlsx",ver:"1.0.1",desc:"电子表格全流程：打开/读取/编辑/创建 .xlsx/.csv/.tsv，脏数据清理"},
+{cat:"开发运维",name:"create-skill",ver:"1.0.0",desc:"引导创建 Agent Skills：SKILL.md 结构、最佳实践、QoderWork 格式规范"},
+{cat:"开发运维",name:"find-skills",ver:"1.0.4",desc:"统一技能发现：搜索官方市场 + skills.sh 社区库 + 企业技能市场"},
+{cat:"开发运维",name:"fireworks-tech-graph",ver:"",desc:"12 种视觉风格画架构图：SVG/PNG/GIF/交互 HTML，14 种图表类型"},
+{cat:"开发运维",name:"git-push",ver:"",desc:"一键推送 GitHub：首次/日常/版本三种模式，安全扫描大文件和敏感信息"},
+{cat:"开发运维",name:"github-repo-search",ver:"",desc:"搜索 GitHub 开源项目：需求挖掘 → 搜索 → 过滤分类 → 深度阅读 → 报告"},
+{cat:"开发运维",name:"install-skill-dependency",ver:"1.0.0",desc:"诊断修复技能缺失依赖：扫描已安装技能 → 检测缺失 → 自动安装"},
+{cat:"开发运维",name:"plugin-creator",ver:"1.7.1",desc:"创建/定制 QoderWork 专家插件：技能配置、命令编排、插件结构"},
+{cat:"开发运维",name:"qoderwork-guidance",ver:"1.0.4",desc:"QoderWork 应用管理：任务、会话、设置、连接器、MCP、技能、定时任务"},
+{cat:"开发运维",name:"vm-error-recovery",ver:"1.0.0",desc:"安全工作区启动错误诊断：连接失败、下载问题、启动异常排查"},
+{cat:"系统工具",name:"c-drive-cleanup",ver:"1.0.0",desc:"Windows C 盘空间清理：递归扫描大文件（>1GB）、分类展示、确认清理"},
+{cat:"系统工具",name:"computer-use-guidance-windows",ver:"0.9.0",desc:"Windows 桌面自动化指南：UIA 无障碍树、点击/输入/快捷键/拖拽/系统设置"},
+{cat:"系统工具",name:"storage-analyzer",ver:"",desc:"磁盘空间分析（macOS/Windows）：扫描 → 绿/黄/红分类 → 交互式 HTML 报告"},
+{cat:"外部集成",name:"ima-skill",ver:"",desc:"IMA 统一 API：笔记管理 + 知识库操作，文件上传/网页收藏/知识搜索/笔记 CRUD"},
+{cat:"飞书生态",name:"lark-approval",ver:"1.0.0",desc:"飞书审批：审批实例查询、审批任务管理"},
+{cat:"飞书生态",name:"lark-apps",ver:"",desc:"部署 HTML 到飞书妙搭，生成公网可访问应用链接"},
+{cat:"飞书生态",name:"lark-attendance",ver:"1.0.0",desc:"飞书考勤打卡：查询个人考勤记录"},
+{cat:"飞书生态",name:"lark-base",ver:"1.2.2",desc:"飞书多维表格：建表、字段管理、记录读写、视图配置、仪表盘、工作流"},
+{cat:"飞书生态",name:"lark-calendar",ver:"1.0.0",desc:"飞书日历：日程管理、参会人、忙闲查询、会议室搜索与预定"},
+{cat:"飞书生态",name:"lark-contact",ver:"1.0.0",desc:"飞书通讯录：姓名/邮箱 → open_id 解析，反查部门/联系方式"},
+{cat:"飞书生态",name:"lark-doc",ver:"",desc:"飞书云文档：创建/读取/总结/改写/翻译/编辑，DocxXML 和 Markdown"},
+{cat:"飞书生态",name:"lark-drive",ver:"1.0.0",desc:"飞书云空间：文件上传下载、文件夹管理、权限管理、本地文档导入"},
+{cat:"飞书生态",name:"lark-event",ver:"1.0.0",desc:"飞书实时事件监听：IM 消息/聊天变更/会议结束等 NDJSON 流"},
+{cat:"飞书生态",name:"lark-im",ver:"1.0.0",desc:"飞书即时通讯：收发消息、搜索聊天、群管理、文件上传下载、加急"},
+{cat:"飞书生态",name:"lark-mail",ver:"1.0.0",desc:"飞书邮箱：撰写/发送/回复/搜索邮件，管理草稿/标签/附件"},
+{cat:"飞书生态",name:"lark-markdown",ver:"1.2.0",desc:"飞书 Markdown：创建/上传/编辑/比较差异/局部 patch"},
+{cat:"飞书生态",name:"lark-minutes",ver:"1.0.0",desc:"飞书妙记：查询/下载音视频、AI 摘要/待办/章节、上传生成妙记"},
+{cat:"飞书生态",name:"lark-okr",ver:"1.0.0",desc:"飞书 OKR：目标与关键结果管理、对齐关系、量化指标、进展记录"},
+{cat:"飞书生态",name:"lark-openapi-explorer",ver:"1.0.0",desc:"飞书原生 OpenAPI 探索：挖掘未封装的接口"},
+{cat:"飞书生态",name:"lark-shared",ver:"1.0.0",desc:"lark-cli 通用规则：初始化、认证、身份切换、权限错误处理"},
+{cat:"飞书生态",name:"lark-sheets",ver:"1.2.0",desc:"飞书电子表格：创建/读写单元格、工作表管理、内容查找、数据导出"},
+{cat:"飞书生态",name:"lark-skill-maker",ver:"1.0.0",desc:"创建 lark-cli 自定义 Skill：封装原子 API 或编排多步流程"},
+{cat:"飞书生态",name:"lark-slides",ver:"1.0.0",desc:"飞书幻灯片：创建演示文稿、读取/创建/删除/局部替换页面"},
+{cat:"飞书生态",name:"lark-task",ver:"1.0.0",desc:"飞书任务：待办管理、子任务、清单、协作成员、附件、任务智能体"},
+{cat:"飞书生态",name:"lark-vc",ver:"1.0.0",desc:"飞书视频会议：搜索历史会议、查询纪要/逐字稿、参会人快照"},
+{cat:"飞书生态",name:"lark-vc-agent",ver:"1.0.0",desc:"飞书会议机器人：代为入会/离会，读取会中实时事件"},
+{cat:"飞书生态",name:"lark-whiteboard",ver:"1.0.0",desc:"飞书画板：导出图片/节点结构、用 DSL/PlantUML/Mermaid 更新内容"},
+{cat:"飞书生态",name:"lark-wiki",ver:"1.0.0",desc:"飞书知识库：管理知识空间、空间成员、文档节点层级"},
+{cat:"飞书生态",name:"lark-workflow-meeting-summary",ver:"1.0.0",desc:"会议纪要整理工作流：汇总指定时间范围的会议纪要，生成结构化报告"},
+{cat:"飞书生态",name:"lark-workflow-standup-report",ver:"1.0.0",desc:"日程待办摘要：编排日历 + 任务，生成指定日期的日程与未完成任务摘要"},
 ];
 
-// ═══════════════════════════════════════════════════════
-// 颜色映射
-// ═══════════════════════════════════════════════════════
-const TAG_COLORS = {
-  blue:   { bg: 'var(--accent-soft)',  color: 'var(--accent)' },
-  green:  { bg: 'var(--green-soft)',   color: 'var(--green)' },
-  orange: { bg: 'var(--orange-soft)',  color: 'var(--orange)' },
-  purple: { bg: 'var(--purple-soft)',  color: 'var(--purple)' },
-  rose:   { bg: 'var(--rose-soft)',    color: 'var(--rose)' },
-  cyan:   { bg: 'var(--cyan-soft)',    color: 'var(--cyan)' },
-};
+const PROMPTS=[
+{title:"深度研报生成器",cat:"投资研究",desc:"输入公司名称和材料，生成券商体例深度研报",prompt:"你是一位资深券商研究员，请按以下框架撰写公司深度研究报告：\n\n1. 核心观点与投资摘要（3-5 条）\n2. 行业分析：市场空间、竞争格局、产业链位置\n3. 公司分析：商业模式、核心竞争力、管理层\n4. 财务分析：收入拆解、盈利能力、ROE 杜邦分解\n5. 盈利预测：假设条件、3 年预测表\n6. 估值分析：可比公司、DCF、目标价\n7. 风险提示\n\n要求：数据驱动、逻辑严谨、结论明确。"},
+{title:"投资逻辑推演",cat:"投资研究",desc:"对投资标的多角度逻辑推演，发现盲点",prompt:"你是一位严谨的投资分析师，请帮我推演以下投资逻辑：\n\n我的核心假设：[填写]\n我的目标价/预期：[填写]\n\n请从以下角度挑战我的逻辑：\n1. 多头视角：支持这个投资的最强论据是什么？\n2. 空头视角：最可能让我亏损的场景是什么？\n3. 盲点检查：我可能忽略了哪些关键变量？\n4. 时间维度：3个月/1年/3年后回看，最可能因为什么后悔？\n5. 逆向思考：什么条件下应该反手做空？\n\n请直言不讳。"},
+{title:"代码审查助手",cat:"编程开发",desc:"系统性审查代码质量，发现潜在问题和优化点",prompt:"请审查以下代码，按优先级从高到低列出问题：\n\n审查维度：\n- 安全性：SQL注入、XSS、敏感信息泄露\n- 性能：N+1查询、内存泄漏、不必要的计算\n- 可维护性：命名规范、函数职责、代码复用\n- 错误处理：边界条件、异常捕获、降级策略\n\n对每个问题，给出：问题描述 + 影响 + 修改建议（含代码示例）"},
+{title:"技术文档撰写",cat:"编程开发",desc:"将技术概念转化为清晰易懂的文档",prompt:"请为以下技术主题撰写一份开发文档：\n\n文档结构：\n1. 概述（是什么、解决什么问题、适用场景）\n2. 快速开始（最简可运行示例）\n3. 详细用法（参数说明、配置选项）\n4. 最佳实践（常见坑和解决方案）\n5. API 参考（如适用）\n6. FAQ\n\n写作原则：先给结论再展开、每个概念配代码示例、使用\"你\"保持对话感"},
+{title:"数据分析师",cat:"数据分析",desc:"对数据集进行探索性分析，输出洞察和可视化建议",prompt:"你是一位数据分析师，请对提供的数据进行分析：\n\n分析流程：\n1. 数据概览：维度、类型、缺失值统计\n2. 描述性统计：均值、中位数、标准差、分位数\n3. 分布分析：各变量分布形态，异常值识别\n4. 相关性分析：变量间关系，热力图建议\n5. 关键洞察：3-5 条最重要的发现\n6. 可视化建议：推荐最适合的图表类型\n\n输出时区分\"事实\"和\"推测\"，推测需标注置信度。"},
+{title:"会议纪要整理",cat:"办公效率",desc:"将会议内容整理为结构化纪要",prompt:"请将以下会议内容整理为结构化纪要：\n\n输出格式：\n1. 会议主题与时间\n2. 参会人员\n3. 核心议题与讨论要点\n4. 关键决议（明确结论）\n5. 待办事项（负责人 + 截止时间）\n6. 下次会议安排\n\n要求：提炼核心信息、去除闲聊和重复、重点标注有分歧或需跟进的事项"},
+{title:"周报/日报生成",cat:"办公效率",desc:"从碎片化工作记录中生成结构化周报",prompt:"请将以下工作记录整理为周报：\n\n## 本周完成\n- [项目名] 具体成果（量化数据优先）\n\n## 进行中\n- [项目名] 当前进度 + 预计完成时间\n\n## 下周计划\n- 优先级排序，标注预计产出\n\n## 风险与协调\n- 需要支持的事项、潜在阻塞点\n\n要求：成果导向、数据量化、简洁有力。"},
+{title:"学习路径规划",cat:"学习成长",desc:"根据学习目标制定系统性的学习路线图",prompt:"我想学习 [主题]，当前水平是 [初级/中级/高级]，目标是 [具体目标]。\n\n请帮我制定学习路径：\n1. 前置知识检查：需要掌握哪些基础？\n2. 核心知识点：按依赖关系排列，标注难度和重要度\n3. 推荐资源：每个阶段配 1-2 个最佳资源\n4. 实践项目：从易到难的动手项目（至少 3 个）\n5. 里程碑检查点：怎么判断自己学会了？\n6. 时间估算：每个阶段需要多少小时？\n\n请给出\"最短路径\"而非\"最全路径\"。"},
+];
 
-// ═══════════════════════════════════════════════════════
-// 渲染逻辑
-// ═══════════════════════════════════════════════════════
-let currentCat = 'all';
-let currentSearch = '';
+const SKILL_CATS=[
+{key:"金融投资",dot:"var(--orange)"},
+{key:"产品管理",dot:"var(--accent)"},
+{key:"思维方法",dot:"var(--purple)"},
+{key:"文档生成",dot:"var(--green)"},
+{key:"开发运维",dot:"var(--cyan)"},
+{key:"系统工具",dot:"#64748b"},
+{key:"外部集成",dot:"var(--rose)"},
+{key:"飞书生态",dot:"#16a34a"},
+];
+const PROMPT_CATS=[...new Set(PROMPTS.map(p=>p.cat))];
+const REPO="https://github.com/sliec/shared-files/tree/main/skills/";
 
-function init() {
-  // Build category filter tabs
-  const cats = [...new Set(PROMPTS.map(p => p.category))];
-  const bar = document.getElementById('filterBar');
-  cats.forEach(cat => {
-    const tag = document.createElement('span');
-    tag.className = 'filter-tag';
-    tag.dataset.cat = cat;
-    tag.textContent = cat;
-    tag.onclick = () => setFilter(cat);
-    bar.appendChild(tag);
-  });
-  document.querySelector('[data-cat="all"]').onclick = () => setFilter('all');
+let curTab="skills",sFilter="all",pFilter="all",search="",modalIdx=-1;
 
-  document.getElementById('searchInput').addEventListener('input', e => {
-    currentSearch = e.target.value.toLowerCase().trim();
-    render();
-  });
-
+function init(){
+  const sf=document.getElementById("skillFilter");
+  sf.innerHTML=`<span class="filter-tag active" data-cat="all" onclick="setSF('all')">全部 <span style="font-size:10px;color:var(--dim)">${SKILLS.length}</span></span>`+
+    SKILL_CATS.map(c=>{const n=SKILLS.filter(s=>s.cat===c.key).length;return`<span class="filter-tag" data-cat="${c.key}" onclick="setSF('${c.key}')">${c.key} <span style="font-size:10px;color:var(--dim)">${n}</span></span>`}).join("");
+  const pf=document.getElementById("promptFilter");
+  pf.innerHTML=`<span class="filter-tag active" data-cat="all" onclick="setPF('all')">全部 <span style="font-size:10px;color:var(--dim)">${PROMPTS.length}</span></span>`+
+    PROMPT_CATS.map(c=>{const n=PROMPTS.filter(p=>p.cat===c).length;return`<span class="filter-tag" data-cat="${c}" onclick="setPF('${c}')">${c} <span style="font-size:10px;color:var(--dim)">${n}</span></span>`}).join("");
+  document.getElementById("searchInput").addEventListener("input",e=>{search=e.target.value.toLowerCase().trim();render()});
   render();
 }
 
-function setFilter(cat) {
-  currentCat = cat;
-  document.querySelectorAll('.filter-tag').forEach(t => t.classList.toggle('active', t.dataset.cat === cat));
-  render();
+function switchTab(t){curTab=t;document.querySelectorAll(".tab-btn").forEach(b=>b.classList.toggle("active",b.dataset.tab===t));document.getElementById("skillsSection").style.display=t==="skills"?"":"none";document.getElementById("promptsSection").style.display=t==="prompts"?"":"none";render()}
+function setSF(c){sFilter=c;document.querySelectorAll("#skillFilter .filter-tag").forEach(t=>t.classList.toggle("active",t.dataset.cat===c));render()}
+function setPF(c){pFilter=c;document.querySelectorAll("#promptFilter .filter-tag").forEach(t=>t.classList.toggle("active",t.dataset.cat===c));render()}
+
+function render(){curTab==="skills"?renderS():renderP()}
+
+function renderS(){
+  const f=SKILLS.filter(s=>{const mc=sFilter==="all"||s.cat===sFilter;const ms=!search||s.name.toLowerCase().includes(search)||s.desc.toLowerCase().includes(search)||s.cat.toLowerCase().includes(search);return mc&&ms});
+  document.getElementById("searchCount").textContent=f.length+" / "+SKILLS.length;
+  document.getElementById("skillCount").textContent=f.length;
+  const c=document.getElementById("skillContent");
+  if(!f.length){c.innerHTML='<div class="empty-state">没有匹配的 Skills</div>';return}
+  const g={};SKILL_CATS.forEach(x=>g[x.key]=[]);f.forEach(s=>{if(g[s.cat])g[s.cat].push(s)});
+  c.innerHTML=SKILL_CATS.map(x=>{const items=g[x.key];if(!items||!items.length)return"";return`
+    <div class="section-head"><div class="section-dot" style="background:${x.dot}"></div><h2>${x.key}</h2><span class="count">${items.length}</span></div>
+    <table class="skill-table"><thead><tr><th style="width:200px">名称</th><th>描述</th><th style="width:60px">版本</th></tr></thead>
+    <tbody>${items.map(s=>`<tr><td class="s-name"><a href="${REPO}${s.name}" target="_blank">${esc(s.name)}</a></td><td class="s-desc">${esc(s.desc)}</td><td class="s-ver">${s.ver||'—'}</td></tr>`).join("")}</tbody></table>`}).join("");
 }
 
-function render() {
-  const grid = document.getElementById('cardsGrid');
-  const filtered = PROMPTS.filter(p => {
-    const matchCat = currentCat === 'all' || p.category === currentCat;
-    const matchSearch = !currentSearch ||
-      p.title.toLowerCase().includes(currentSearch) ||
-      p.desc.toLowerCase().includes(currentSearch) ||
-      p.prompt.toLowerCase().includes(currentSearch) ||
-      p.category.toLowerCase().includes(currentSearch);
-    return matchCat && matchSearch;
-  });
-
-  document.getElementById('searchCount').textContent = `${filtered.length} / ${PROMPTS.length}`;
-
-  if (filtered.length === 0) {
-    grid.innerHTML = '<div class="empty-state">没有找到匹配的提示词</div>';
-    return;
-  }
-
-  grid.innerHTML = filtered.map((p, i) => {
-    const tc = TAG_COLORS[p.tag] || TAG_COLORS.blue;
-    return `
-      <div class="prompt-card">
-        <div class="card-head">
-          <h3>${escHtml(p.title)}</h3>
-          <span class="tag" style="background:${tc.bg};color:${tc.color}">${escHtml(p.category)}</span>
-        </div>
-        <div class="desc">${escHtml(p.desc)}</div>
-        <div class="prompt-text">${escHtml(p.prompt)}</div>
-        <div class="card-foot">
-          <span class="meta">${p.prompt.length} 字</span>
-          <button class="copy-btn" onclick="copyPrompt(this, ${i})">复制</button>
-        </div>
-      </div>`;
-  }).join('');
+function renderP(){
+  const f=PROMPTS.filter(p=>{const mc=pFilter==="all"||p.cat===pFilter;const ms=!search||p.title.toLowerCase().includes(search)||p.desc.toLowerCase().includes(search)||p.cat.includes(search)||p.prompt.toLowerCase().includes(search);return mc&&ms});
+  document.getElementById("searchCount").textContent=f.length+" / "+PROMPTS.length;
+  document.getElementById("promptCount").textContent=f.length;
+  const c=document.getElementById("promptContent");
+  if(!f.length){c.innerHTML='<div class="empty-state">没有匹配的提示词</div>';return}
+  c.innerHTML=`<table class="prompt-table"><thead><tr><th style="width:180px">名称</th><th>描述</th><th style="width:90px">分类</th><th style="width:60px">操作</th></tr></thead>
+    <tbody>${f.map(p=>{const ri=PROMPTS.indexOf(p);return`<tr onclick="showModal(${ri})"><td class="p-name">${esc(p.title)}</td><td class="s-desc">${esc(p.desc)}</td><td><span class="p-cat">${esc(p.cat)}</span></td><td><button class="p-copy" onclick="event.stopPropagation();copyP(${ri},this)">复制</button></td></tr>`}).join("")}</tbody></table>`;
 }
 
-function copyPrompt(btn, idx) {
-  const filtered = PROMPTS.filter(p => {
-    const matchCat = currentCat === 'all' || p.category === currentCat;
-    const matchSearch = !currentSearch ||
-      p.title.toLowerCase().includes(currentSearch) ||
-      p.desc.toLowerCase().includes(currentSearch) ||
-      p.prompt.toLowerCase().includes(currentSearch);
-    return matchCat && matchSearch;
-  });
-  const text = filtered[idx]?.prompt || PROMPTS[idx]?.prompt || '';
-  navigator.clipboard.writeText(text).then(() => {
-    btn.textContent = '已复制';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = '复制'; btn.classList.remove('copied'); }, 1500);
-  });
-}
-
-function escHtml(s) {
-  const d = document.createElement('div');
-  d.textContent = s;
-  return d.innerHTML;
-}
+function showModal(i){modalIdx=i;const p=PROMPTS[i];document.getElementById("modalTitle").textContent=p.title;document.getElementById("modalDesc").textContent=p.desc;document.getElementById("modalText").textContent=p.prompt;document.getElementById("modalCopy").textContent="复制";document.getElementById("modal").classList.add("show")}
+function closeModal(){document.getElementById("modal").classList.remove("show");modalIdx=-1}
+function copyModalPrompt(){if(modalIdx<0)return;navigator.clipboard.writeText(PROMPTS[modalIdx].prompt).then(()=>{const b=document.getElementById("modalCopy");b.textContent="已复制";setTimeout(()=>b.textContent="复制",1500)})}
+function copyP(i,btn){navigator.clipboard.writeText(PROMPTS[i].prompt).then(()=>{btn.textContent="已复制";btn.classList.add("copied");setTimeout(()=>{btn.textContent="复制";btn.classList.remove("copied")},1500)})}
+function esc(s){const d=document.createElement("div");d.textContent=s;return d.innerHTML}
 
 init();
 </script>
