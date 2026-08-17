@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>滴灌通 - 商业模式案例库 - sliec</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #f4f6f9; --card: #ffffff; --text: #475569; --dim: #94a3b8;
+      --heading: #0f172a; --accent: #3b82f6; --accent-soft: #eff6ff;
+      --green: #10b981; --green-soft: #ecfdf5;
+      --orange: #f59e0b; --orange-soft: #fffbeb;
+      --purple: #8b5cf6; --purple-soft: #f5f3ff;
+      --rose: #f43f5e; --rose-soft: #fff1f2;
+      --cyan: #06b6d4; --cyan-soft: #ecfeff;
+      --border: #e2e8f0; --radius: 14px;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+    }
+    html, body { height: 100%; overflow: hidden; font-family: var(--font); background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); text-decoration: none; transition: color .15s; }
+    a:hover { color: #2563eb; }
+    body { display: flex; flex-direction: column; height: 100vh; }
+
+    nav {
+      height: 50px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px; background: var(--card); border-bottom: 1px solid var(--border); flex-shrink: 0;
+    }
+    .brand { font-size: 17px; font-weight: 800; color: var(--heading); letter-spacing: -0.5px; }
+    .nav-links { display: flex; gap: 6px; align-items: center; }
+    .nav-links a { font-size: 13px; color: var(--dim); font-weight: 500; padding: 4px 8px; border-radius: 6px; transition: all .15s; }
+    .nav-links a:hover { color: var(--accent); background: var(--accent-soft); }
+    .nav-links a.active { color: var(--accent); background: var(--accent-soft); }
+    .nav-sep { width: 1px; height: 16px; background: var(--border); flex-shrink: 0; margin: 0 4px; }
+
+    .page-hero {
+      padding: 16px 24px; display: flex; align-items: center; gap: 16px;
+      background: linear-gradient(135deg, #fef3c7 0%, #fce7f3 100%);
+      flex-shrink: 0;
+    }
+    .ph-icon {
+      width: 48px; height: 48px; border-radius: 14px;
+      background: var(--orange-soft); color: var(--orange);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 800;
+    }
+    .ph-info h1 { font-size: 18px; font-weight: 700; color: var(--heading); }
+    .ph-info p { font-size: 12.5px; color: #64748b; margin-top: 2px; }
+    .ph-tags { display: flex; gap: 6px; margin-top: 6px; }
+    .ph-tags span { font-size: 10.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; }
+    .badge { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 7px; }
+    .b-blue { background: var(--accent-soft); color: var(--accent); }
+    .b-green { background: var(--green-soft); color: var(--green); }
+    .b-orange { background: var(--orange-soft); color: var(--orange); }
+    .b-purple { background: var(--purple-soft); color: var(--purple); }
+    .b-rose { background: var(--rose-soft); color: var(--rose); }
+    .b-cyan { background: var(--cyan-soft); color: var(--cyan); }
+
+    .main {
+      flex: 1; display: grid; padding: 14px 24px 12px;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px; overflow-y: auto;
+    }
+
+    .panel {
+      background: var(--card); border-radius: var(--radius); border: 1px solid var(--border);
+      padding: 16px 18px; box-shadow: var(--shadow); overflow-y: auto;
+    }
+    .panel-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .panel-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .panel-head h2 { font-size: 14px; font-weight: 700; color: var(--heading); }
+    .panel-body { font-size: 13px; color: var(--text); line-height: 1.75; }
+    .panel-body p { margin-bottom: 10px; }
+    .panel-body p:last-child { margin-bottom: 0; }
+
+    .hl { color: var(--heading); font-weight: 600; }
+    .note-box {
+      background: var(--accent-soft); border-left: 3px solid var(--accent);
+      padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 10px 0;
+      font-size: 12.5px; color: var(--text); line-height: 1.6;
+    }
+    .note-box.rose { background: var(--rose-soft); border-left-color: var(--rose); }
+    .note-box.green { background: var(--green-soft); border-left-color: var(--green); }
+    .note-box.orange { background: var(--orange-soft); border-left-color: var(--orange); }
+
+    .kv-row { display: flex; gap: 10px; margin-bottom: 8px; }
+    .kv-label { font-size: 11px; color: var(--dim); min-width: 60px; flex-shrink: 0; }
+    .kv-value { font-size: 12.5px; color: var(--heading); font-weight: 600; }
+
+    .section-title {
+      font-size: 12px; font-weight: 700; color: var(--dim);
+      text-transform: uppercase; letter-spacing: 0.5px;
+      margin-bottom: 8px; padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .flow-diagram {
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px; padding: 14px; margin: 10px 0;
+      background: var(--bg); border-radius: 10px;
+    }
+    .flow-node {
+      padding: 8px 14px; border-radius: 8px; font-size: 11.5px;
+      font-weight: 600; text-align: center; white-space: nowrap;
+    }
+    .flow-arrow { color: var(--dim); font-size: 16px; }
+
+    .footer {
+      height: 30px; display: flex; align-items: center; justify-content: center;
+      font-size: 11px; color: #cbd5e1; flex-shrink: 0;
+    }
+    .panel::-webkit-scrollbar { width: 3px; }
+    .panel::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 2px; }
+
+    @media (max-width: 900px) { .main { grid-template-columns: 1fr; } html, body { overflow: auto; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">sliec</span>
+  <div class="nav-links">
+    <a href="../">首页</a>
+    <a href="../blog/">博客</a>
+    <a href="../projects/">项目</a>
+    <a href="../resources/">资源</a>
+    <span class="nav-sep"></span>
+    <a href="../learn/" class="active">学习</a>
+    <a href="../skillhub/">SkillHub</a>
+    <span class="nav-sep"></span>
+    <a href="../about/">关于</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="ph-icon">滴</div>
+  <div class="ph-info">
+    <h1>滴灌通 Micro Connect</h1>
+    <p>港交所前CEO李小加 × 收入分成模式 × 小微商户现金流证券化</p>
+    <div class="ph-tags">
+      <span class="badge b-orange">金融圈</span>
+      <span class="badge b-rose">非股非债</span>
+      <span class="badge b-blue">收入分成</span>
+      <span class="badge b-green">港交所IPO</span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-dot" style="background:var(--orange)"></div>
+      <h2>人物与背景</h2>
+    </div>
+    <div class="panel-body">
+      <div class="kv-row"><span class="kv-label">创始人</span><span class="kv-value">李小加（港交所前总裁/CEO）</span></div>
+      <div class="kv-row"><span class="kv-label">联合创始人</span><span class="kv-value">张高波（前东北证券国际主席）</span></div>
+      <div class="kv-row"><span class="kv-label">成立时间</span><span class="kv-value">2021年，香港</span></div>
+      <div class="kv-row"><span class="kv-label">估值</span><span class="kv-value">$17亿（C轮后）</span></div>
+      <div class="kv-row"><span class="kv-label">融资</span><span class="kv-value">$5.7亿，3轮（红杉中国领投）</span></div>
+      <div class="kv-row"><span class="kv-label">累计投放</span><span class="kv-value">~49.3亿人民币</span></div>
+      <div class="kv-row"><span class="kv-label">IPO</span><span class="kv-value">2025年6月港交所"第21章"申请</span></div>
+
+      <div class="section-title" style="margin-top:14px">认知来源</div>
+      <p>科大校园招聘会直接接触。金融圈内的信息传导路径：<span class="hl">港交所生态 → 产品创新 → FA/资管圈讨论</span>。李小加的机构信用是这个模式的启动燃料——没有港交所背书，没有机构愿意把大钱交给一个"给奶茶店融资"的项目。</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-dot" style="background:var(--rose)"></div>
+      <h2>真实商业结构拆解</h2>
+    </div>
+    <div class="panel-body">
+      <div class="section-title">资金流向</div>
+      <div class="flow-diagram">
+        <div class="flow-node" style="background:var(--accent-soft);color:var(--accent)">国际机构资本</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node" style="background:var(--orange-soft);color:var(--orange)">滴灌通平台</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node" style="background:var(--green-soft);color:var(--green)">小微商户</div>
+      </div>
+      <div class="flow-diagram">
+        <div class="flow-node" style="background:var(--green-soft);color:var(--green)">商户日营收</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node" style="background:var(--orange-soft);color:var(--orange)">滴灌通抽成</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node" style="background:var(--accent-soft);color:var(--accent)">投资人回报</div>
+      </div>
+
+      <div class="section-title" style="margin-top:14px">残酷真相</div>
+      <div class="note-box rose">
+        <span class="hl">一头用合同锁定小商户的未来现金流</span>——签了收入分成协议，商户的每日POS流水自动分流，相当于把商户的经营权让渡了一部分给平台。
+      </div>
+      <div class="note-box orange">
+        <span class="hl">另一头在交易所把现金流打包卖给投资人</span>——2025年申请港交所IPO，本质是把分散的小商户营收变成标准化的可交易资产。
+      </div>
+      <div class="note-box green">
+        <span class="hl">中间的平台费旱涝保收</span>——不管商户赚不赚钱、投资人赚不赚钱，滴灌通作为撮合方和资产管理方，管理费照收。这才是真正的商业模式：设计一个让双方都离不开你的结构。
+      </div>
+
+      <div class="section-title" style="margin-top:14px">争议</div>
+      <p>2024年裁员25%，被质疑为<span class="hl">"升级版P2P"</span>。核心风险：小商户倒闭后现金流归零，但投资人的本金已经通过平台费被部分回收——损失实际由投资人承担。AI系统"滴灌之星"用于监控POS数据降低道德风险，但无法消除系统性经营风险。</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-dot" style="background:var(--accent)"></div>
+      <h2>四筛验证</h2>
+    </div>
+    <div class="panel-body">
+      <div class="note-box">
+        <span class="hl">筛1：重新定价了什么？</span><br>
+        小微商户的未来营收。传统金融认为小店营收不可估值、不可交易。滴灌通通过POS数据+AI把它变成了可定价、可分割、可交易的金融资产。本质是<span class="hl">小微营收的资产证券化</span>。
+      </div>
+      <div class="note-box">
+        <span class="hl">筛2：交易成本降了多少？</span><br>
+        小商户找钱的信息成本和信任成本。银行贷款要抵押、VC要股权——滴灌通用"收入分成"绕开了这两个传统路径，按日结算、自动扣款，把尽调和风控的成本转移给了AI系统和分散化投资。
+      </div>
+      <div class="note-box">
+        <span class="hl">筛3：谁被锁定？谁在付费？</span><br>
+        商户被锁定（合同期内营收自动分流）；投资人被锁定（资产流动性差，退出依赖交易所）；平台旱涝保收。<span class="hl">真正的付费方是投资人</span>——他们用真金白银买了商户的未来现金流，平台收管理费。
+      </div>
+      <div class="note-box">
+        <span class="hl">筛4：最小验证单元？</span><br>
+        一个城市、几个品类的小店。滴灌通从深圳开始，先做餐饮和零售，验证了"日营收分成"模式可行后才扩城市、扩品类。
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-dot" style="background:var(--purple)"></div>
+      <h2>可迁移性思考</h2>
+    </div>
+    <div class="panel-body">
+      <p><span class="hl">结构抽象：</span>滴灌通的底层逻辑是"找到一群有稳定现金流但无法获得传统融资的主体，把它们的未来现金流打包卖给资本方，中间收管理费"。</p>
+
+      <p><span class="hl">可迁移方向：</span></p>
+      <p>在资管行业，类似的思路可以映射到：把基金未来管理费收入作为融资标的（类ABS）；把基金经理的未来业绩提成权打包交易；把FOF的底层基金现金流重新结构化。</p>
+
+      <p><span class="hl">核心启示：</span>不要看它"帮了谁"，要看它"锁定了谁"。好的商业模式不是慈善，是设计一个让所有参与者都觉得自己赚了、但平台永远不亏的结构。</p>
+
+      <div class="note-box" style="margin-top:12px">
+        <span class="hl">同类参照：</span>Column（买银行牌照做BaaS）、Kabbage（用电商数据做小商户贷款，后被AmEx收购）——都是"找到传统金融覆盖不到的现金流，重新定价"。
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">&copy; 2026 sliec · <a href="https://github.com/sliec" target="_blank">GitHub</a></div>
+
+</body>
+</html>

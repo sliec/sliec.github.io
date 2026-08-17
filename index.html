@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>sliec - AI 技术研究与应用</title>
-  <meta name="description" content="AI Agent 搭建、金融量化分析、技术博客与资源导航">
+  <title>sliec - 网上这么写的 肯定 有人这么干</title>
+  <meta name="description" content="金融从业者 × AI 开发者 × 考证学习者">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
@@ -19,15 +19,16 @@
       --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
       --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
     }
-    html, body { height: 100%; overflow: hidden; font-family: var(--font); background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
     a { color: var(--accent); text-decoration: none; transition: color .15s; }
     a:hover { color: #2563eb; }
-    body { display: flex; flex-direction: column; height: 100vh; }
 
     /* ===== Nav ===== */
     nav {
       height: 50px; display: flex; align-items: center; justify-content: space-between;
-      padding: 0 28px; background: var(--card); border-bottom: 1px solid var(--border); flex-shrink: 0;
+      padding: 0 28px; background: var(--card); border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
     }
     .brand { font-size: 17px; font-weight: 800; color: var(--heading); letter-spacing: -0.5px; }
     .nav-links { display: flex; gap: 6px; align-items: center; }
@@ -37,62 +38,108 @@
     .nav-sep { width: 1px; height: 16px; background: var(--border); flex-shrink: 0; margin: 0 4px; }
     .nav-right a { font-size: 12.5px; color: var(--dim); }
 
-    /* ===== Main Bento Grid ===== */
-    .main {
-      flex: 1; display: grid; padding: 16px 24px 12px;
-      grid-template-columns: 1.1fr 0.9fr 0.9fr 0.85fr;
-      grid-template-rows: auto 1fr;
-      gap: 14px; overflow: hidden;
+    /* ===== Section Base ===== */
+    .section { padding: 60px 28px; max-width: 1100px; margin: 0 auto; }
+    .section-alt { background: var(--card); }
+    .section-alt .section { max-width: 1100px; margin: 0 auto; }
+    .section-header { margin-bottom: 32px; }
+    .section-header .tag {
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+      color: var(--accent); margin-bottom: 6px;
     }
+    .section-header h2 { font-size: 24px; font-weight: 800; color: var(--heading); line-height: 1.3; }
+    .section-header p { font-size: 14px; color: var(--dim); margin-top: 6px; max-width: 600px; }
 
-    /* --- Hero --- */
+    /* ===== Hero ===== */
     .hero {
-      grid-column: 1 / -1; display: flex; align-items: center;
-      justify-content: space-between; padding: 14px 24px;
+      padding: 80px 28px 60px; text-align: center;
       background: linear-gradient(135deg, #dbeafe 0%, #ede9fe 50%, #fce7f3 100%);
-      border-radius: var(--radius);
     }
-    .hero h1 { font-size: 19px; font-weight: 700; color: var(--heading); }
-    .hero p { font-size: 13px; color: #64748b; margin-top: 2px; }
-    .hero-btns { display: flex; gap: 10px; }
-    .hero-btns a { font-size: 12.5px; padding: 7px 18px; border-radius: 20px; font-weight: 600; }
-    .btn-fill { background: var(--accent); color: #fff; }
-    .btn-fill:hover { background: #2563eb; color: #fff; transform: translateY(-1px); }
-    .btn-ghost { background: rgba(255,255,255,0.75); color: var(--heading); border: 1px solid rgba(0,0,0,0.08); }
-    .btn-ghost:hover { background: #fff; }
+    .hero .hero-inner { max-width: 700px; margin: 0 auto; }
+    .hero h1 { font-size: 32px; font-weight: 800; color: var(--heading); line-height: 1.3; letter-spacing: -0.5px; }
+    .hero .subtitle { font-size: 16px; color: #64748b; margin-top: 12px; line-height: 1.6; }
+    .hero .motto {
+      display: inline-block; margin-top: 20px; font-size: 13px; font-weight: 600;
+      padding: 8px 20px; border-radius: 20px; background: rgba(255,255,255,0.7);
+      color: var(--heading); border: 1px solid rgba(0,0,0,0.06);
+    }
+    .hero .hero-links { display: flex; gap: 12px; justify-content: center; margin-top: 24px; flex-wrap: wrap; }
+    .hero .hero-links a {
+      font-size: 13px; font-weight: 600; padding: 8px 20px; border-radius: 10px;
+      transition: all .15s;
+    }
+    .hero .btn-primary { background: var(--accent); color: #fff; }
+    .hero .btn-primary:hover { background: #2563eb; color: #fff; }
+    .hero .btn-secondary { background: rgba(255,255,255,0.7); color: var(--heading); border: 1px solid rgba(0,0,0,0.08); }
+    .hero .btn-secondary:hover { background: #fff; }
 
-    /* --- Card Panel --- */
-    .panel {
+    /* ===== Card Grid ===== */
+    .grid { display: grid; gap: 16px; }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+    .card {
       background: var(--card); border-radius: var(--radius); border: 1px solid var(--border);
-      padding: 14px 16px; overflow-y: auto; box-shadow: var(--shadow);
+      padding: 20px; box-shadow: var(--shadow); transition: transform .15s, box-shadow .15s;
     }
-    .panel-head { display: flex; align-items: center; gap: 7px; margin-bottom: 10px; }
-    .panel-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-    .panel-head h2 { font-size: 13.5px; font-weight: 700; color: var(--heading); }
-    .panel-head .count { font-size: 10.5px; color: var(--dim); background: var(--bg); padding: 2px 7px; border-radius: 10px; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+    .section-alt .card { background: var(--bg); }
+    .card .card-icon {
+      width: 36px; height: 36px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; font-size: 15px; font-weight: 800;
+      margin-bottom: 12px; flex-shrink: 0;
+    }
+    .card h3 { font-size: 15px; font-weight: 700; color: var(--heading); margin-bottom: 6px; }
+    .card p { font-size: 13px; color: var(--dim); line-height: 1.5; }
+    .card .card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+    .card .card-tags span { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 6px; }
+    .card .card-link { font-size: 12px; font-weight: 600; margin-top: 12px; display: inline-block; }
+    .card .card-link:hover { color: var(--accent); }
 
-    /* --- Entries --- */
-    .entry { padding: 8px 0; border-bottom: 1px solid #f1f5f9; }
-    .entry:last-child { border-bottom: none; }
-    .entry h3 { font-size: 13px; font-weight: 600; color: var(--heading); margin-bottom: 2px; }
-    .entry h3 a { color: var(--heading); }
-    .entry h3 a:hover { color: var(--accent); }
-    .entry p { font-size: 12px; color: var(--dim); line-height: 1.4; }
-    .entry .foot { display: flex; align-items: center; gap: 7px; margin-top: 3px; }
-    .badge { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 7px; }
+    .badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 6px; }
     .b-blue { background: var(--accent-soft); color: var(--accent); }
     .b-green { background: var(--green-soft); color: var(--green); }
     .b-orange { background: var(--orange-soft); color: var(--orange); }
     .b-purple { background: var(--purple-soft); color: var(--purple); }
     .b-rose { background: var(--rose-soft); color: var(--rose); }
     .b-cyan { background: var(--cyan-soft); color: var(--cyan); }
-    .foot span { font-size: 11px; color: #cbd5e1; }
-    .foot .stars { color: var(--orange); font-weight: 600; font-size: 11px; }
 
-    /* --- Resource structured list --- */
+    /* ===== Book Card ===== */
+    .book-card {
+      background: var(--card); border-radius: var(--radius); border: 1px solid var(--border);
+      padding: 24px; box-shadow: var(--shadow); position: relative; overflow: hidden;
+    }
+    .section-alt .book-card { background: var(--bg); }
+    .book-card .book-status {
+      position: absolute; top: 16px; right: 16px; font-size: 10px; font-weight: 700;
+      padding: 3px 10px; border-radius: 12px;
+    }
+    .book-card h3 { font-size: 17px; font-weight: 800; color: var(--heading); margin-bottom: 8px; padding-right: 80px; }
+    .book-card .book-desc { font-size: 13.5px; color: var(--text); line-height: 1.6; margin-bottom: 12px; }
+    .book-card .book-why { font-size: 12.5px; color: var(--dim); line-height: 1.5; }
+    .book-card .book-why strong { color: var(--heading); }
+
+    /* ===== Entry List ===== */
+    .entry { padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
+    .entry:last-child { border-bottom: none; }
+    .entry h4 { font-size: 13.5px; font-weight: 600; color: var(--heading); margin-bottom: 2px; }
+    .entry h4 a { color: var(--heading); }
+    .entry h4 a:hover { color: var(--accent); }
+    .entry p { font-size: 12.5px; color: var(--dim); line-height: 1.4; }
+    .entry .foot { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+    .entry .foot span { font-size: 11px; color: #cbd5e1; }
+
+    /* ===== Resource Row ===== */
+    .res-row { display: flex; justify-content: space-between; align-items: baseline; padding: 5px 0; border-bottom: 1px solid #f8fafc; }
+    .res-row:last-child { border-bottom: none; }
+    .res-row a { font-size: 12.5px; font-weight: 500; color: var(--heading); }
+    .res-row a:hover { color: var(--accent); }
+    .res-row .r-stars { font-size: 11px; color: var(--orange); font-weight: 600; flex-shrink: 0; margin-left: 8px; }
+
     .cat-label {
-      font-size: 11px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.3px; margin: 10px 0 4px; display: flex; align-items: center; gap: 5px;
+      font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px;
+      margin: 14px 0 6px; display: flex; align-items: center; gap: 5px;
     }
     .cat-label:first-of-type { margin-top: 0; }
     .cat-label::before { content: ''; width: 3px; height: 9px; border-radius: 2px; }
@@ -100,51 +147,26 @@
     .cat-green { color: var(--green); } .cat-green::before { background: var(--green); }
     .cat-orange { color: var(--orange); } .cat-orange::before { background: var(--orange); }
     .cat-purple { color: var(--purple); } .cat-purple::before { background: var(--purple); }
-    .cat-rose { color: var(--rose); } .cat-rose::before { background: var(--rose); }
-    .cat-cyan { color: var(--cyan); } .cat-cyan::before { background: var(--cyan); }
-    .res-row {
-      display: flex; justify-content: space-between; align-items: baseline;
-      padding: 4px 0; border-bottom: 1px solid #f8fafc;
-    }
-    .res-row:last-child { border-bottom: none; }
-    .res-row a { font-size: 12px; font-weight: 500; color: var(--heading); }
-    .res-row a:hover { color: var(--accent); }
-    .res-row .r-stars { font-size: 10.5px; color: var(--orange); font-weight: 600; flex-shrink: 0; margin-left: 6px; }
 
-    /* --- Learn nav rows --- */
-    .learn-nav {
-      display: flex; align-items: center; gap: 8px;
-      padding: 7px 10px; border-radius: 10px; margin-bottom: 6px;
-      border: 1px solid var(--border); background: var(--bg);
-      transition: all .15s; text-decoration: none;
+    /* ===== Divider ===== */
+    .section-divider {
+      height: 1px; background: var(--border); max-width: 1100px; margin: 0 auto;
     }
-    .learn-nav:hover { border-color: var(--accent); background: var(--accent-soft); }
-    .learn-nav .ln-icon {
-      width: 28px; height: 28px; border-radius: 8px; display: flex;
-      align-items: center; justify-content: center; font-size: 12px;
-      font-weight: 800; flex-shrink: 0;
-    }
-    .learn-nav .ln-text { flex: 1; min-width: 0; }
-    .learn-nav .ln-text strong { font-size: 12.5px; color: var(--heading); display: block; }
-    .learn-nav .ln-text span { font-size: 11px; color: var(--dim); }
-    .learn-nav .ln-arrow { font-size: 11px; color: var(--dim); flex-shrink: 0; }
 
     /* ===== Footer ===== */
     .footer {
-      height: 30px; display: flex; align-items: center; justify-content: center;
-      font-size: 11px; color: #cbd5e1; flex-shrink: 0;
+      padding: 24px 28px; text-align: center; font-size: 12px; color: #cbd5e1;
     }
-    .panel::-webkit-scrollbar { width: 3px; }
-    .panel::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 2px; }
 
-    @media (max-width: 1100px) {
-      .main { grid-template-columns: 1fr 1fr; }
-      .hero { padding: 12px 18px; }
-      .hero h1 { font-size: 17px; }
+    /* ===== Responsive ===== */
+    @media (max-width: 900px) {
+      .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .hero h1 { font-size: 26px; }
+      .section { padding: 40px 20px; }
     }
     @media (max-width: 600px) {
-      .main { grid-template-columns: 1fr; padding: 12px 16px; overflow: auto; }
-      html, body { overflow: auto; }
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 22px; }
       .nav-links { gap: 4px; }
       .nav-links a { font-size: 12px; padding: 3px 6px; }
     }
@@ -155,202 +177,267 @@
 <nav>
   <span class="brand">sliec</span>
   <div class="nav-links">
-    <a href="/" class="active">首页</a>
-    <a href="blog/">博客</a>
-    <a href="projects/">项目</a>
-    <a href="resources/">资源</a>
+    <a href="#learn">学习</a>
+    <a href="#digest">沉淀</a>
+    <a href="#build">实践</a>
     <span class="nav-sep"></span>
-    <a href="learn/">学习</a>
     <a href="skillhub/">SkillHub</a>
-    <span class="nav-sep"></span>
     <a href="about/">关于</a>
   </div>
   <div class="nav-right"><a href="https://github.com/sliec" target="_blank">GitHub ↗</a></div>
 </nav>
 
-<div class="main">
-
-  <div class="hero">
-    <div>
-      <h1>AI 技术研究与应用实践</h1>
-      <p>Agent 搭建 · 金融量化 · 行业研究 · 从学习到落地</p>
+<!-- ===== Hero ===== -->
+<div class="hero">
+  <div class="hero-inner">
+    <h1>网上这么写的<br>肯定<br>有人这么干</h1>
+    <p class="subtitle">金融从业者 × AI 开发者 × 考证学习者<br>站在前人肩膀上，验证每一个想法</p>
+    <span class="motto">公众号：网上这么写的肯定有人这么干</span>
+    <div class="hero-links">
+      <a href="#build" class="btn-primary">看我做了什么</a>
+      <a href="#learn" class="btn-secondary">我在学什么</a>
     </div>
-    <div class="hero-btns">
-      <a href="projects/" class="btn-fill">查看项目</a>
-      <a href="resources/" class="btn-ghost">学习资源</a>
+  </div>
+</div>
+
+<!-- ===== Section 1: 网上这么写的 ===== -->
+<div class="section-alt">
+  <div class="section" id="learn">
+    <div class="section-header">
+      <div class="tag">网上这么写的</div>
+      <h2>站在前人的肩膀上</h2>
+      <p>别人写过的、教过的、总结过的——我系统性地学习和整理</p>
+    </div>
+
+    <div class="grid grid-3">
+      <a href="quant-learning/" class="card">
+        <div class="card-icon" style="background:var(--orange-soft);color:var(--orange)">Q</div>
+        <h3>量化投资</h3>
+        <p>因子理论、多因子模型、策略回测。从《预期收益》到《因子投资》，系统建立量化认知框架。</p>
+        <div class="card-tags">
+          <span class="badge b-orange">因子投资</span>
+          <span class="badge b-blue">4 阶段路线</span>
+        </div>
+      </a>
+
+      <a href="equity-learning/" class="card">
+        <div class="card-icon" style="background:var(--cyan-soft);color:var(--cyan)">E</div>
+        <h3>权益研究</h3>
+        <p>锂矿产业链、AI 应用落地、商业航天。三大行业的深度拆解与投资逻辑验证。</p>
+        <div class="card-tags">
+          <span class="badge b-orange">锂矿</span>
+          <span class="badge b-purple">AI 应用</span>
+          <span class="badge b-cyan">航天</span>
+        </div>
+      </a>
+
+      <a href="law-exam/" class="card">
+        <div class="card-icon" style="background:var(--rose-soft);color:var(--rose)">法</div>
+        <h3>法考</h3>
+        <p>国家统一法律职业资格考试。客观题 8 科 + 主观题，4 阶段备考体系。</p>
+        <div class="card-tags">
+          <span class="badge b-rose">客观题</span>
+          <span class="badge b-purple">主观题</span>
+        </div>
+      </a>
+
+      <a href="cpa-learning/" class="card">
+        <div class="card-icon" style="background:var(--purple-soft);color:var(--purple)">C</div>
+        <h3>CPA</h3>
+        <p>注册会计师 6 科学习体系。会计/审计/税法/经济法/财管/战略，科目搭配与名师推荐。</p>
+        <div class="card-tags">
+          <span class="badge b-purple">专业阶段</span>
+          <span class="badge b-green">2-3 年计划</span>
+        </div>
+      </a>
+
+      <a href="resources/" class="card">
+        <div class="card-icon" style="background:var(--green-soft);color:var(--green)">R</div>
+        <h3>资源导航</h3>
+        <p>26 项精选外部资源：AI Agent 搭建、FDE 前沿部署、金融量化工具 Skills。</p>
+        <div class="card-tags">
+          <span class="badge b-green">26 项</span>
+          <span class="badge b-blue">AI Agent</span>
+        </div>
+      </a>
+
+      <a href="skillhub/" class="card">
+        <div class="card-icon" style="background:var(--accent-soft);color:var(--accent)">S</div>
+        <h3>SkillHub</h3>
+        <p>32 个 Agent Skills 工具库 + 8 条精选提示词。别人造的工具，我整理好拿来用。</p>
+        <div class="card-tags">
+          <span class="badge b-blue">32 Skills</span>
+          <span class="badge b-purple">7 分类</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ===== Section 2: 肯定 ===== -->
+<div class="section" id="digest">
+  <div class="section-header">
+    <div class="tag">肯定</div>
+    <h2>自己的总结与成长</h2>
+    <p>学过的东西内化成自己的——笔记、思考、定期复盘</p>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="card">
+      <div class="card-icon" style="background:var(--orange-soft);color:var(--orange)">B</div>
+      <h3>博客</h3>
+      <p>技术思考与实践总结。从 Agent 搭建到基金归因，记录每一步的认知升级。</p>
+      <div style="margin-top:12px">
+        <div class="entry">
+          <h4><a href="blog/skill-sync/">用 Agent Skill 实现跨平台能力同步</a></h4>
+          <p>GitHub 仓库集中管理，换电脑换平台一键拉齐</p>
+          <div class="foot"><span class="badge b-orange">工程化</span><span>07-28</span></div>
+        </div>
+        <div class="entry">
+          <h4>AI Agent 搭建入门：从 Prompt 到工作流</h4>
+          <p>上下文管理、工具调用和工作流编排的核心思路</p>
+          <div class="foot"><span class="badge b-orange">Agent</span><span>07-28</span></div>
+        </div>
+        <div class="entry">
+          <h4>基金业绩归因：Brinson 模型实战</h4>
+          <p>拆解行业配置和个股选择贡献，附 Python 实现</p>
+          <div class="foot"><span class="badge b-orange">金融</span><span>07-25</span></div>
+        </div>
+      </div>
+      <a href="blog/" class="card-link">查看全部文章 →</a>
+    </div>
+
+    <div class="card">
+      <div class="card-icon" style="background:var(--purple-soft);color:var(--purple)">N</div>
+      <h3>学习笔记</h3>
+      <p>关键框架和方法论的沉淀，不是收藏，是真正消化后的输出。</p>
+      <div style="margin-top:12px">
+        <div class="cat-label cat-orange">量化投资</div>
+        <div class="res-row"><a href="quant-learning/">因子投资核心框架：风险补偿 + 行为偏差 + 结构摩擦</a></div>
+        <div class="res-row"><a href="quant-learning/">多因子模型构建：挖掘 → 处理 → 合成 → 组合 → 归因</a></div>
+        <div class="res-row"><a href="quant-learning/">A 股因子时效性：哪些长期有效，哪些已衰减</a></div>
+        <div class="cat-label cat-cyan" style="margin-top:14px">权益研究</div>
+        <div class="res-row"><a href="equity-learning/">锂矿成本曲线：盐湖 3-4 万 vs 锂辉石 6-8 万 vs 云母 8-12 万</a></div>
+        <div class="res-row"><a href="equity-learning/">AI 应用 PMF：谁先跑通商业化谁就是赢家</a></div>
+        <div class="res-row"><a href="equity-learning/">商业航天终局：对标 Starlink 理解组网加速期</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ===== Section 3: 有人这么干 ===== -->
+<div class="section-alt">
+  <div class="section" id="build">
+    <div class="section-header">
+      <div class="tag">有人这么干</div>
+      <h2>自己的实践与产出</h2>
+      <p>不只是学，而是动手做——项目、工具、正在写的书</p>
+    </div>
+
+    <!-- GitHub Books -->
+    <h3 style="font-size:16px;font-weight:700;color:var(--heading);margin-bottom:16px;display:flex;align-items:center;gap:8px">
+      <span style="width:8px;height:8px;border-radius:50%;background:var(--rose);display:inline-block"></span>
+      正在写的书
+    </h3>
+    <div class="grid grid-2" style="margin-bottom:32px">
+      <div class="book-card">
+        <span class="book-status" style="background:var(--orange-soft);color:var(--orange)">筹备中</span>
+        <h3>信息检索与图书管理</h3>
+        <p class="book-desc">AI 时代的信息检索和信息整理方法论。从搜索策略、信息过滤到知识管理，建立一套个人可执行的信息处理体系。</p>
+        <p class="book-why"><strong>为什么写：</strong>好多不知道怎么去做信息检索，包括现在 AI 其实信息检索和信息整理都做得一般。</p>
+      </div>
+      <div class="book-card">
+        <span class="book-status" style="background:var(--purple-soft);color:var(--purple)">筹备中</span>
+        <h3>记忆宫殿</h3>
+        <p class="book-desc">系统化记忆方法论。将古老的记忆宫殿技术与现代认知科学结合，构建适合成年人的高效记忆训练体系。</p>
+        <p class="book-why"><strong>为什么写：</strong>我记得有比较好的记忆方法，可以做成一本书，帮助更多人掌握高效记忆技巧。</p>
+      </div>
+    </div>
+
+    <!-- Projects -->
+    <h3 style="font-size:16px;font-weight:700;color:var(--heading);margin-bottom:16px;display:flex;align-items:center;gap:8px">
+      <span style="width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block"></span>
+      GitHub 项目
+    </h3>
+    <div class="grid grid-3" style="margin-bottom:32px">
+      <div class="card">
+        <div class="card-icon" style="background:var(--green-soft);color:var(--green)">A</div>
+        <h3><a href="https://github.com/sliec/agent-building-hub" target="_blank">Agent 搭建共学指南</a></h3>
+        <p>从零到一构建 AI Agent 的系统学习资源集合，含 4 周学习计划。</p>
+        <div class="card-tags"><span class="badge b-green">开源</span></div>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:var(--purple-soft);color:var(--purple)">S</div>
+        <h3><a href="https://github.com/sliec/shared-files" target="_blank">Skills 同步中心</a></h3>
+        <p>32 个跨平台 Agent Skills，一行命令全平台同步。</p>
+        <div class="card-tags"><span class="badge b-purple">32 Skills</span></div>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:var(--accent-soft);color:var(--accent)">F</div>
+        <h3><a href="https://github.com/sliec/shared-files/tree/main/skills/equity-fund-attribution" target="_blank">基金业绩归因工具集</a></h3>
+        <p>Brinson / FOF / Campisi 完整量化工具链，Python 实现。</p>
+        <div class="card-tags"><span class="badge b-blue">金融</span></div>
+      </div>
+    </div>
+
+    <!-- More -->
+    <div class="grid grid-2">
+      <div class="card">
+        <div class="card-icon" style="background:var(--orange-soft);color:var(--orange)">Q</div>
+        <h3>quant-diary</h3>
+        <p>私人日历 AI 助手。动态系统提示词 + 对话历史 + 上下文压缩，部署在 Vercel。</p>
+        <div class="card-tags"><span class="badge b-orange">私有</span><span class="badge b-cyan">Vercel</span></div>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:var(--rose-soft);color:var(--rose)">P</div>
+        <h3>公众号</h3>
+        <p>「网上这么写的肯定有人这么干」—— 记录验证过程，分享实践心得。</p>
+        <div class="card-tags"><span class="badge b-rose">持续更新</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ===== Section 4: 关于 ===== -->
+<div class="section" id="about">
+  <div class="section-header">
+    <div class="tag">关于</div>
+    <h2>我是谁</h2>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="card">
+      <h3>身份</h3>
+      <p style="margin-top:8px">基金清核中心估值核算（FA），同时备考法考和 CPA。业余搞 AI Agent 开发和量化投资研究。</p>
+      <p style="margin-top:12px">相信"网上这么写的肯定有人这么干"——看到什么就去验证，验证了就记录下来。</p>
+    </div>
+    <div class="card">
+      <h3>技术栈</h3>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px">
+        <span class="badge b-blue">Python</span>
+        <span class="badge b-green">AI Agent</span>
+        <span class="badge b-purple">LangChain</span>
+        <span class="badge b-cyan">MCP</span>
+        <span class="badge b-orange">Agent Skills</span>
+        <span class="badge b-rose">金融量化</span>
+        <span class="badge b-blue">数据分析</span>
+        <span class="badge b-green">HTML/CSS</span>
+        <span class="badge b-purple">Git/GitHub</span>
+        <span class="badge b-cyan">QoderWork</span>
+        <span class="badge b-orange">Claude Code</span>
+      </div>
     </div>
   </div>
 
-  <!-- Projects -->
-  <div class="panel">
-    <div class="panel-head">
-      <div class="panel-dot" style="background:var(--green)"></div>
-      <h2>精选项目</h2>
-    </div>
-    <div class="entry">
-      <h3><a href="https://github.com/sliec/agent-building-hub" target="_blank">Agent 搭建共学指南</a></h3>
-      <p>从零到一构建 AI Agent 的系统学习资源集合</p>
-      <div class="foot"><span class="badge b-green">开源</span><span>agent-building-hub</span></div>
-    </div>
-    <div class="entry">
-      <h3><a href="https://github.com/sliec/shared-files" target="_blank">Skills 同步中心</a></h3>
-      <p>57 个跨平台 Agent Skills，一行命令全平台同步</p>
-      <div class="foot"><span class="badge b-purple">Skill</span><span>shared-files</span></div>
-    </div>
-    <div class="entry">
-      <h3><a href="https://github.com/sliec/shared-files/tree/main/skills/equity-fund-attribution" target="_blank">基金业绩归因工具集</a></h3>
-      <p>Brinson / FOF / Campisi 完整量化工具链</p>
-      <div class="foot"><span class="badge b-blue">金融</span><span>fund-attribution</span></div>
-    </div>
-    <div class="entry">
-      <h3><a href="https://github.com/sliec/my-projects" target="_blank">项目归档库</a></h3>
-      <p>19 个项目：全栈 AI 系统、市场分析、PDF 工具</p>
-      <div class="foot"><span class="badge b-orange">私有</span><span>my-projects</span></div>
-    </div>
-    <div class="entry">
-      <h3><a href="https://sliec.github.io">sliec.github.io</a></h3>
-      <p>个人网站、博客与资源导航</p>
-      <div class="foot"><span class="badge b-blue">网站</span></div>
-    </div>
+  <div style="text-align:center;margin-top:32px">
+    <a href="https://github.com/sliec" target="_blank" style="font-size:13px;font-weight:600;color:var(--dim)">GitHub: github.com/sliec ↗</a>
   </div>
-
-  <!-- Blog + Top Resources -->
-  <div class="panel">
-    <div class="panel-head">
-      <div class="panel-dot" style="background:var(--orange)"></div>
-      <h2>最新博客</h2>
-    </div>
-    <div class="entry">
-      <h3>AI Agent 搭建入门：从 Prompt 到工作流</h3>
-      <p>上下文管理、工具调用和工作流编排的核心思路</p>
-      <div class="foot"><span class="badge b-orange">Agent</span><span>07-28</span></div>
-    </div>
-    <div class="entry">
-      <h3><a href="blog/skill-sync/">用 Agent Skill 实现跨平台能力同步</a></h3>
-      <p>GitHub 仓库集中管理，换电脑换平台一键拉齐</p>
-      <div class="foot"><span class="badge b-orange">工程化</span><span>07-28</span></div>
-    </div>
-    <div class="entry">
-      <h3>基金业绩归因：Brinson 模型实战</h3>
-      <p>拆解行业配置和个股选择贡献，附 Python 实现</p>
-      <div class="foot"><span class="badge b-orange">金融</span><span>07-25</span></div>
-    </div>
-
-    <div class="panel-head" style="margin-top:12px">
-      <div class="panel-dot" style="background:var(--accent)"></div>
-      <h2>推荐资源</h2>
-    </div>
-    <div class="entry">
-      <h3><a href="https://github.com/datawhalechina/hello-agents" target="_blank">从零开始构建智能体</a></h3>
-      <p>16 章完整教程，中文社区最受欢迎 Agent 入门</p>
-      <div class="foot"><span class="stars">⭐ 69k</span></div>
-    </div>
-    <div class="entry">
-      <h3><a href="https://github.com/bojieli/ai-agent-book" target="_blank">深入理解 AI Agent</a></h3>
-      <p>10 章 + 92 实验 · Agent = LLM + 上下文 + 工具</p>
-      <div class="foot"><span class="stars">⭐ 10k</span></div>
-    </div>
-    <div class="entry">
-      <h3><a href="https://github.com/adongwanai/AgentGuide" target="_blank">Agent 开发指南</a></h3>
-      <p>LangGraph 实战、高级 RAG、面试题库</p>
-      <div class="foot"><span class="stars">⭐ 7.4k</span></div>
-    </div>
-    <div style="text-align:center; margin-top:8px">
-      <a href="resources/" style="font-size:11.5px; font-weight:500">查看全部资源 →</a>
-    </div>
-  </div>
-
-  <!-- Resources Overview -->
-  <div class="panel">
-    <div class="panel-head">
-      <div class="panel-dot" style="background:var(--purple)"></div>
-      <h2>资源导航</h2>
-      <span class="count">26 项</span>
-    </div>
-
-    <div class="cat-label cat-blue">AI Agent 搭建</div>
-    <div class="res-row"><a href="https://github.com/datawhalechina/hello-agents" target="_blank">从零构建智能体</a><span class="r-stars">69k ★</span></div>
-    <div class="res-row"><a href="https://github.com/bojieli/ai-agent-book" target="_blank">深入理解 AI Agent</a><span class="r-stars">10k ★</span></div>
-    <div class="res-row"><a href="https://github.com/HKUDS/AutoAgent" target="_blank">AutoAgent（港大）</a><span class="r-stars">9.5k ★</span></div>
-    <div class="res-row"><a href="https://github.com/WangRongsheng/awesome-LLM-resources" target="_blank">Awesome LLM Resources</a><span class="r-stars">8.8k ★</span></div>
-    <div class="res-row"><a href="https://github.com/adongwanai/AgentGuide" target="_blank">AgentGuide</a><span class="r-stars">7.4k ★</span></div>
-    <div class="res-row"><a href="https://github.com/datawhalechina/Agent-Learning-Hub" target="_blank">Agent 学习路线图</a><span class="r-stars">5.9k ★</span></div>
-
-    <div class="cat-label cat-green">FDE 前沿部署工程师</div>
-    <div class="res-row"><a href="https://github.com/pierpaolo28/Awesome-FDE-Roadmap" target="_blank">FDE Roadmap</a><span class="r-stars">666 ★</span></div>
-    <div class="res-row"><a href="https://github.com/suboss87/FDEOps" target="_blank">FDEOps 第二大脑</a><span class="r-stars">241 ★</span></div>
-    <div class="res-row"><a href="https://github.com/libaice/Awesome-FDE" target="_blank">Awesome FDE</a><span class="r-stars">92 ★</span></div>
-    <div class="res-row"><a href="https://github.com/yeasy/forward_deployed_engineering_guide" target="_blank">前线部署工程指南</a><span class="r-stars">34 ★</span></div>
-
-    <div class="cat-label cat-orange">金融 · 工具 Skills</div>
-    <div class="res-row"><a href="https://github.com/K-Dense-AI/scientific-agent-skills" target="_blank">Scientific Skills</a><span class="r-stars">32k ★</span></div>
-    <div class="res-row"><a href="https://github.com/yizhiyanhua-ai/fireworks-tech-graph" target="_blank">fireworks-tech-graph</a></div>
-    <div class="res-row"><a href="https://github.com/TerryFYL/claude-statistical-analysis-skill" target="_blank">统计分析 Skill</a></div>
-    <div class="res-row"><a href="https://github.com/jwangkun/claude-for-financial-services-cn" target="_blank">Claude 金融服务</a></div>
-
-    <div style="text-align:center; margin-top:10px">
-      <a href="resources/" style="font-size:11.5px; font-weight:500">完整资源列表 →</a>
-    </div>
-  </div>
-
-  <!-- Learning & Research -->
-  <div class="panel">
-    <div class="panel-head">
-      <div class="panel-dot" style="background:var(--rose)"></div>
-      <h2>学习研究</h2>
-      <span class="count">5 模块</span>
-    </div>
-
-    <a href="quant-learning/" class="learn-nav">
-      <div class="ln-icon" style="background:var(--orange-soft);color:var(--orange)">Q</div>
-      <div class="ln-text">
-        <strong>量化投资</strong>
-        <span>因子理论 · 策略回测 · 学习笔记</span>
-      </div>
-      <span class="ln-arrow">→</span>
-    </a>
-
-    <a href="equity-learning/" class="learn-nav">
-      <div class="ln-icon" style="background:var(--cyan-soft);color:var(--cyan)">E</div>
-      <div class="ln-text">
-        <strong>权益研究</strong>
-        <span>锂矿 · AI 应用 · 商业航天</span>
-      </div>
-      <span class="ln-arrow">→</span>
-    </a>
-
-    <a href="law-exam/" class="learn-nav">
-      <div class="ln-icon" style="background:var(--rose-soft);color:var(--rose)">法</div>
-      <div class="ln-text">
-        <strong>法考</strong>
-        <span>客观题 + 主观题全科备考</span>
-      </div>
-      <span class="ln-arrow">→</span>
-    </a>
-
-    <a href="cpa-learning/" class="learn-nav">
-      <div class="ln-icon" style="background:var(--purple-soft);color:var(--purple)">C</div>
-      <div class="ln-text">
-        <strong>CPA</strong>
-        <span>专业阶段 6 科学习体系</span>
-      </div>
-      <span class="ln-arrow">→</span>
-    </a>
-
-    <a href="skillhub/" class="learn-nav">
-      <div class="ln-icon" style="background:var(--green-soft);color:var(--green)">S</div>
-      <div class="ln-text">
-        <strong>SkillHub</strong>
-        <span>精选提示词 · 分类检索</span>
-      </div>
-      <span class="ln-arrow">→</span>
-    </a>
-
-    <div style="text-align:center; margin-top:10px">
-      <a href="learn/" style="font-size:11.5px; font-weight:500">学习中心 →</a>
-    </div>
-  </div>
-
 </div>
 
 <div class="footer">&copy; 2026 sliec · <a href="https://github.com/sliec" target="_blank">GitHub</a></div>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>卜拉格 - 商业模式案例库 - sliec</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #f4f6f9; --card: #ffffff; --text: #475569; --dim: #94a3b8;
+      --heading: #0f172a; --accent: #3b82f6; --accent-soft: #eff6ff;
+      --green: #10b981; --green-soft: #ecfdf5;
+      --orange: #f59e0b; --orange-soft: #fffbeb;
+      --purple: #8b5cf6; --purple-soft: #f5f3ff;
+      --rose: #f43f5e; --rose-soft: #fff1f2;
+      --cyan: #06b6d4; --cyan-soft: #ecfeff;
+      --border: #e2e8f0; --radius: 14px;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+    }
+    html, body { height: 100%; overflow: hidden; font-family: var(--font); background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); text-decoration: none; transition: color .15s; }
+    a:hover { color: #2563eb; }
+    body { display: flex; flex-direction: column; height: 100vh; }
+    nav { height: 50px; display: flex; align-items: center; justify-content: space-between; padding: 0 28px; background: var(--card); border-bottom: 1px solid var(--border); flex-shrink: 0; }
+    .brand { font-size: 17px; font-weight: 800; color: var(--heading); letter-spacing: -0.5px; }
+    .nav-links { display: flex; gap: 6px; align-items: center; }
+    .nav-links a { font-size: 13px; color: var(--dim); font-weight: 500; padding: 4px 8px; border-radius: 6px; transition: all .15s; }
+    .nav-links a:hover { color: var(--accent); background: var(--accent-soft); }
+    .nav-links a.active { color: var(--accent); background: var(--accent-soft); }
+    .nav-sep { width: 1px; height: 16px; background: var(--border); flex-shrink: 0; margin: 0 4px; }
+
+    .page-hero {
+      padding: 16px 24px; display: flex; align-items: center; gap: 16px;
+      background: linear-gradient(135deg, #ede9fe 0%, #fce7f3 100%);
+      flex-shrink: 0;
+    }
+    .ph-icon { width: 48px; height: 48px; border-radius: 14px; background: var(--purple-soft); color: var(--purple); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; }
+    .ph-info h1 { font-size: 18px; font-weight: 700; color: var(--heading); }
+    .ph-info p { font-size: 12.5px; color: #64748b; margin-top: 2px; }
+    .ph-tags { display: flex; gap: 6px; margin-top: 6px; }
+    .badge { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 7px; }
+    .b-blue { background: var(--accent-soft); color: var(--accent); }
+    .b-green { background: var(--green-soft); color: var(--green); }
+    .b-orange { background: var(--orange-soft); color: var(--orange); }
+    .b-purple { background: var(--purple-soft); color: var(--purple); }
+    .b-rose { background: var(--rose-soft); color: var(--rose); }
+    .b-cyan { background: var(--cyan-soft); color: var(--cyan); }
+
+    .main { flex: 1; display: grid; padding: 14px 24px 12px; grid-template-columns: 1fr 1fr; gap: 14px; overflow-y: auto; }
+    .panel { background: var(--card); border-radius: var(--radius); border: 1px solid var(--border); padding: 16px 18px; box-shadow: var(--shadow); overflow-y: auto; }
+    .panel-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .panel-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .panel-head h2 { font-size: 14px; font-weight: 700; color: var(--heading); }
+    .panel-body { font-size: 13px; color: var(--text); line-height: 1.75; }
+    .panel-body p { margin-bottom: 10px; }
+    .hl { color: var(--heading); font-weight: 600; }
+    .note-box { background: var(--accent-soft); border-left: 3px solid var(--accent); padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 10px 0; font-size: 12.5px; color: var(--text); line-height: 1.6; }
+    .note-box.purple { background: var(--purple-soft); border-left-color: var(--purple); }
+    .note-box.rose { background: var(--rose-soft); border-left-color: var(--rose); }
+    .note-box.green { background: var(--green-soft); border-left-color: var(--green); }
+    .kv-row { display: flex; gap: 10px; margin-bottom: 8px; }
+    .kv-label { font-size: 11px; color: var(--dim); min-width: 60px; flex-shrink: 0; }
+    .kv-value { font-size: 12.5px; color: var(--heading); font-weight: 600; }
+    .section-title { font-size: 12px; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+    .flow-diagram { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; margin: 10px 0; background: var(--bg); border-radius: 10px; }
+    .flow-node { padding: 8px 14px; border-radius: 8px; font-size: 11.5px; font-weight: 600; text-align: center; white-space: nowrap; }
+    .flow-arrow { color: var(--dim); font-size: 16px; }
+    .footer { height: 30px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #cbd5e1; flex-shrink: 0; }
+    .panel::-webkit-scrollbar { width: 3px; }
+    .panel::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 2px; }
+    @media (max-width: 900px) { .main { grid-template-columns: 1fr; } html, body { overflow: auto; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">sliec</span>
+  <div class="nav-links">
+    <a href="../">首页</a>
+    <a href="../blog/">博客</a>
+    <a href="../projects/">项目</a>
+    <a href="../resources/">资源</a>
+    <span class="nav-sep"></span>
+    <a href="../learn/" class="active">学习</a>
+    <a href="../skillhub/">SkillHub</a>
+    <span class="nav-sep"></span>
+    <a href="../about/">关于</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="ph-icon">卜</div>
+  <div class="ph-info">
+    <h1>卜拉格 Bulage</h1>
+    <p>阿里千问前负责人林俊旸 × 世界模型 × 具身智能大脑 × 卖脑不卖身</p>
+    <div class="ph-tags">
+      <span class="badge b-purple">AI圈</span>
+      <span class="badge b-rose">具身智能</span>
+      <span class="badge b-blue">世界模型</span>
+      <span class="badge b-green">估值135亿</span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-dot" style="background:var(--purple)"></div>
+      <h2>人物与背景</h2>
+    </div>
+    <div class="panel-body">
+      <div class="kv-row"><span class="kv-label">创始人</span><span class="kv-value">林俊旸</span></div>
+      <div class="kv-row"><span class="kv-label">前职位</span><span class="kv-value">阿里通义千问（Qwen）核心负责人</span></div>
+      <div class="kv-row"><span class="kv-label">此前经历</span><span class="kv-value">字节跳动 Seed 团队核心成员</span></div>
+      <div class="kv-row"><span class="kv-label">离职时间</span><span class="kv-value">2026年3月离开阿里</span></div>
+      <div class="kv-row"><span class="kv-label">新公司</span><span class="kv-value">卜拉格（永庸科技）</span></div>
+      <div class="kv-row"><span class="kv-label">方向</span><span class="kv-value">世界模型 + 具身大脑</span></div>
+      <div class="kv-row"><span class="kv-label">估值</span><span class="kv-value">135亿 RMB（~$20亿）</span></div>
+      <div class="kv-row"><span class="kv-label">投资方</span><span class="kv-value">腾讯、高榕、红杉中国联合领投</span></div>
+
+      <div class="section-title" style="margin-top:14px">信号意义</div>
+      <p>林俊旸从阿里千问出走，选择的不是"更大的语言模型"，而是<span class="hl">世界模型和具身智能</span>——这意味着顶级AI人才判断：大模型的下一站不是更大的LLM，而是能理解物理世界、在物理世界中行动的AI。</p>
+      <p>腾讯、红杉、高榕同时下注，说明<span class="hl">聪明钱在用脚投票</span>：具身智能是下一个结构性机会。</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-dot" style="background:var(--rose)"></div>
+      <h2>商业模式拆解</h2>
+    </div>
+    <div class="panel-body">
+      <div class="section-title">核心定位</div>
+      <div class="flow-diagram">
+        <div class="flow-node" style="background:var(--purple-soft);color:var(--purple)">机器人本体厂商</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node" style="background:var(--rose-soft);color:var(--rose)">卜拉格（大脑）</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node" style="background:var(--accent-soft);color:var(--accent)">世界模型 + 具身算法</div>
+      </div>
+
+      <div class="note-box purple">
+        <span class="hl">卖脑子，不卖身体。</span>卜拉格明确不做机器人本体，只做AI智能层。这跟手机行业的"安卓模式"类似——不做硬件，做操作系统。
+      </div>
+
+      <div class="section-title" style="margin-top:14px">商业逻辑</div>
+      <p><span class="hl">平台化打法：</span>通过开源社区和多模态模型能力建立生态，让机器人厂商接入卜拉格的"大脑"，形成依赖后收取授权费或分成。</p>
+      <p><span class="hl">收入模式：</span>B2B技术授权 + API调用费。不做硬件意味着没有库存风险和制造成本，毛利率极高。</p>
+      <p><span class="hl">护城河：</span>林俊旸的个人品牌（Qwen的声望）+ 开源社区影响力 + 顶级人才的虹吸效应。估值135亿在起步阶段，买的不是产品，是<span class="hl">想象力和团队</span>。</p>
+
+      <div class="section-title" style="margin-top:14px">风险</div>
+      <p>具身智能目前仍处于早期，商业化路径不清晰。"卖大脑"模式需要生态形成规模才能变现，中间可能经历漫长的烧钱期。此外，大厂（如英伟达、特斯拉）自研具身大脑的可能性也是潜在威胁。</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-dot" style="background:var(--accent)"></div>
+      <h2>四筛验证</h2>
+    </div>
+    <div class="panel-body">
+      <div class="note-box">
+        <span class="hl">筛1：重新定价了什么？</span><br>
+        机器人行业中的"智能层"。传统机器人公司自己做算法，卜拉格把智能层独立出来，让它变成一个可以跨本体复用的通用能力。
+      </div>
+      <div class="note-box">
+        <span class="hl">筛2：交易成本降了多少？</span><br>
+        机器人厂商不需要自建AI团队，直接接入卜拉格的大脑即可。把"自建AI能力"的重资产模式变成了"按需调用"的轻资产模式。
+      </div>
+      <div class="note-box">
+        <span class="hl">筛3：谁被锁定？</span><br>
+        接入卜拉格大脑的机器人厂商会被锁定——一旦深度集成，切换成本极高。但反过来，如果大厂自研成功，卜拉格也可能被绕过。
+      </div>
+      <div class="note-box">
+        <span class="hl">筛4：最小验证单元？</span><br>
+        选一个垂直场景（如仓储物流、家庭服务），接入一家本体厂商，验证"大脑"在真实场景中的表现。目前还在早期，尚无公开的商业化案例。
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-dot" style="background:var(--green)"></div>
+      <h2>可迁移性思考</h2>
+    </div>
+    <div class="panel-body">
+      <p><span class="hl">结构抽象：</span>"卖核心能力层，不做终端产品"——这是一种平台化的商业模式，本质是把某个高价值的中间层独立出来，让它成为行业基础设施。</p>
+
+      <p><span class="hl">跨行业映射：</span></p>
+      <p>在金融行业，类似的模式是：不做基金公司，做基金公司的"AI大脑"（智能投研、智能风控）；不做交易所，做交易所的"清算大脑"。贾扬清的Lepton AI（GPU算力商品化）也是同一逻辑。</p>
+
+      <p><span class="hl">人才流向信号：</span>林俊旸 + 荆坤（Genspark）+ 姜大昕（阶跃星辰）——阿里/百度/微软的AI核心人才正在批量出走，方向集中在<span class="hl">具身智能和AI Agent</span>。这不是偶然，是技术成熟度曲线到了"应用爆发"的拐点。</p>
+
+      <div class="note-box green" style="margin-top:12px">
+        <span class="hl">同类参照：</span>昆仑行机器人（任庚，阿里云前总裁，90天独角兽）、阶跃星辰（姜大昕，微软前VP）、Ineffable Intelligence（David Silver，AlphaGo之父）——都是"大厂核心人才出走 + 具身智能/RL方向"。
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">&copy; 2026 sliec · <a href="https://github.com/sliec" target="_blank">GitHub</a></div>
+
+</body>
+</html>

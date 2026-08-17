@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ineffable Intelligence - 商业模式案例库 - sliec</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --bg: #f4f6f9; --card: #ffffff; --text: #475569; --dim: #94a3b8; --heading: #0f172a; --accent: #3b82f6; --accent-soft: #eff6ff; --green: #10b981; --green-soft: #ecfdf5; --orange: #f59e0b; --orange-soft: #fffbeb; --purple: #8b5cf6; --purple-soft: #f5f3ff; --rose: #f43f5e; --rose-soft: #fff1f2; --cyan: #06b6d4; --cyan-soft: #ecfeff; --border: #e2e8f0; --radius: 14px; --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02); }
+    html, body { height: 100%; overflow: hidden; font-family: var(--font); background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); text-decoration: none; transition: color .15s; } a:hover { color: #2563eb; }
+    body { display: flex; flex-direction: column; height: 100vh; }
+    nav { height: 50px; display: flex; align-items: center; justify-content: space-between; padding: 0 28px; background: var(--card); border-bottom: 1px solid var(--border); flex-shrink: 0; }
+    .brand { font-size: 17px; font-weight: 800; color: var(--heading); letter-spacing: -0.5px; }
+    .nav-links { display: flex; gap: 6px; align-items: center; }
+    .nav-links a { font-size: 13px; color: var(--dim); font-weight: 500; padding: 4px 8px; border-radius: 6px; transition: all .15s; }
+    .nav-links a:hover { color: var(--accent); background: var(--accent-soft); }
+    .nav-links a.active { color: var(--accent); background: var(--accent-soft); }
+    .nav-sep { width: 1px; height: 16px; background: var(--border); flex-shrink: 0; margin: 0 4px; }
+    .page-hero { padding: 16px 24px; display: flex; align-items: center; gap: 16px; background: linear-gradient(135deg, #ecfdf5 0%, #eff6ff 100%); flex-shrink: 0; }
+    .ph-icon { width: 48px; height: 48px; border-radius: 14px; background: var(--green-soft); color: var(--green); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; }
+    .ph-info h1 { font-size: 18px; font-weight: 700; color: var(--heading); }
+    .ph-info p { font-size: 12.5px; color: #64748b; margin-top: 2px; }
+    .ph-tags { display: flex; gap: 6px; margin-top: 6px; }
+    .badge { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 7px; }
+    .b-blue { background: var(--accent-soft); color: var(--accent); } .b-green { background: var(--green-soft); color: var(--green); } .b-orange { background: var(--orange-soft); color: var(--orange); } .b-purple { background: var(--purple-soft); color: var(--purple); } .b-rose { background: var(--rose-soft); color: var(--rose); } .b-cyan { background: var(--cyan-soft); color: var(--cyan); }
+    .main { flex: 1; display: grid; padding: 14px 24px 12px; grid-template-columns: 1fr 1fr; gap: 14px; overflow-y: auto; }
+    .panel { background: var(--card); border-radius: var(--radius); border: 1px solid var(--border); padding: 16px 18px; box-shadow: var(--shadow); overflow-y: auto; }
+    .panel-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .panel-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .panel-head h2 { font-size: 14px; font-weight: 700; color: var(--heading); }
+    .panel-body { font-size: 13px; color: var(--text); line-height: 1.75; }
+    .panel-body p { margin-bottom: 10px; }
+    .hl { color: var(--heading); font-weight: 600; }
+    .note-box { background: var(--accent-soft); border-left: 3px solid var(--accent); padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 10px 0; font-size: 12.5px; color: var(--text); line-height: 1.6; }
+    .note-box.green { background: var(--green-soft); border-left-color: var(--green); }
+    .note-box.orange { background: var(--orange-soft); border-left-color: var(--orange); }
+    .kv-row { display: flex; gap: 10px; margin-bottom: 8px; }
+    .kv-label { font-size: 11px; color: var(--dim); min-width: 60px; flex-shrink: 0; }
+    .kv-value { font-size: 12.5px; color: var(--heading); font-weight: 600; }
+    .section-title { font-size: 12px; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+    .footer { height: 30px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #cbd5e1; flex-shrink: 0; }
+    .panel::-webkit-scrollbar { width: 3px; } .panel::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 2px; }
+    @media (max-width: 900px) { .main { grid-template-columns: 1fr; } html, body { overflow: auto; } }
+  </style>
+</head>
+<body>
+<nav>
+  <span class="brand">sliec</span>
+  <div class="nav-links">
+    <a href="../">首页</a><a href="../blog/">博客</a><a href="../projects/">项目</a><a href="../resources/">资源</a>
+    <span class="nav-sep"></span>
+    <a href="../learn/" class="active">学习</a><a href="../skillhub/">SkillHub</a>
+    <span class="nav-sep"></span>
+    <a href="../about/">关于</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="ph-icon">I</div>
+  <div class="ph-info">
+    <h1>Ineffable Intelligence</h1>
+    <p>AlphaGo之父David Silver × 纯强化学习替代人类数据 × 种子轮$11亿创纪录</p>
+    <div class="ph-tags">
+      <span class="badge b-purple">AI圈</span>
+      <span class="badge b-green">纯RL</span>
+      <span class="badge b-orange">无人类数据</span>
+      <span class="badge b-rose">种子轮$11亿</span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="panel">
+    <div class="panel-head"><div class="panel-dot" style="background:var(--green)"></div><h2>人物与背景</h2></div>
+    <div class="panel-body">
+      <div class="kv-row"><span class="kv-label">创始人</span><span class="kv-value">David Silver</span></div>
+      <div class="kv-row"><span class="kv-label">前职位</span><span class="kv-value">Google DeepMind联合创始人、AlphaGo核心创造者</span></div>
+      <div class="kv-row"><span class="kv-label">成就</span><span class="kv-value">强化学习领域最高荣誉研究者</span></div>
+      <div class="kv-row"><span class="kv-label">公司</span><span class="kv-value">Ineffable Intelligence（英国）</span></div>
+      <div class="kv-row"><span class="kv-label">种子轮</span><span class="kv-value">$11亿（创历史纪录）</span></div>
+      <div class="kv-row"><span class="kv-label">估值</span><span class="kv-value">$51亿</span></div>
+      <div class="kv-row"><span class="kv-label">投资方</span><span class="kv-value">Sequoia、Lightspeed、NVIDIA、Google</span></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><div class="panel-dot" style="background:var(--rose)"></div><h2>商业模式拆解</h2></div>
+    <div class="panel-body">
+      <p><span class="hl">核心主张：</span>当前主流AI训练依赖海量人类标注数据——成本高、有偏见、有上限。Ineffable要用<span class="hl">纯强化学习（RL）+ 自我对弈</span>来替代，让AI像AlphaGo下围棋一样，不需要人类棋谱就能超越人类。</p>
+      <div class="note-box green">
+        <span class="hl">重新定价了什么？</span>训练数据的成本。如果RL能替代人类反馈，训练前沿模型的边际成本将大幅下降。这对整个AI行业的经济学有颠覆性影响——目前数据标注是AI训练的最大成本之一。
+      </div>
+      <div class="note-box orange">
+        <span class="hl">为什么$11亿种子轮？</span>因为David Silver是AlphaGo的创造者，他证明了RL可以在围棋这个"不可能赢人类"的领域击败世界冠军。投资人赌的是：如果这个方法能泛化到通用智能，那就是AI训练的范式转移。
+      </div>
+      <p><span class="hl">锁定逻辑：</span>如果成功，Ineffable的模型训练成本将远低于竞争对手（不需要数据标注团队），形成成本优势的护城河。同时，NVIDIA和Google同时投资，意味着它们可能在为未来的算力/云平台生态锁定技术路线。</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><div class="panel-dot" style="background:var(--accent)"></div><h2>四筛验证</h2></div>
+    <div class="panel-body">
+      <div class="note-box"><span class="hl">重新定价了什么？</span><br>AI训练数据。从"花钱请人标注"到"让AI自己跟自己玩"，边际成本趋近于零。</div>
+      <div class="note-box"><span class="hl">交易成本降了多少？</span><br>理论上可以把数据成本从数亿美元降到接近零。但目前尚未证明在语言、视觉等领域同样有效。</div>
+      <div class="note-box"><span class="hl">谁被锁定？</span><br>如果技术路线成功，所有依赖人类数据的AI公司都会被"降维打击"。但目前这还是一个假设。</div>
+      <div class="note-box"><span class="hl">最小验证单元？</span><br>先在一个可控领域（如代码生成、数学推理）证明纯RL可以超越有监督方法，再扩展到通用智能。</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><div class="panel-dot" style="background:var(--purple)"></div><h2>可迁移性思考</h2></div>
+    <div class="panel-body">
+      <p><span class="hl">结构抽象：</span>"消除最大成本项"——找到行业里最贵的那个环节，用技术把它砍到接近零。</p>
+      <p><span class="hl">金融圈映射：</span>在资管行业，最大的成本项是什么？是研究团队的人力成本（分析师、基金经理的时间）。如果AI能替代80%的研究工作，那资管公司的成本结构会被彻底重塑。</p>
+      <p><span class="hl">更深层的启示：</span>David Silver从DeepMind出走，不是因为技术不行，而是大公司的节奏跟不上一流研究者的直觉。<span class="hl">当技术路线存在分歧时，赌对方向的人会出走自己干。</span>这在金融圈也一样——当一个基金经理觉得公司的风控框架限制了他的策略时，他就会出来自己发产品。</p>
+    </div>
+  </div>
+</div>
+<div class="footer">&copy; 2026 sliec · <a href="https://github.com/sliec" target="_blank">GitHub</a></div>
+</body>
+</html>

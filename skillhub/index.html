@@ -191,9 +191,9 @@
     <h1>SkillHub</h1>
     <p>Agent Skills 工具库 + 精选提示词集合</p>
     <div class="hero-stats">
-      <span><strong>58</strong> Skills</span>
+      <span><strong>32</strong> Skills</span>
       <span><strong>8</strong> 提示词</span>
-      <span><strong>8</strong> 分类</span>
+      <span><strong>7</strong> 分类</span>
     </div>
   </div>
 
@@ -269,32 +269,6 @@ const SKILLS=[
 {cat:"系统工具",name:"computer-use-guidance-windows",ver:"0.9.0",desc:"Windows 桌面自动化指南：UIA 无障碍树、点击/输入/快捷键/拖拽/系统设置"},
 {cat:"系统工具",name:"storage-analyzer",ver:"",desc:"磁盘空间分析（macOS/Windows）：扫描 → 绿/黄/红分类 → 交互式 HTML 报告"},
 {cat:"外部集成",name:"ima-skill",ver:"",desc:"IMA 统一 API：笔记管理 + 知识库操作，文件上传/网页收藏/知识搜索/笔记 CRUD"},
-{cat:"飞书生态",name:"lark-approval",ver:"1.0.0",desc:"飞书审批：审批实例查询、审批任务管理"},
-{cat:"飞书生态",name:"lark-apps",ver:"",desc:"部署 HTML 到飞书妙搭，生成公网可访问应用链接"},
-{cat:"飞书生态",name:"lark-attendance",ver:"1.0.0",desc:"飞书考勤打卡：查询个人考勤记录"},
-{cat:"飞书生态",name:"lark-base",ver:"1.2.2",desc:"飞书多维表格：建表、字段管理、记录读写、视图配置、仪表盘、工作流"},
-{cat:"飞书生态",name:"lark-calendar",ver:"1.0.0",desc:"飞书日历：日程管理、参会人、忙闲查询、会议室搜索与预定"},
-{cat:"飞书生态",name:"lark-contact",ver:"1.0.0",desc:"飞书通讯录：姓名/邮箱 → open_id 解析，反查部门/联系方式"},
-{cat:"飞书生态",name:"lark-doc",ver:"",desc:"飞书云文档：创建/读取/总结/改写/翻译/编辑，DocxXML 和 Markdown"},
-{cat:"飞书生态",name:"lark-drive",ver:"1.0.0",desc:"飞书云空间：文件上传下载、文件夹管理、权限管理、本地文档导入"},
-{cat:"飞书生态",name:"lark-event",ver:"1.0.0",desc:"飞书实时事件监听：IM 消息/聊天变更/会议结束等 NDJSON 流"},
-{cat:"飞书生态",name:"lark-im",ver:"1.0.0",desc:"飞书即时通讯：收发消息、搜索聊天、群管理、文件上传下载、加急"},
-{cat:"飞书生态",name:"lark-mail",ver:"1.0.0",desc:"飞书邮箱：撰写/发送/回复/搜索邮件，管理草稿/标签/附件"},
-{cat:"飞书生态",name:"lark-markdown",ver:"1.2.0",desc:"飞书 Markdown：创建/上传/编辑/比较差异/局部 patch"},
-{cat:"飞书生态",name:"lark-minutes",ver:"1.0.0",desc:"飞书妙记：查询/下载音视频、AI 摘要/待办/章节、上传生成妙记"},
-{cat:"飞书生态",name:"lark-okr",ver:"1.0.0",desc:"飞书 OKR：目标与关键结果管理、对齐关系、量化指标、进展记录"},
-{cat:"飞书生态",name:"lark-openapi-explorer",ver:"1.0.0",desc:"飞书原生 OpenAPI 探索：挖掘未封装的接口"},
-{cat:"飞书生态",name:"lark-shared",ver:"1.0.0",desc:"lark-cli 通用规则：初始化、认证、身份切换、权限错误处理"},
-{cat:"飞书生态",name:"lark-sheets",ver:"1.2.0",desc:"飞书电子表格：创建/读写单元格、工作表管理、内容查找、数据导出"},
-{cat:"飞书生态",name:"lark-skill-maker",ver:"1.0.0",desc:"创建 lark-cli 自定义 Skill：封装原子 API 或编排多步流程"},
-{cat:"飞书生态",name:"lark-slides",ver:"1.0.0",desc:"飞书幻灯片：创建演示文稿、读取/创建/删除/局部替换页面"},
-{cat:"飞书生态",name:"lark-task",ver:"1.0.0",desc:"飞书任务：待办管理、子任务、清单、协作成员、附件、任务智能体"},
-{cat:"飞书生态",name:"lark-vc",ver:"1.0.0",desc:"飞书视频会议：搜索历史会议、查询纪要/逐字稿、参会人快照"},
-{cat:"飞书生态",name:"lark-vc-agent",ver:"1.0.0",desc:"飞书会议机器人：代为入会/离会，读取会中实时事件"},
-{cat:"飞书生态",name:"lark-whiteboard",ver:"1.0.0",desc:"飞书画板：导出图片/节点结构、用 DSL/PlantUML/Mermaid 更新内容"},
-{cat:"飞书生态",name:"lark-wiki",ver:"1.0.0",desc:"飞书知识库：管理知识空间、空间成员、文档节点层级"},
-{cat:"飞书生态",name:"lark-workflow-meeting-summary",ver:"1.0.0",desc:"会议纪要整理工作流：汇总指定时间范围的会议纪要，生成结构化报告"},
-{cat:"飞书生态",name:"lark-workflow-standup-report",ver:"1.0.0",desc:"日程待办摘要：编排日历 + 任务，生成指定日期的日程与未完成任务摘要"},
 ];
 
 const PROMPTS=[
@@ -316,7 +290,6 @@ const SKILL_CATS=[
 {key:"开发运维",dot:"var(--cyan)"},
 {key:"系统工具",dot:"#64748b"},
 {key:"外部集成",dot:"var(--rose)"},
-{key:"飞书生态",dot:"#16a34a"},
 ];
 const PROMPT_CATS=[...new Set(PROMPTS.map(p=>p.cat))];
 const REPO="https://github.com/sliec/shared-files/tree/main/skills/";

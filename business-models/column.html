@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Column - 商业模式案例库 - sliec</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --bg: #f4f6f9; --card: #ffffff; --text: #475569; --dim: #94a3b8; --heading: #0f172a; --accent: #3b82f6; --accent-soft: #eff6ff; --green: #10b981; --green-soft: #ecfdf5; --orange: #f59e0b; --orange-soft: #fffbeb; --purple: #8b5cf6; --purple-soft: #f5f3ff; --rose: #f43f5e; --rose-soft: #fff1f2; --cyan: #06b6d4; --cyan-soft: #ecfeff; --border: #e2e8f0; --radius: 14px; --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02); }
+    html, body { height: 100%; overflow: hidden; font-family: var(--font); background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); text-decoration: none; transition: color .15s; } a:hover { color: #2563eb; }
+    body { display: flex; flex-direction: column; height: 100vh; }
+    nav { height: 50px; display: flex; align-items: center; justify-content: space-between; padding: 0 28px; background: var(--card); border-bottom: 1px solid var(--border); flex-shrink: 0; }
+    .brand { font-size: 17px; font-weight: 800; color: var(--heading); letter-spacing: -0.5px; }
+    .nav-links { display: flex; gap: 6px; align-items: center; }
+    .nav-links a { font-size: 13px; color: var(--dim); font-weight: 500; padding: 4px 8px; border-radius: 6px; transition: all .15s; }
+    .nav-links a:hover { color: var(--accent); background: var(--accent-soft); }
+    .nav-links a.active { color: var(--accent); background: var(--accent-soft); }
+    .nav-sep { width: 1px; height: 16px; background: var(--border); flex-shrink: 0; margin: 0 4px; }
+    .page-hero { padding: 16px 24px; display: flex; align-items: center; gap: 16px; background: linear-gradient(135deg, #ecfdf5 0%, #ecfeff 100%); flex-shrink: 0; }
+    .ph-icon { width: 48px; height: 48px; border-radius: 14px; background: var(--green-soft); color: var(--green); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; }
+    .ph-info h1 { font-size: 18px; font-weight: 700; color: var(--heading); }
+    .ph-info p { font-size: 12.5px; color: #64748b; margin-top: 2px; }
+    .ph-tags { display: flex; gap: 6px; margin-top: 6px; }
+    .badge { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 7px; }
+    .b-blue { background: var(--accent-soft); color: var(--accent); } .b-green { background: var(--green-soft); color: var(--green); } .b-orange { background: var(--orange-soft); color: var(--orange); } .b-purple { background: var(--purple-soft); color: var(--purple); } .b-rose { background: var(--rose-soft); color: var(--rose); } .b-cyan { background: var(--cyan-soft); color: var(--cyan); }
+    .main { flex: 1; display: grid; padding: 14px 24px 12px; grid-template-columns: 1fr 1fr; gap: 14px; overflow-y: auto; }
+    .panel { background: var(--card); border-radius: var(--radius); border: 1px solid var(--border); padding: 16px 18px; box-shadow: var(--shadow); overflow-y: auto; }
+    .panel-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .panel-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .panel-head h2 { font-size: 14px; font-weight: 700; color: var(--heading); }
+    .panel-body { font-size: 13px; color: var(--text); line-height: 1.75; }
+    .panel-body p { margin-bottom: 10px; }
+    .hl { color: var(--heading); font-weight: 600; }
+    .note-box { background: var(--accent-soft); border-left: 3px solid var(--accent); padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 10px 0; font-size: 12.5px; color: var(--text); line-height: 1.6; }
+    .note-box.green { background: var(--green-soft); border-left-color: var(--green); }
+    .note-box.orange { background: var(--orange-soft); border-left-color: var(--orange); }
+    .kv-row { display: flex; gap: 10px; margin-bottom: 8px; }
+    .kv-label { font-size: 11px; color: var(--dim); min-width: 60px; flex-shrink: 0; }
+    .kv-value { font-size: 12.5px; color: var(--heading); font-weight: 600; }
+    .section-title { font-size: 12px; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+    .flow-diagram { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; margin: 10px 0; background: var(--bg); border-radius: 10px; }
+    .flow-node { padding: 8px 14px; border-radius: 8px; font-size: 11.5px; font-weight: 600; text-align: center; white-space: nowrap; }
+    .flow-arrow { color: var(--dim); font-size: 16px; }
+    .footer { height: 30px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #cbd5e1; flex-shrink: 0; }
+    .panel::-webkit-scrollbar { width: 3px; } .panel::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 2px; }
+    @media (max-width: 900px) { .main { grid-template-columns: 1fr; } html, body { overflow: auto; } }
+  </style>
+</head>
+<body>
+<nav>
+  <span class="brand">sliec</span>
+  <div class="nav-links">
+    <a href="../">首页</a><a href="../blog/">博客</a><a href="../projects/">项目</a><a href="../resources/">资源</a>
+    <span class="nav-sep"></span>
+    <a href="../learn/" class="active">学习</a><a href="../skillhub/">SkillHub</a>
+    <span class="nav-sep"></span>
+    <a href="../about/">关于</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="ph-icon">C</div>
+  <div class="ph-info">
+    <h1>Column</h1>
+    <p>Plaid联创William Hockey × 自己买银行牌照 × 用软件利润替代信贷利差</p>
+    <div class="ph-tags">
+      <span class="badge b-green">金融圈</span>
+      <span class="badge b-blue">银行即服务</span>
+      <span class="badge b-orange">自有牌照</span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="panel">
+    <div class="panel-head"><div class="panel-dot" style="background:var(--green)"></div><h2>人物与背景</h2></div>
+    <div class="panel-body">
+      <div class="kv-row"><span class="kv-label">创始人</span><span class="kv-value">William Hockey（Plaid联合创始人）</span></div>
+      <div class="kv-row"><span class="kv-label">前公司</span><span class="kv-value">Plaid（金融数据网络，被Visa以$53亿收购）</span></div>
+      <div class="kv-row"><span class="kv-label">模式</span><span class="kv-value">全栈银行基础设施</span></div>
+      <div class="kv-row"><span class="kv-label">资金来源</span><span class="kv-value">Plaid出售所得，完全自筹，无VC稀释</span></div>
+      <div class="section-title" style="margin-top:14px">核心洞察</div>
+      <p>传统Fintech跟银行合作（如Stripe用Evolve Bank），Column直接<span class="hl">买下一家有牌照的银行</span>。这意味着Column不受合作伙伴制约，可以完全控制清算、支付和信贷基础设施。</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><div class="panel-dot" style="background:var(--rose)"></div><h2>商业模式拆解</h2></div>
+    <div class="panel-body">
+      <div class="flow-diagram">
+        <div class="flow-node" style="background:var(--green-soft);color:var(--green)">Fintech公司</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node" style="background:var(--accent-soft);color:var(--accent)">Column API</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node" style="background:var(--orange-soft);color:var(--orange)">自有银行牌照</div>
+      </div>
+      <div class="note-box green">
+        <span class="hl">收入来源不是信贷利差，而是软件驱动的利润。</span>Column用技术把银行运营成本砍到极低，然后用API方式出售银行能力。清算速度比传统银行快50%。
+      </div>
+      <div class="note-box orange">
+        <span class="hl">锁定逻辑：</span>Fintech公司一旦接入Column的银行基础设施，切换成本极高（涉及合规、技术集成、资金清算链路）。Column完全自筹资金，不需要向VC交代——这是一个<span class="hl">不需要增长故事就能赚钱的模式</span>。
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><div class="panel-dot" style="background:var(--accent)"></div><h2>四筛验证</h2></div>
+    <div class="panel-body">
+      <div class="note-box"><span class="hl">重新定价了什么？</span><br>银行基础设施的成本和速度。传统银行做BaaS依赖老旧系统，Column用现代软件栈重建，把清算、支付做成API产品。</div>
+      <div class="note-box"><span class="hl">交易成本降了多少？</span><br>Fintech不需要自己申请银行牌照或跟多家银行谈判，一个API接入全部能力。</div>
+      <div class="note-box"><span class="hl">谁被锁定？</span><br>Fintech客户（深度集成后难以切换）；Column自身因为自有牌照，不受合作方风险影响（对比：Stripe的Evolve Bank合作模式曾受监管冲击）。</div>
+      <div class="note-box"><span class="hl">最小验证单元？</span><br>先做清算和支付两个核心场景，验证Fintech客户愿意为速度和稳定性付费。</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><div class="panel-dot" style="background:var(--purple)"></div><h2>可迁移性思考</h2></div>
+    <div class="panel-body">
+      <p><span class="hl">结构抽象：</span>"不合作，直接拥有"——当你依赖的上下游成为瓶颈时，最彻底的解法不是谈判，是把那个环节买下来。</p>
+      <p><span class="hl">对比滴灌通：</span>滴灌通是"创造一个新的金融资产"，Column是"拥有一个旧的金融牌照"。两种路径，一个做加法（证券化），一个做减法（去中间商）。</p>
+      <p><span class="hl">可迁移方向：</span>在资管行业，类似的思路是：与其跟渠道合作，不如自建销售渠道（如天天基金的模式）；与其依赖外部数据供应商，不如自建数据团队。</p>
+    </div>
+  </div>
+</div>
+<div class="footer">&copy; 2026 sliec · <a href="https://github.com/sliec" target="_blank">GitHub</a></div>
+</body>
+</html>

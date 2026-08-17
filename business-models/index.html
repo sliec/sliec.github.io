@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>商业模式案例库 - sliec</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #f4f6f9; --card: #ffffff; --text: #475569; --dim: #94a3b8;
+      --heading: #0f172a; --accent: #3b82f6; --accent-soft: #eff6ff;
+      --green: #10b981; --green-soft: #ecfdf5;
+      --orange: #f59e0b; --orange-soft: #fffbeb;
+      --purple: #8b5cf6; --purple-soft: #f5f3ff;
+      --rose: #f43f5e; --rose-soft: #fff1f2;
+      --cyan: #06b6d4; --cyan-soft: #ecfeff;
+      --border: #e2e8f0; --radius: 14px;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+    }
+    html { height: 100%; }
+    body { min-height: 100%; font-family: var(--font); background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; display: flex; flex-direction: column; }
+    a { color: var(--accent); text-decoration: none; transition: color .15s; }
+    a:hover { color: #2563eb; }
+
+    /* ===== Nav ===== */
+    nav {
+      height: 50px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px; background: var(--card); border-bottom: 1px solid var(--border); flex-shrink: 0;
+      position: sticky; top: 0; z-index: 10;
+    }
+    .brand { font-size: 17px; font-weight: 800; color: var(--heading); letter-spacing: -0.5px; }
+    .nav-links { display: flex; gap: 6px; align-items: center; }
+    .nav-links a { font-size: 13px; color: var(--dim); font-weight: 500; padding: 4px 8px; border-radius: 6px; transition: all .15s; }
+    .nav-links a:hover { color: var(--accent); background: var(--accent-soft); }
+    .nav-links a.active { color: var(--accent); background: var(--accent-soft); }
+    .nav-sep { width: 1px; height: 16px; background: var(--border); flex-shrink: 0; margin: 0 4px; }
+
+    /* ===== Main Container ===== */
+    .wrap { flex: 1; padding: 16px 24px 20px; max-width: 1400px; margin: 0 auto; width: 100%; }
+
+    /* ===== Hero ===== */
+    .hero {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 28px; margin-bottom: 14px;
+      background: linear-gradient(135deg, #fef3c7 0%, #fce7f3 50%, #ede9fe 100%);
+      border-radius: var(--radius);
+    }
+    .hero h1 { font-size: 20px; font-weight: 700; color: var(--heading); }
+    .hero p { font-size: 13px; color: #64748b; margin-top: 2px; }
+    .hero-stats { display: flex; gap: 24px; }
+    .hero-stat { text-align: center; }
+    .hero-stat .num { font-size: 22px; font-weight: 800; color: var(--heading); }
+    .hero-stat .label { font-size: 11px; color: #64748b; }
+
+    /* ===== Framework Bar ===== */
+    .framework {
+      display: flex; gap: 12px; padding: 12px 20px; margin-bottom: 14px;
+      background: var(--card); border-radius: var(--radius); border: 1px solid var(--border);
+      box-shadow: var(--shadow); align-items: stretch;
+    }
+    .fw-label { font-size: 12px; font-weight: 700; color: var(--accent); white-space: nowrap; display: flex; align-items: center; }
+    .fw-items { display: flex; gap: 10px; flex-wrap: wrap; flex: 1; align-items: center; }
+    .fw-item { font-size: 11.5px; color: var(--text); padding: 5px 12px; background: var(--bg); border-radius: 8px; border: 1px solid var(--border); white-space: nowrap; }
+    .fw-item b { color: var(--heading); }
+
+    /* ===== Section Title ===== */
+    .sec-title {
+      font-size: 13px; font-weight: 700; color: var(--dim); letter-spacing: 0.5px;
+      margin: 18px 0 12px; padding-left: 2px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .sec-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* ===== Circle Grid (3 cols) ===== */
+    .circle-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+    /* ===== Panel ===== */
+    .panel {
+      background: var(--card); border-radius: var(--radius); border: 1px solid var(--border);
+      padding: 16px 18px; box-shadow: var(--shadow);
+    }
+    .panel-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .panel-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .panel-head h2 { font-size: 14px; font-weight: 700; color: var(--heading); }
+    .panel-head .count { font-size: 11px; color: var(--dim); background: var(--bg); padding: 2px 8px; border-radius: 10px; }
+
+    /* ===== Case Cards ===== */
+    .case-card {
+      display: block; padding: 12px 14px; border-radius: 12px;
+      border: 1px solid var(--border); margin-bottom: 10px;
+      transition: all .15s; background: var(--bg);
+    }
+    .case-card:hover { border-color: var(--accent); background: var(--accent-soft); transform: translateY(-1px); }
+    .case-card:last-child { margin-bottom: 0; }
+    .cc-head { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
+    .cc-icon {
+      width: 30px; height: 30px; border-radius: 8px; display: flex;
+      align-items: center; justify-content: center; font-size: 13px;
+      font-weight: 800; flex-shrink: 0;
+    }
+    .cc-title { font-size: 13px; font-weight: 700; color: var(--heading); }
+    .cc-person { font-size: 11px; color: var(--dim); margin-left: auto; }
+    .cc-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 5px; }
+    .cc-tags span { font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 5px; }
+    .cc-desc { font-size: 11.5px; color: var(--dim); line-height: 1.5; }
+    .cc-meta { display: flex; gap: 10px; margin-top: 6px; font-size: 10.5px; color: var(--text); }
+    .cc-meta span { display: flex; align-items: center; gap: 3px; }
+
+    .badge { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 7px; }
+    .b-blue { background: var(--accent-soft); color: var(--accent); }
+    .b-green { background: var(--green-soft); color: var(--green); }
+    .b-orange { background: var(--orange-soft); color: var(--orange); }
+    .b-purple { background: var(--purple-soft); color: var(--purple); }
+    .b-rose { background: var(--rose-soft); color: var(--rose); }
+    .b-cyan { background: var(--cyan-soft); color: var(--cyan); }
+
+    /* ===== Channel Grid (3 cols) ===== */
+    .channel-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    .ch-panel {
+      background: var(--card); border-radius: var(--radius); border: 1px solid var(--border);
+      padding: 16px 18px; box-shadow: var(--shadow);
+    }
+    .ch-panel .panel-head { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .ch-panel .panel-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .ch-panel .panel-head h2 { font-size: 14px; font-weight: 700; color: var(--heading); }
+    .ch-item { margin-bottom: 10px; }
+    .ch-item:last-child { margin-bottom: 0; }
+    .ch-name { font-size: 12.5px; font-weight: 700; color: var(--heading); margin-bottom: 1px; }
+    .ch-why { font-size: 11px; color: var(--dim); line-height: 1.5; }
+    .ch-link { font-size: 10.5px; color: var(--accent); margin-top: 2px; display: inline-block; }
+    .ch-link:hover { text-decoration: underline; }
+
+    /* ===== Footer ===== */
+    .footer {
+      height: 36px; display: flex; align-items: center; justify-content: center;
+      font-size: 11px; color: #cbd5e1; flex-shrink: 0;
+    }
+
+    /* ===== Scrollbar ===== */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 2px; }
+
+    @media (max-width: 900px) {
+      .circle-grid, .channel-grid { grid-template-columns: 1fr; }
+      .framework { flex-direction: column; }
+      .hero { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">sliec</span>
+  <div class="nav-links">
+    <a href="../">首页</a>
+    <a href="../blog/">博客</a>
+    <a href="../projects/">项目</a>
+    <a href="../resources/">资源</a>
+    <span class="nav-sep"></span>
+    <a href="../learn/" class="active">学习</a>
+    <a href="../skillhub/">SkillHub</a>
+    <span class="nav-sep"></span>
+    <a href="../about/">关于</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div>
+      <h1>商业模式案例库</h1>
+      <p>追踪金融 / AI / 科技圈大佬出走创业，拆解真实商业结构</p>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">12</div><div class="label">案例</div></div>
+      <div class="hero-stat"><div class="num">3</div><div class="label">圈层</div></div>
+      <div class="hero-stat"><div class="num">4</div><div class="label">验证维度</div></div>
+    </div>
+  </div>
+
+  <!-- Framework -->
+  <div class="framework">
+    <div class="fw-label">四筛验证框架</div>
+    <div class="fw-items">
+      <div class="fw-item"><b>1</b>&nbsp;重新定价了什么</div>
+      <div class="fw-item"><b>2</b>&nbsp;交易成本降了多少</div>
+      <div class="fw-item"><b>3</b>&nbsp;谁被锁定 / 谁在付费</div>
+      <div class="fw-item"><b>4</b>&nbsp;最小验证单元</div>
+    </div>
+  </div>
+
+  <!-- 案例 -->
+  <div class="sec-title">案例拆解</div>
+  <div class="circle-grid">
+
+    <!-- 金融圈 -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-dot" style="background:var(--orange)"></div>
+        <h2>金融圈</h2>
+        <span class="count">4 案例</span>
+      </div>
+      <a href="micro-connect.html" class="case-card">
+        <div class="cc-head">
+          <div class="cc-icon" style="background:var(--orange-soft);color:var(--orange)">滴</div>
+          <span class="cc-title">滴灌通</span>
+          <span class="cc-person">李小加 · 港交所前CEO</span>
+        </div>
+        <div class="cc-tags"><span class="badge b-orange">收入分成</span><span class="badge b-rose">非股非债</span></div>
+        <div class="cc-desc">把小微商户的未来日营收打包成可交易金融资产，两头通吃的平台模式</div>
+        <div class="cc-meta"><span>估值 $17亿</span><span>融资 $5.7亿</span></div>
+      </a>
+      <a href="column.html" class="case-card">
+        <div class="cc-head">
+          <div class="cc-icon" style="background:var(--green-soft);color:var(--green)">C</div>
+          <span class="cc-title">Column</span>
+          <span class="cc-person">William Hockey · Plaid联创</span>
+        </div>
+        <div class="cc-tags"><span class="badge b-green">银行即服务</span><span class="badge b-blue">自有牌照</span></div>
+        <div class="cc-desc">不跟银行合作，直接买下一家银行——用软件利润替代信贷利差</div>
+      </a>
+      <div class="case-card" style="cursor:default;opacity:.7">
+        <div class="cc-head">
+          <div class="cc-icon" style="background:var(--purple-soft);color:var(--purple)">腾</div>
+          <span class="cc-title">上海腾创</span>
+          <span class="cc-person">吴佳奇 · 思勰投资前GM</span>
+        </div>
+        <div class="cc-tags"><span class="badge b-purple">量化单飞</span></div>
+        <div class="cc-desc">百亿量化大厂人才出走潮，精英小队模式</div>
+      </div>
+      <div class="case-card" style="cursor:default;opacity:.7">
+        <div class="cc-head">
+          <div class="cc-icon" style="background:var(--cyan-soft);color:var(--cyan)">百</div>
+          <span class="cc-title">百川智能</span>
+          <span class="cc-person">王小川 · 搜狗创始人</span>
+        </div>
+        <div class="cc-tags"><span class="badge b-cyan">医疗AI</span><span class="badge b-orange">大模型</span></div>
+        <div class="cc-desc">搜索老兵转型医疗AI，估值130亿但联创全部出走</div>
+      </div>
+    </div>
+
+    <!-- AI圈 -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-dot" style="background:var(--purple)"></div>
+        <h2>AI 圈</h2>
+        <span class="count">5 案例</span>
+      </div>
+      <a href="brage.html" class="case-card">
+        <div class="cc-head">
+          <div class="cc-icon" style="background:var(--purple-soft);color:var(--purple)">卜</div>
+          <span class="cc-title">卜拉格</span>
+          <span class="cc-person">林俊旸 · 阿里千问前负责人</span>
+        </div>
+        <div class="cc-tags"><span class="badge b-purple">世界模型</span><span class="badge b-rose">具身智能</span></div>
+        <div class="cc-desc">卖脑子不卖身体——只做具身AI大脑，不做机器人本体</div>
+        <div class="cc-meta"><span>估值 135亿</span><span>腾讯/红杉/高榕</span></div>
+      </a>
+      <a href="genspark.html" class="case-card">
+        <div class="cc-head">
+          <div class="cc-icon" style="background:var(--cyan-soft);color:var(--cyan)">G</div>
+          <span class="cc-title">Genspark</span>
+          <span class="cc-person">荆坤 · 百度副总裁/小度前CEO</span>
+        </div>
+        <div class="cc-tags"><span class="badge b-cyan">AI Agent</span><span class="badge b-blue">任务完成</span></div>
+        <div class="cc-desc">不卖搜索链接，卖完成的任务——20人团队做到$16亿估值</div>
+        <div class="cc-meta"><span>估值 $16亿</span><span>融资 $4亿+</span></div>
+      </a>
+      <a href="ineffable.html" class="case-card">
+        <div class="cc-head">
+          <div class="cc-icon" style="background:var(--green-soft);color:var(--green)">I</div>
+          <span class="cc-title">Ineffable Intelligence</span>
+          <span class="cc-person">David Silver · AlphaGo之父</span>
+        </div>
+        <div class="cc-tags"><span class="badge b-green">纯RL</span><span class="badge b-orange">无人类数据</span></div>
+        <div class="cc-desc">用纯强化学习替代人类标注数据，种子轮融$11亿创纪录</div>
+        <div class="cc-meta"><span>估值 $51亿</span><span>种子轮 $11亿</span></div>
+      </a>
+      <div class="case-card" style="cursor:default;opacity:.7">
+        <div class="cc-head">
+          <div class="cc-icon" style="background:var(--accent-soft);color:var(--accent)">阶</div>
+          <span class="cc-title">阶跃星辰</span>
+          <span class="cc-person">姜大昕 · 微软全球前VP</span>
+        </div>
+        <div class="cc-tags"><span class="badge b-blue">多模态</span><span class="badge b-purple">B2B授权</span></div>
+        <div class="cc-desc">16年微软老兵，向手机/车企卖AI Agent能力授权</div>
+      </div>
+      <div class="case-card" style="cursor:default;opacity:.7">
+        <div class="cc-head">
+          <div class="cc-icon" style="background:var(--rose-soft);color:var(--rose)">词</div>
+          <span class="cc-title">词元无限</span>
+          <span class="cc-person">杨平 · 字节AI Coding前负责人</span>
+        </div>
+        <div class="cc-tags"><span class="badge b-rose">AI编程</span><span class="badge b-orange">数字劳动力</span></div>
+        <div class="cc-desc">不做C端烧钱，卖AI数字劳动力给银行和国企</div>
+      </div>
+    </div>
+
+    <!-- 科技圈 -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-dot" style="background:var(--green)"></div>
+        <h2>科技圈</h2>
+        <span class="count">3 案例</span>
+      </div>
+      <a href="bambu-lab.html" class="case-card">
+        <div class="cc-head">
+          <div class="cc-icon" style="background:var(--green-soft);color:var(--green)">拓</div>
+          <span class="cc-title">拓竹科技</span>
+          <span class="cc-person">陶冶 · 大疆前消费无人机负责人</span>
+        </div>
+        <div class="cc-tags"><span class="badge b-green">3D打印</span><span class="badge b-orange">消费级</span></div>
+        <div class="cc-desc">用大疆打法做3D打印——工业级品质打到消费级价格，年营收50亿</div>
+        <div class="cc-meta"><span>估值 400亿</span><span>营收 50亿+</span></div>
+      </a>
+      <a href="lepton.html" class="case-card">
+        <div class="cc-head">
+          <div class="cc-icon" style="background:var(--accent-soft);color:var(--accent)">L</div>
+          <span class="cc-title">Lepton AI</span>
+          <span class="cc-person">贾扬清 · 阿里VP/Caffe之父</span>
+        </div>
+        <div class="cc-tags"><span class="badge b-blue">GPU套利</span><span class="badge b-green">算力商品化</span></div>
+        <div class="cc-desc">把GPU算力当大宗商品卖——透明定价、灵活取用，2年被英伟达收购</div>
+        <div class="cc-meta"><span>被英伟达收购</span><span>成立仅2年</span></div>
+      </a>
+      <div class="case-card" style="cursor:default;opacity:.7">
+        <div class="cc-head">
+          <div class="cc-icon" style="background:var(--purple-soft);color:var(--purple)">昆</div>
+          <span class="cc-title">昆仑行机器人</span>
+          <span class="cc-person">任庚 · 阿里云前中国区总裁</span>
+        </div>
+        <div class="cc-tags"><span class="badge b-purple">人形机器人</span><span class="badge b-cyan">90天独角兽</span></div>
+        <div class="cc-desc">90天三轮融资成最快独角兽，落地优先于demo</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 发现渠道 -->
+  <div class="sec-title">发现渠道</div>
+  <div class="channel-grid">
+
+    <div class="ch-panel">
+      <div class="panel-head">
+        <div class="panel-dot" style="background:var(--accent)"></div>
+        <h2>信息源</h2>
+      </div>
+      <div class="ch-item">
+        <div class="ch-name">虎嗅 · 商业模式拆解</div>
+        <div class="ch-why">中文世界对"怎么赚钱"拆得最透的媒体，擅长金融和消费</div>
+      </div>
+      <div class="ch-item">
+        <div class="ch-name">晚点 LatePost</div>
+        <div class="ch-why">深度报道，专做"大公司分裂与人才出走"叙事，天然追踪创业信号</div>
+      </div>
+      <div class="ch-item">
+        <div class="ch-name">36氪 · 创见日报</div>
+        <div class="ch-why">每日全球创新速览，快速扫有没有新模式冒出来</div>
+      </div>
+      <div class="ch-item">
+        <div class="ch-name">Stratechery</div>
+        <div class="ch-why">英文必订，拆"为什么能赚钱"的底层逻辑，聚合理论提出者</div>
+        <a class="ch-link" href="https://stratechery.com" target="_blank">stratechery.com ↗</a>
+      </div>
+      <div class="ch-item">
+        <div class="ch-name">a16z Podcast</div>
+        <div class="ch-why">"商业模式博物馆"——每期播客就是一个新模式深度拆解</div>
+      </div>
+    </div>
+
+    <div class="ch-panel">
+      <div class="panel-head">
+        <div class="panel-dot" style="background:var(--purple)"></div>
+        <h2>节点人物</h2>
+      </div>
+      <div class="ch-item">
+        <div class="ch-name">沈南鹏 · 红杉中国</div>
+        <div class="ch-why">投的赛道就是未来3年风向标。同时投了滴灌通和卜拉格——看portfolio就是看聪明钱投票</div>
+      </div>
+      <div class="ch-item">
+        <div class="ch-name">张震 · 高榕资本</div>
+        <div class="ch-why">专注新模式和消费创新，对"重新定价"型商业模式有敏锐直觉</div>
+      </div>
+      <div class="ch-item">
+        <div class="ch-name">吴恩达 · AI</div>
+        <div class="ch-why">AI领域的"人才路由器"——他接触的人基本覆盖AI创业核心圈子</div>
+      </div>
+      <div class="ch-item">
+        <div class="ch-name">梁汝波 · 字节跳动</div>
+        <div class="ch-why">字节系创业潮的源头，林俊旸/杨平/吕定顺都从这里出来</div>
+      </div>
+      <div class="ch-item">
+        <div class="ch-name">李小加 · 滴灌通</div>
+        <div class="ch-why">港交所生态节点人物，连接国际资本与中国小企业</div>
+        <a class="ch-link" href="https://microconnect.com" target="_blank">microconnect.com ↗</a>
+      </div>
+    </div>
+
+    <div class="ch-panel">
+      <div class="panel-head">
+        <div class="panel-dot" style="background:var(--orange)"></div>
+        <h2>播客 · 社群 · 线下</h2>
+      </div>
+      <div class="ch-item">
+        <div class="ch-name">「商业就是这样」</div>
+        <div class="ch-why">大白话拆商业模式，每期一个案例，通勤时听，逻辑链清晰</div>
+      </div>
+      <div class="ch-item">
+        <div class="ch-name">「半拿铁」</div>
+        <div class="ch-why">偏商业史叙事，讲从零到一的故事，故事性强容易记住结构</div>
+      </div>
+      <div class="ch-item">
+        <div class="ch-name">知识星球</div>
+        <div class="ch-why">关注"商业模式创新""创业内幕"标签下的讨论，碎片化但有深度洞察</div>
+      </div>
+      <div class="ch-item">
+        <div class="ch-name">深圳前海 · 创新金融沙龙</div>
+        <div class="ch-why">港科大+金融圈背景，前海是滴灌通式创新的地理温床，线下效率远高于线上</div>
+      </div>
+      <div class="ch-item">
+        <div class="ch-name">每周自动推送</div>
+        <div class="ch-why">每周一早9点自动搜索出走创业事件，摘要推送到企业微信</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="footer">&copy; 2026 sliec · <a href="https://github.com/sliec" target="_blank">GitHub</a></div>
+
+</body>
+</html>

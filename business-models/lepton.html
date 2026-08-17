@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lepton AI - 商业模式案例库 - sliec</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --bg: #f4f6f9; --card: #ffffff; --text: #475569; --dim: #94a3b8; --heading: #0f172a; --accent: #3b82f6; --accent-soft: #eff6ff; --green: #10b981; --green-soft: #ecfdf5; --orange: #f59e0b; --orange-soft: #fffbeb; --purple: #8b5cf6; --purple-soft: #f5f3ff; --rose: #f43f5e; --rose-soft: #fff1f2; --cyan: #06b6d4; --cyan-soft: #ecfeff; --border: #e2e8f0; --radius: 14px; --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02); }
+    html, body { height: 100%; overflow: hidden; font-family: var(--font); background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); text-decoration: none; transition: color .15s; } a:hover { color: #2563eb; }
+    body { display: flex; flex-direction: column; height: 100vh; }
+    nav { height: 50px; display: flex; align-items: center; justify-content: space-between; padding: 0 28px; background: var(--card); border-bottom: 1px solid var(--border); flex-shrink: 0; }
+    .brand { font-size: 17px; font-weight: 800; color: var(--heading); letter-spacing: -0.5px; }
+    .nav-links { display: flex; gap: 6px; align-items: center; }
+    .nav-links a { font-size: 13px; color: var(--dim); font-weight: 500; padding: 4px 8px; border-radius: 6px; transition: all .15s; }
+    .nav-links a:hover { color: var(--accent); background: var(--accent-soft); }
+    .nav-links a.active { color: var(--accent); background: var(--accent-soft); }
+    .nav-sep { width: 1px; height: 16px; background: var(--border); flex-shrink: 0; margin: 0 4px; }
+    .page-hero { padding: 16px 24px; display: flex; align-items: center; gap: 16px; background: linear-gradient(135deg, #eff6ff 0%, #ecfeff 100%); flex-shrink: 0; }
+    .ph-icon { width: 48px; height: 48px; border-radius: 14px; background: var(--accent-soft); color: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; }
+    .ph-info h1 { font-size: 18px; font-weight: 700; color: var(--heading); }
+    .ph-info p { font-size: 12.5px; color: #64748b; margin-top: 2px; }
+    .ph-tags { display: flex; gap: 6px; margin-top: 6px; }
+    .badge { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 7px; }
+    .b-blue { background: var(--accent-soft); color: var(--accent); } .b-green { background: var(--green-soft); color: var(--green); } .b-orange { background: var(--orange-soft); color: var(--orange); } .b-purple { background: var(--purple-soft); color: var(--purple); } .b-rose { background: var(--rose-soft); color: var(--rose); } .b-cyan { background: var(--cyan-soft); color: var(--cyan); }
+    .main { flex: 1; display: grid; padding: 14px 24px 12px; grid-template-columns: 1fr 1fr; gap: 14px; overflow-y: auto; }
+    .panel { background: var(--card); border-radius: var(--radius); border: 1px solid var(--border); padding: 16px 18px; box-shadow: var(--shadow); overflow-y: auto; }
+    .panel-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .panel-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .panel-head h2 { font-size: 14px; font-weight: 700; color: var(--heading); }
+    .panel-body { font-size: 13px; color: var(--text); line-height: 1.75; }
+    .panel-body p { margin-bottom: 10px; }
+    .hl { color: var(--heading); font-weight: 600; }
+    .note-box { background: var(--accent-soft); border-left: 3px solid var(--accent); padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 10px 0; font-size: 12.5px; color: var(--text); line-height: 1.6; }
+    .note-box.orange { background: var(--orange-soft); border-left-color: var(--orange); }
+    .kv-row { display: flex; gap: 10px; margin-bottom: 8px; }
+    .kv-label { font-size: 11px; color: var(--dim); min-width: 60px; flex-shrink: 0; }
+    .kv-value { font-size: 12.5px; color: var(--heading); font-weight: 600; }
+    .section-title { font-size: 12px; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+    .footer { height: 30px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #cbd5e1; flex-shrink: 0; }
+    .panel::-webkit-scrollbar { width: 3px; } .panel::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 2px; }
+    @media (max-width: 900px) { .main { grid-template-columns: 1fr; } html, body { overflow: auto; } }
+  </style>
+</head>
+<body>
+<nav>
+  <span class="brand">sliec</span>
+  <div class="nav-links">
+    <a href="../">首页</a><a href="../blog/">博客</a><a href="../projects/">项目</a><a href="../resources/">资源</a>
+    <span class="nav-sep"></span>
+    <a href="../learn/" class="active">学习</a><a href="../skillhub/">SkillHub</a>
+    <span class="nav-sep"></span>
+    <a href="../about/">关于</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="ph-icon">L</div>
+  <div class="ph-info">
+    <h1>Lepton AI</h1>
+    <p>贾扬清（Caffe之父/阿里VP/Meta AI架构师） × GPU算力商品化 × 2年被英伟达收购</p>
+    <div class="ph-tags">
+      <span class="badge b-green">科技圈</span>
+      <span class="badge b-blue">GPU套利</span>
+      <span class="badge b-orange">算力商品化</span>
+      <span class="badge b-rose">被英伟达收购</span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="panel">
+    <div class="panel-head"><div class="panel-dot" style="background:var(--accent)"></div><h2>人物与背景</h2></div>
+    <div class="panel-body">
+      <div class="kv-row"><span class="kv-label">创始人</span><span class="kv-value">贾扬清</span></div>
+      <div class="kv-row"><span class="kv-label">履历</span><span class="kv-value">Caffe深度学习框架作者 → Meta AI架构师 → 阿里VP</span></div>
+      <div class="kv-row"><span class="kv-label">新公司</span><span class="kv-value">Lepton AI（2023年成立）</span></div>
+      <div class="kv-row"><span class="kv-label">方向</span><span class="kv-value">云GPU基础设施，低价提供RTX 4090等算力</span></div>
+      <div class="kv-row"><span class="kv-label">结局</span><span class="kv-value">2025年被英伟达收购（数亿美金）</span></div>
+      <div class="kv-row"><span class="kv-label">存续</span><span class="kv-value">仅约2年</span></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><div class="panel-dot" style="background:var(--rose)"></div><h2>商业模式拆解</h2></div>
+    <div class="panel-body">
+      <p><span class="hl">核心逻辑：</span>GPU算力在AWS/GCP上定价高昂、锁定严重。Lepton的做法是<span class="hl">高效采购硬件 + 透明定价 + 灵活取用</span>，本质上做的是"GPU套利"——低价买入，以略低于大厂的溢价出租，赚取价差。</p>
+      <div class="note-box">
+        <span class="hl">重新定价了什么？</span>云GPU算力。从AWS/GCP的" premium pricing"变成"commodity pricing"。RTX 4090在Lepton上的价格远低于大厂同等配置。
+      </div>
+      <div class="note-box orange">
+        <span class="hl">为什么被英伟达收购？</span>因为Lepton做的事情本质上是"帮英伟达卖更多GPU"。英伟达收购Lepton，等于获得了一个高效的GPU分销渠道，同时消灭了一个可能压低GPU定价的竞争对手。<span class="hl">对贾扬清来说，2年数亿美金退出——这是"做基础设施然后卖给基础设施上游"的经典路径。</span>
+      </div>
+      <p><span class="hl">锁定逻辑：</span>短期靠价格优势吸引开发者，长期靠平台粘性（模型部署工具链、API接口）留住用户。但最终，算力商品化模式的天花板很低——如果大厂降价，利润空间就被压缩。所以最优退出策略就是被上游收购。</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><div class="panel-dot" style="background:var(--accent)"></div><h2>四筛验证</h2></div>
+    <div class="panel-body">
+      <div class="note-box"><span class="hl">重新定价了什么？</span><br>GPU算力从"溢价服务"变成"大宗商品"。透明定价、按秒计费、无长期锁定。</div>
+      <div class="note-box"><span class="hl">交易成本降了多少？</span><br>开发者不再需要跟AWS谈Enterprise Discount，也不需要等GCP的GPU配额。即开即用，价格低30-50%。</div>
+      <div class="note-box"><span class="hl">谁被锁定？</span><br>短期：开发者被低价吸引。但长期锁定很弱——价格优势一旦消失，用户会立刻迁移。这也是为什么被收购是最优解。</div>
+      <div class="note-box"><span class="hl">最小验证单元？</span><br>先做RTX 4090单一型号的云租赁，验证开发者愿意为低价放弃大厂的可靠性保障。</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><div class="panel-dot" style="background:var(--purple)"></div><h2>可迁移性思考</h2></div>
+    <div class="panel-body">
+      <p><span class="hl">结构抽象：</span>"套利型基础设施"——找到定价不透明的市场，用技术手段把价格打下来，赚价差。最优退出是<span class="hl">被上游收购</span>（因为你本质上在帮它分销）。</p>
+      <p><span class="hl">金融圈映射：</span>基金销售行业的"天天基金"模式——把银行渠道的高费率打下来，赚价差。券商ETF联接C类的低费率策略也是同一逻辑。在资管行业，任何"中间商加价"的环节都可能被套利。</p>
+      <p><span class="hl">关键教训：</span>套利模式的天花板是上游的定价策略。如果AWS大幅降价，Lepton就没了空间。所以<span class="hl">做套利要提前想好退出路径</span>——最好的退出就是让上游觉得"买你比自己打价格战更划算"。</p>
+    </div>
+  </div>
+</div>
+<div class="footer">&copy; 2026 sliec · <a href="https://github.com/sliec" target="_blank">GitHub</a></div>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Genspark - 商业模式案例库 - sliec</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --bg: #f4f6f9; --card: #ffffff; --text: #475569; --dim: #94a3b8; --heading: #0f172a; --accent: #3b82f6; --accent-soft: #eff6ff; --green: #10b981; --green-soft: #ecfdf5; --orange: #f59e0b; --orange-soft: #fffbeb; --purple: #8b5cf6; --purple-soft: #f5f3ff; --rose: #f43f5e; --rose-soft: #fff1f2; --cyan: #06b6d4; --cyan-soft: #ecfeff; --border: #e2e8f0; --radius: 14px; --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02); }
+    html, body { height: 100%; overflow: hidden; font-family: var(--font); background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); text-decoration: none; transition: color .15s; } a:hover { color: #2563eb; }
+    body { display: flex; flex-direction: column; height: 100vh; }
+    nav { height: 50px; display: flex; align-items: center; justify-content: space-between; padding: 0 28px; background: var(--card); border-bottom: 1px solid var(--border); flex-shrink: 0; }
+    .brand { font-size: 17px; font-weight: 800; color: var(--heading); letter-spacing: -0.5px; }
+    .nav-links { display: flex; gap: 6px; align-items: center; }
+    .nav-links a { font-size: 13px; color: var(--dim); font-weight: 500; padding: 4px 8px; border-radius: 6px; transition: all .15s; }
+    .nav-links a:hover { color: var(--accent); background: var(--accent-soft); }
+    .nav-links a.active { color: var(--accent); background: var(--accent-soft); }
+    .nav-sep { width: 1px; height: 16px; background: var(--border); flex-shrink: 0; margin: 0 4px; }
+    .page-hero { padding: 16px 24px; display: flex; align-items: center; gap: 16px; background: linear-gradient(135deg, #ecfeff 0%, #eff6ff 100%); flex-shrink: 0; }
+    .ph-icon { width: 48px; height: 48px; border-radius: 14px; background: var(--cyan-soft); color: var(--cyan); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; }
+    .ph-info h1 { font-size: 18px; font-weight: 700; color: var(--heading); }
+    .ph-info p { font-size: 12.5px; color: #64748b; margin-top: 2px; }
+    .ph-tags { display: flex; gap: 6px; margin-top: 6px; }
+    .badge { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 7px; }
+    .b-blue { background: var(--accent-soft); color: var(--accent); } .b-green { background: var(--green-soft); color: var(--green); } .b-orange { background: var(--orange-soft); color: var(--orange); } .b-purple { background: var(--purple-soft); color: var(--purple); } .b-rose { background: var(--rose-soft); color: var(--rose); } .b-cyan { background: var(--cyan-soft); color: var(--cyan); }
+    .main { flex: 1; display: grid; padding: 14px 24px 12px; grid-template-columns: 1fr 1fr; gap: 14px; overflow-y: auto; }
+    .panel { background: var(--card); border-radius: var(--radius); border: 1px solid var(--border); padding: 16px 18px; box-shadow: var(--shadow); overflow-y: auto; }
+    .panel-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .panel-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .panel-head h2 { font-size: 14px; font-weight: 700; color: var(--heading); }
+    .panel-body { font-size: 13px; color: var(--text); line-height: 1.75; }
+    .panel-body p { margin-bottom: 10px; }
+    .hl { color: var(--heading); font-weight: 600; }
+    .note-box { background: var(--accent-soft); border-left: 3px solid var(--accent); padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 10px 0; font-size: 12.5px; color: var(--text); line-height: 1.6; }
+    .note-box.cyan { background: var(--cyan-soft); border-left-color: var(--cyan); }
+    .note-box.orange { background: var(--orange-soft); border-left-color: var(--orange); }
+    .kv-row { display: flex; gap: 10px; margin-bottom: 8px; }
+    .kv-label { font-size: 11px; color: var(--dim); min-width: 60px; flex-shrink: 0; }
+    .kv-value { font-size: 12.5px; color: var(--heading); font-weight: 600; }
+    .section-title { font-size: 12px; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+    .flow-diagram { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; margin: 10px 0; background: var(--bg); border-radius: 10px; }
+    .flow-node { padding: 8px 14px; border-radius: 8px; font-size: 11.5px; font-weight: 600; text-align: center; white-space: nowrap; }
+    .flow-arrow { color: var(--dim); font-size: 16px; }
+    .footer { height: 30px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #cbd5e1; flex-shrink: 0; }
+    .panel::-webkit-scrollbar { width: 3px; } .panel::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 2px; }
+    @media (max-width: 900px) { .main { grid-template-columns: 1fr; } html, body { overflow: auto; } }
+  </style>
+</head>
+<body>
+<nav>
+  <span class="brand">sliec</span>
+  <div class="nav-links">
+    <a href="../">首页</a><a href="../blog/">博客</a><a href="../projects/">项目</a><a href="../resources/">资源</a>
+    <span class="nav-sep"></span>
+    <a href="../learn/" class="active">学习</a><a href="../skillhub/">SkillHub</a>
+    <span class="nav-sep"></span>
+    <a href="../about/">关于</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="ph-icon">G</div>
+  <div class="ph-info">
+    <h1>Genspark (MainFunc)</h1>
+    <p>百度副总裁/小度前CEO荆坤 × 不卖搜索链接卖完成的任务 × 20人团队$16亿估值</p>
+    <div class="ph-tags">
+      <span class="badge b-purple">AI圈</span>
+      <span class="badge b-cyan">AI Agent</span>
+      <span class="badge b-blue">任务完成</span>
+      <span class="badge b-green">SaaS订阅</span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="panel">
+    <div class="panel-head"><div class="panel-dot" style="background:var(--cyan)"></div><h2>人物与背景</h2></div>
+    <div class="panel-body">
+      <div class="kv-row"><span class="kv-label">创始人</span><span class="kv-value">荆坤</span></div>
+      <div class="kv-row"><span class="kv-label">前职位</span><span class="kv-value">百度副总裁、小度（智能设备事业部）CEO</span></div>
+      <div class="kv-row"><span class="kv-label">新公司</span><span class="kv-value">MainFunc（产品名Genspark）</span></div>
+      <div class="kv-row"><span class="kv-label">所在地</span><span class="kv-value">硅谷</span></div>
+      <div class="kv-row"><span class="kv-label">估值</span><span class="kv-value">$16亿（B轮延伸$3.85亿，2026.3）</span></div>
+      <div class="kv-row"><span class="kv-label">融资总额</span><span class="kv-value">$4亿+</span></div>
+      <div class="kv-row"><span class="kv-label">团队</span><span class="kv-value">仅20人</span></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><div class="panel-dot" style="background:var(--rose)"></div><h2>商业模式拆解</h2></div>
+    <div class="panel-body">
+      <div class="flow-diagram">
+        <div class="flow-node" style="background:var(--cyan-soft);color:var(--cyan)">用户下达任务</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node" style="background:var(--accent-soft);color:var(--accent)">AI Agent团队</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node" style="background:var(--green-soft);color:var(--green)">直接交付结果</div>
+      </div>
+      <div class="note-box cyan">
+        <span class="hl">重新定义搜索：</span>传统搜索引擎卖的是"链接"——你搜一下，给你10个蓝色链接，自己点进去找答案。Genspark卖的是"完成"——你告诉AI你要什么，它直接帮你做完，交付结果。
+      </div>
+      <div class="note-box orange">
+        <span class="hl">收入模式：</span>SaaS订阅制。用户按月付费使用AI工作空间，不是按广告点击付费。这意味着<span class="hl">收入跟用户满意度正相关</span>（用得好就续费），而不是跟广告主利益正相关（Google模式）。
+      </div>
+      <p><span class="hl">20人做到$16亿估值：</span>关键在于AI Agent团队替代了传统搜索+工作流工具的组合。不需要大团队维护内容，AI自己完成工作。这是"用AI替代人力"在自身公司运营上的实践。</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><div class="panel-dot" style="background:var(--accent)"></div><h2>四筛验证</h2></div>
+    <div class="panel-body">
+      <div class="note-box"><span class="hl">重新定价了什么？</span><br>从"搜索→点击→阅读→总结"的完整工作流，到"说一句话→拿到结果"。把用户的时间成本从分钟级降到秒级。</div>
+      <div class="note-box"><span class="hl">交易成本降了多少？</span><br>消除了"在10个链接里找答案"的信息筛选成本。对知识工作者来说，每天节省的时间可以量化。</div>
+      <div class="note-box"><span class="hl">谁被锁定？</span><br>订阅用户（工作流依赖后切换成本高）；但也面临ChatGPT、Perplexity等通用AI助手的竞争。</div>
+      <div class="note-box"><span class="hl">最小验证单元？</span><br>先做特定工作流场景（如旅行规划、市场调研），验证用户愿意为"完成的任务"而非"信息链接"付费。</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><div class="panel-dot" style="background:var(--purple)"></div><h2>可迁移性思考</h2></div>
+    <div class="panel-body">
+      <p><span class="hl">结构抽象：</span>"卖结果，不卖过程"——从信息中介升级为任务执行者。传统模式是"给你工具你自己做"，新模式是"告诉我你要什么，我直接给你"。</p>
+      <p><span class="hl">金融圈映射：</span>传统投研是"给你数据终端你自己分析"（Bloomberg/Wind），新模式是"告诉我你的投资问题，我直接给你结论"。这跟AI Agent在金融领域的落地方向高度一致。</p>
+      <p><span class="hl">对标：</span>Perplexity（搜索→答案）、Rabbit R1（App→AI代操作）——都是"从工具到服务"的范式转移。</p>
+    </div>
+  </div>
+</div>
+<div class="footer">&copy; 2026 sliec · <a href="https://github.com/sliec" target="_blank">GitHub</a></div>
+</body>
+</html>
