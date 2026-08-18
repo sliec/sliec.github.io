@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>投资研究 - sliec</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@600;700&display=swap');
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --text: #172033;
+      --text-secondary: #667085;
+      --text-tertiary: #98a2b3;
+      --accent: #315CFF;
+      --accent-hover: #2448d4;
+      --bg: #F7F8FA;
+      --card: #FFFFFF;
+      --border: #EAECF0;
+      --font: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-serif: "Noto Serif SC", "Songti SC", "SimSun", serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; transition: color .15s; }
+    a:hover { color: var(--accent-hover); }
+
+    /* ===== Nav ===== */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(247,248,250,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      padding: 0 32px;
+      height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand {
+      font-size: 16px; font-weight: 700; color: var(--text);
+      letter-spacing: -0.3px;
+    }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a {
+      font-size: 14px; font-weight: 500; color: var(--text-secondary);
+      transition: color .15s;
+    }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+    .nav-links a.active { color: var(--accent); }
+
+    /* ===== Hero ===== */
+    .hero {
+      max-width: 1200px; margin: 0 auto;
+      padding: 60px 32px 40px;
+    }
+    .hero-label {
+      font-size: 13px; font-weight: 600; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 1.5px;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: 40px; font-weight: 700; color: var(--text);
+      line-height: 1.2; letter-spacing: -0.5px;
+      max-width: 700px;
+    }
+    .hero .hero-sub {
+      font-size: 17px; color: var(--text-secondary);
+      margin-top: 16px; max-width: 600px; line-height: 1.7;
+    }
+
+    /* ===== Section ===== */
+    .section {
+      max-width: 1200px; margin: 0 auto;
+      padding: 0 32px 60px;
+    }
+    .section-label {
+      font-size: 12px; font-weight: 600; color: var(--text-tertiary);
+      text-transform: uppercase; letter-spacing: 1.5px;
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 28px; font-weight: 700; color: var(--text);
+      margin-bottom: 24px;
+    }
+    .section-desc {
+      font-size: 15px; color: var(--text-secondary);
+      max-width: 600px; margin-bottom: 32px;
+    }
+
+    /* ===== Cards ===== */
+    .card-grid {
+      display: grid;
+      gap: 20px;
+    }
+    .card-grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .card-grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 28px;
+      border: 1px solid transparent;
+      transition: all .2s;
+    }
+    .card:hover {
+      border-color: var(--border);
+      box-shadow: 0 12px 32px rgba(15,23,42,0.06);
+    }
+    .card h3 {
+      font-size: 17px; font-weight: 700; color: var(--text);
+      margin-bottom: 8px;
+    }
+    .card p {
+      font-size: 14px; color: var(--text-secondary); line-height: 1.6;
+    }
+
+    /* ===== Tags ===== */
+    .tag {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      margin: 2px 4px 2px 0;
+    }
+    .tag-blue { background: #EFF4FF; color: #315CFF; }
+    .tag-green { background: #ECFDF3; color: #027A48; }
+    .tag-amber { background: #FFFAEB; color: #B54708; }
+    .tag-gray { background: #F2F4F7; color: #667085; }
+
+    /* ===== Article List ===== */
+    .article-list { display: flex; flex-direction: column; }
+    .article-item {
+      display: flex; align-items: baseline; justify-content: space-between;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      gap: 16px;
+    }
+    .article-item:last-child { border-bottom: none; }
+    .article-item .ai-title {
+      font-size: 15px; font-weight: 500; color: var(--text);
+      flex: 1; min-width: 0;
+    }
+    .article-item .ai-title a { color: var(--text); }
+    .article-item .ai-title a:hover { color: var(--accent); }
+    .article-item .ai-cat {
+      font-size: 13px; color: var(--text-tertiary);
+      white-space: nowrap;
+    }
+    .article-item .ai-date {
+      font-size: 13px; color: var(--text-tertiary);
+      white-space: nowrap; font-variant-numeric: tabular-nums;
+    }
+
+    /* ===== Divider ===== */
+    .divider {
+      max-width: 1200px; margin: 0 auto;
+      padding: 0 32px;
+    }
+    .divider hr { border: none; border-top: 1px solid var(--border); }
+
+    /* ===== Footer ===== */
+    .footer {
+      max-width: 1200px; margin: 0 auto;
+      padding: 32px 32px 40px;
+      text-align: center;
+      font-size: 13px; color: var(--text-tertiary);
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 900px) {
+      .card-grid-2, .card-grid-3 { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 32px; }
+    }
+    @media (max-width: 600px) {
+      .hero { padding: 40px 20px 30px; }
+      .hero h1 { font-size: 28px; }
+      .section { padding: 0 20px 40px; }
+      .nav-inner { padding: 0 20px; }
+      .nav-links { gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="../" class="nav-brand">sliec</a>
+    <div class="nav-links">
+      <a href="../">首页</a>
+      <a href="#fund">基金归因</a>
+      <a href="#industry">行业研究</a>
+      <a href="#quant">量化阅读</a>
+      <a href="../skillhub/">SkillHub</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== Hero ===== -->
+<div class="hero">
+  <div class="hero-label">投资研究</div>
+  <h1>从归因到行业，<br>建立系统的投资分析框架</h1>
+  <p class="hero-sub">基金业绩归因、行业深度研究、量化阅读笔记——用数据验证逻辑，用逻辑指导决策。</p>
+</div>
+
+<!-- ===== Section 1: Fund Attribution ===== -->
+<div class="section" id="fund">
+  <div class="section-label">基金分析</div>
+  <div class="section-title">业绩归因与绩效分析</div>
+  <div class="section-desc">拆解基金收益来源，评估基金经理能力，建立可重复的分析框架。</div>
+
+  <div class="card-grid card-grid-2">
+    <div class="card">
+      <h3>Brinson 归因模型</h3>
+      <p>行业配置效应 + 个股选择效应 + 交互效应。拆解主动管理基金的超额收益来源。</p>
+      <div style="margin-top:16px">
+        <span class="tag tag-blue">权益基金</span>
+        <span class="tag tag-green">Python</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Campisi 模型</h3>
+      <p>固收基金归因：收入效应、国债效应、利差效应、择券效应。评估债券基金经理的久期管理和信用风险控制能力。</p>
+      <div style="margin-top:16px">
+        <span class="tag tag-blue">固收基金</span>
+        <span class="tag tag-green">Python</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>多因子回归</h3>
+      <p>Fama-French 三/四/五因子模型、Carhart 四因子模型。量化基金风格暴露和 Alpha 来源。</p>
+      <div style="margin-top:16px">
+        <span class="tag tag-blue">因子模型</span>
+        <span class="tag tag-amber">统计</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>基金经理能力圈</h3>
+      <p>投资方法、资产配置、风格偏好、行业集中度、选股能力、交易能力六维度评估。</p>
+      <div style="margin-top:16px">
+        <span class="tag tag-gray">综合评价</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"><hr></div>
+
+<!-- ===== Section 2: Industry Research ===== -->
+<div class="section" id="industry">
+  <div class="section-label">行业研究</div>
+  <div class="section-title">权益行业的深度分析</div>
+  <div class="section-desc">产业链图谱、竞争格局、投资逻辑验证——不只是看研报，而是自己推演。</div>
+
+  <div class="card-grid card-grid-3">
+    <div class="card">
+      <h3>锂矿</h3>
+      <p>上游资源（盐湖/锂辉石/锂云母）→ 中游冶炼 → 下游电池。成本曲线分析与供需平衡表。</p>
+      <div style="margin-top:16px">
+        <span class="tag tag-amber">新能源上游</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>商业航天</h3>
+      <p>火箭制造 → 卫星组网 → 卫星应用。对标 Starlink，理解中国商业航天的终局形态。</p>
+      <div style="margin-top:16px">
+        <span class="tag tag-amber">太空经济</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>AI 应用</h3>
+      <p>办公效率、垂直行业 Agent、多模态/具身智能。关注从技术能力到商业价值的转化。</p>
+      <div style="margin-top:16px">
+        <span class="tag tag-amber">产业落地</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"><hr></div>
+
+<!-- ===== Section 3: Quant Reading ===== -->
+<div class="section" id="quant">
+  <div class="section-label">量化阅读</div>
+  <div class="section-title">书籍解读与每日文章</div>
+  <div class="section-desc">系统性阅读量化经典，跟踪前沿研究，建立自己的知识体系。</div>
+
+  <h3 style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:16px"> 书籍解读</h3>
+  <div class="card-grid card-grid-2" style="margin-bottom:40px">
+    <div class="card">
+      <h3>《预期收益》</h3>
+      <p>Antti Ilmanen 著。因子投资圣经，梳理价值、动量、carry、防御性四大因子溢价来源。</p>
+      <div style="margin-top:16px">
+        <span class="tag tag-blue">因子理论</span>
+        <span class="tag tag-green">经典</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>《因子投资：方法与实践》</h3>
+      <p>石川等著。国内最系统的因子投资专著，从因子检验到组合构建的完整方法论。</p>
+      <div style="margin-top:16px">
+        <span class="tag tag-blue">因子方法</span>
+        <span class="tag tag-green">实战</span>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:16px">📰 每日文章跟踪</h3>
+  <div class="article-list">
+    <div class="article-item">
+      <div class="ai-title">华泰证券 · 量化每日观点</div>
+      <div class="ai-cat">华泰</div>
+      <div class="ai-date">每日更新</div>
+    </div>
+    <div class="article-item">
+      <div class="ai-title">量化藏经阁 · 因子研究系列</div>
+      <div class="ai-cat">公众号</div>
+      <div class="ai-date">定期更新</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  &copy; 2026 sliec · <a href="../">返回首页</a>
+</div>
+
+</body>
+</html>
